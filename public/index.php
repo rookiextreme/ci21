@@ -4,17 +4,7 @@ use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
-//i have things to do - meow
-//Rubmin sgt gay wakakakaka
-//test dgn rubmin sahaja tgk jadi ke x
-//Rubmin x jadi tukar gay
 
-//last try kalau x aku malas
-
-//1
-//2
-//3
-//4
 /*
 |--------------------------------------------------------------------------
 | Check If The Application Is Under Maintenance
@@ -63,4 +53,3 @@ $response = tap($kernel->handle(
 ))->send();
 
 $kernel->terminate($request, $response);
-//5,6,7,8
