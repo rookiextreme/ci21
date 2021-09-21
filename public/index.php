@@ -10,6 +10,11 @@ define('LARAVEL_START', microtime(true));
 //Rubmin x jadi tukar gay
 
 //last try kalau x aku malas
+
+//1
+//2
+//3
+//4
 /*
 |--------------------------------------------------------------------------
 | Check If The Application Is Under Maintenance
