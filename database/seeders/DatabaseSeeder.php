@@ -89,6 +89,7 @@ class DatabaseSeeder extends Seeder
 
         DB::table('users')->insert([
             'name' => 'Admin',
+            'nokp' => '111',
             'email' => 'admin@admin.com',
             'password' => Hash::make('123123123'),
         ]);
