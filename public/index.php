@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 //i have things to do - meow
+//Rubmin x jadi tukar gay
 /*
 |--------------------------------------------------------------------------
 | Check If The Application Is Under Maintenance
