@@ -80,7 +80,7 @@
                                         </g>
                                     </g>
                                 </svg>
-                                <h2 class="brand-text text-primary ml-1">ESPOSH</h2>
+                                <h2 class="brand-text text-primary ml-1 card-text" >COMPETENCY IDENTIFICATION</h2>
                             </a>
 
                             <p class="card-text mb-2" style="text-align: center">Sila Isi Maklumat Log Masuk</p>

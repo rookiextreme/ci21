@@ -34,10 +34,8 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if(Laratrust::hasRole('Admin')){
-            echo 1;
+            return redirect()->intended('/dashboard');
         }
-        die();
-        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**

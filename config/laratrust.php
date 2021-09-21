@@ -46,7 +46,7 @@ return [
         | NOTE: Currently the database check does not use cache.
         |
         */
-        'enabled' => env('LARATRUST_ENABLE_CACHE', true),
+        'enabled' => env('LARATRUST_ENABLE_CACHE', false),
 
         /*
         |--------------------------------------------------------------------------
@@ -88,9 +88,9 @@ return [
     */
     'models' => [
 
-        'role' => \App\Models\Laratrust\Role::class,
+        'role' => \App\Models\LaratrustModels\Role::class,
 
-        'permission' => \App\Models\Laratrust\Permission::class,
+        'permission' => \App\Models\LaratrustModels\Permission::class,
 
         /**
          * Will be used only if the teams functionality is enabled.
