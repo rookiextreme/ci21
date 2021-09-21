@@ -7,9 +7,8 @@ define('LARAVEL_START', microtime(true));
 //i have things to do - meow
 //Rubmin sgt gay wakakakaka
 //test dgn rubmin sahaja tgk jadi ke x
-//Rubmin x jadi tukar gay
 
-//last try kalau x aku malas
+//last try, rubmin ke mac meor jadi
 /*
 |--------------------------------------------------------------------------
 | Check If The Application Is Under Maintenance
