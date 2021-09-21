@@ -4,7 +4,7 @@ use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
-//Rubmin Change
+//Rubmin x jadi tukar gay
 /*
 |--------------------------------------------------------------------------
 | Check If The Application Is Under Maintenance
