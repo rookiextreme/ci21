@@ -19,6 +19,7 @@ class CreateProfilesTelefonsTable extends Migration
             $table->text('no_tel_pejabat');
             $table->text('no_tel_bimbit');
             $table->integer('flag');
+            $table->integer('delete_id');
             $table->timestamps();
         });
 

@@ -1,7 +1,7 @@
 $('.pengguna-table').DataTable({
     processing: true,
     serverSide: true,
-    ajax: getUrl() + '/admin/pentadbir/pengguna/list',
+    ajax: getUrl() + '/admin/user/list',
     lengthChange:true,
     columns: [
         { data: 'nama' },

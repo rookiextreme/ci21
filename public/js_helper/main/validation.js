@@ -1,4 +1,4 @@
-function checkOptionalFields(className, classValue, optionalArray) {
+function zcheckOptionalFields(className, classValue, optionalArray) {
 	let passed = 0;
 	let message = '';
 	for (let x = 0; x < optionalArray.length; x++) {

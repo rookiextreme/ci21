@@ -58,14 +58,7 @@ function ajax_common(methods,url, data, postfunc, selectorClass, inputClass, lis
 }
 
 function getToken(){
-    const token  = $('.token');
-    const tokenKey = token.attr('data-key');
-    const tokenVal = token.attr('data-keyval');
-
-    return [
-        tokenKey,
-        tokenVal,
-    ];
+    return $('._token').val();
 }
 
 function getUrl(){

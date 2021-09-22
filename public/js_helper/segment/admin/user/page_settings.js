@@ -11,7 +11,7 @@ $('.pengguna-carian').wrap('<div class="position-relative"></div>').select2({
         }
     },
     ajax: {
-        url: getUrl() + '/common/pengguna/carian',
+        url: getUrl() + '/common/user/carian',
         dataType: 'json',
         delay: 250,
         data: function (params) {

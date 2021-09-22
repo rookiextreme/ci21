@@ -1,4 +1,4 @@
-function checkEmtpyFields(fieldArray){
+function checkEmptyFields(fieldArray){
     let passed = 0;
     for(let x = 0; x < fieldArray.length; x ++){
         const className = fieldArray[x][0];
@@ -9,6 +9,7 @@ function checkEmtpyFields(fieldArray){
 
         if(type !== 'picture'){
             if(classValue === '' || typeof classValue === 'undefined'){
+                console.log(className);
                 addInvalid(className, label + ' Cannot Be Empty');
                 passed = 1;
             }else{
@@ -26,6 +27,7 @@ function checkEmtpyFields(fieldArray){
                     }
                 }else{
                     if(checkInput({className: className,label: label,value: classValue,type: type}) == false){
+
                         passed = 1;
                     }else{
                         clearInvalid(className);
@@ -35,9 +37,9 @@ function checkEmtpyFields(fieldArray){
         }
     }
     if(passed == 1){
-        return 1;
+        return false;
     }else{
-        return 0;
+        return true;
     }
 }
 

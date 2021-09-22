@@ -10,11 +10,11 @@ class Profile extends Model
     }
 
     public function profile_Profile_cawangan_log(){
-        return $this->hasMany('App\Models\Profiles\ProfilesCawangansLog', 'profiles_id', 'id');
+        return $this->hasMany('App\Models\Profiles\ProfilesCawanganLog', 'profiles_id', 'id');
     }
 
     public function profile_Profile_cawangan_log_active(){
-        return $this->hasOne('App\Models\Profiles\ProfilesCawangansLog', 'profiles_id', 'id')->orderBy('id', 'desc');
+        return $this->hasOne('App\Models\Profiles\ProfilesCawanganLog', 'profiles_id', 'id')->orderBy('id', 'desc');
     }
 
     public function profile_Profile_telefon(){

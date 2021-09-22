@@ -23,7 +23,7 @@ $(document).on('change', '.pengguna-carian', function(){
     let data = new FormData;
     data.append('no_ic', no_ic);
     data.append('_token', getToken());
-    ajax('/common/pengguna/maklumat', data, 0);
+    ajax('/common/user/maklumat', data, 0);
 });
 
 $(document).on('click', '.post-add-pengguna', function(){
@@ -36,13 +36,13 @@ $(document).on('click', '.post-add-pengguna', function(){
     let pengguna_penempatan = $('.pengguna-penempatan').val();
 
     let check = checkEmptyFields([
-        ['.pengguna-nama', pengguna_nama, 'mix', 'Nama'],
-        ['.pengguna-email', pengguna_email, 'mix', 'Emel'],
-        ['.pengguna-sektor', pengguna_sektor, 'mix', 'Sektor'],
-        ['.pengguna-cawangan', pengguna_cawangan, 'mix', 'Cawangan'],
-        ['.pengguna-bahagian', pengguna_bahagian, 'mix', 'Bahagian'],
-        ['.pengguna-unit', pengguna_unit, 'mix', 'Unit'],
-        ['.pengguna-penempatan', pengguna_penempatan, 'mix', 'Penempatan'],
+        ['.pengguna-nama', 'mix', 'Nama'],
+        ['.pengguna-email', 'mix', 'Emel'],
+        ['.pengguna-sektor', 'mix', 'Sektor'],
+        ['.pengguna-cawangan', 'mix', 'Cawangan'],
+        ['.pengguna-bahagian', 'mix', 'Bahagian'],
+        ['.pengguna-unit', 'mix', 'Unit'],
+        ['.pengguna-penempatan', 'mix', 'Penempatan'],
     ]);
 
     if(check == false){
@@ -53,7 +53,7 @@ $(document).on('click', '.post-add-pengguna', function(){
     data.append('no_ic', $('.pengguna-carian').val());
     data.append('_token', getToken());
 
-    ajax('/admin/pentadbir/pengguna/tambah', data, 1);
+    ajax('/admin/user/tambah', data, 1);
 });
 
 $(document).on('click', '.pengguna-delete, .pengguna-aktif', function(){
@@ -73,14 +73,14 @@ $(document).on('click', '.pengguna-delete, .pengguna-aktif', function(){
             icon: 'error',
             confirmButtonText: 'Padam',
             postData: {
-                url : '/admin/pentadbir/pengguna/delete',
+                url : '/admin/user/delete',
                 data: data,
                 postfunc: 0
             }
         });
     }else if(selectedClass.hasClass('pengguna-aktif')){
         trigger = 2;
-        url = '/admin/pentadbir/pengguna/aktif';
+        url = '/admin/user/aktif';
         ajax(url, data, trigger);
     }
 });

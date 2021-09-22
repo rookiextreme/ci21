@@ -1,11 +1,11 @@
 <?php
-namespace App\Http\Controllers\Segment\Admin\User;
+namespace App\Http\Controllers\Segment\Admin\Users;
 
 use App\Http\Controllers\Controller;
 use App\Models\Mykj\ListPegawai2;
 use App\Models\Profiles\Profile;
-use App\Models\Profiles\ProfilesCawangansLog;
-use App\User;
+use App\Models\Profiles\ProfilesCawanganLog;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use DB;
@@ -17,7 +17,7 @@ class UserController extends Controller{
     }
 
     public function index(){
-        return view('segment.pentadbir.pengguna.index');
+        return view('segment.admin.user.index');
     }
 
     public function pengguna_list(){
@@ -29,7 +29,7 @@ class UserController extends Controller{
             From profiles p
                 join users u on p.users_id = u.id
                 join role_user ru on u.id = ru.user_id
-            where ru.role_id = 2;
+            where ru.role_id = 2 and p.delete_id != 1;
         ');
 
         return DataTables::of($model)
@@ -48,7 +48,7 @@ class UserController extends Controller{
                 return strtoupper($data->u_email);
             })
             ->addColumn('penempatan', function($data){
-                return ProfilesCawangansLog::where('profiles_id', $data->p_id)->orderBy('id', 'desc')->limit(1)->first()->penempatan_name;
+                return ProfilesCawanganLog::where('profiles_id', $data->p_id)->orderBy('id', 'desc')->limit(1)->first()->penempatan_name;
             })
             ->rawColumns(['active', 'action'])
             ->make(true);
@@ -101,8 +101,6 @@ class UserController extends Controller{
         }else{
             $model->delete_id = 1;
         }
-
-
 
         return [
             'success' => $model->save() ? 1 : 0,

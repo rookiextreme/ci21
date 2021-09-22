@@ -41,10 +41,10 @@
 {{--                    </li>--}}
 {{--                </ul>--}}
 {{--            </li>--}}
-            @role('Pentadbir')
-            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Senarai</span><i data-feather="more-horizontal"></i>
+            @role('Admin')
+            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Pentadbir</span><i data-feather="more-horizontal"></i>
             </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="{{Request::root()}}/admin/pentadbir/pengguna"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Urus Setia</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="{{Request::root()}}/admin/user"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Pengguna</span></a>
                 </li>
             @endrole
             @role('Urussetia')

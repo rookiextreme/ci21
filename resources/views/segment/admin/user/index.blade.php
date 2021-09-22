@@ -52,7 +52,7 @@
         </div>
     </div>
 </div>
-@include('segment.pentadbir.pengguna.modals.index')
+@include('segment.admin.user.modals.index')
 @endsection
 
 @section('customJS')
@@ -63,10 +63,10 @@
     @include('segment.layouts.asset_include_links.sweetAlert.js.sweet_alert_js')
 
     {{--  Custom files  --}}
-    <script src="{{ asset('js_helper/segment/pentadbir/pengguna/swal.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/pentadbir/pengguna/page_settings.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/pentadbir/pengguna/datatable.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/pentadbir/pengguna/ajax.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/pentadbir/pengguna/index.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/user/swal.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/user/page_settings.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/user/datatable.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/user/ajax.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/user/index.js') }}"></script>
 
 @endsection

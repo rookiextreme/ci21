@@ -1,0 +1,1 @@
+@extends('segment.layouts.main')
