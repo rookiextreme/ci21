@@ -4,13 +4,10 @@ namespace App\Http\Controllers\Main;
 use App\Http\Controllers\Controller;
 use App\Models\Mykj\ListPegawai2;
 use App\Models\Mykj\Peribadi;
+use App\Models\Regular\Year;
 use Illuminate\Http\Request;
 
 class CommonController extends Controller{
-    public function listing(){
-
-    }
-
     public function pengguna_carian(Request $request){
         $data = [];
         $search_term = $request->input('q');
@@ -45,6 +42,20 @@ class CommonController extends Controller{
                 'success' => 0,
             ]);
         }
+    }
+
+    public static function getYearList(){
+        $model = Year::all()->toArray();
+        $data = [];
+
+        foreach($model as $y){
+            $data[] = [
+                'id' => $y['id'],
+                'year' => $y['year'],
+            ];
+        }
+
+        return $data;
     }
 
     public static function upload_image($photo, $folder){

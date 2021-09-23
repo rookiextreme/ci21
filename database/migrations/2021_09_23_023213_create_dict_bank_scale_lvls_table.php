@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScaleLvlsSetsTable extends Migration
+class CreateDictBankScaleLvlsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,19 @@ class CreateScaleLvlsSetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('scale_lvls_sets', function (Blueprint $table) {
+        Schema::create('dict_bank_scale_lvls', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('scale_lvls_id');
-            $table->integer('scale_lvls_skillsets_id');
+            $table->integer('dict_bank_scale_lvls_types_id');
+            $table->integer('years_id');
             $table->string('name');
-            $table->integer('score');
             $table->integer('flag');
             $table->integer('delete_id');
             $table->timestamps();
         });
 
-        Schema::table('scale_lvls_sets', function(Blueprint $table){
-            $table->foreign('scale_lvls_id')->references('id')->on('scale_lvls');
-            $table->foreign('scale_lvls_skillsets_id')->references('id')->on('scale_lvls_skillsets');
+        Schema::table('dict_bank_scale_lvls', function(Blueprint $table){
+            $table->foreign('dict_bank_scale_lvls_types_id')->references('id')->on('dict_bank_scale_lvls_types');
+            $table->foreign('years_id')->references('id')->on('years');
         });
     }
 
@@ -37,6 +36,6 @@ class CreateScaleLvlsSetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scale_lvls_sets');
+        Schema::dropIfExists('dict_bank_scale_lvls');
     }
 }

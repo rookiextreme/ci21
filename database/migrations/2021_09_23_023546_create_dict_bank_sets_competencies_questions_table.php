@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDictionariesBanksYearsSetsCompetenciesQuestionsTable extends Migration
+class CreateDictBankSetsCompetenciesQuestionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateDictionariesBanksYearsSetsCompetenciesQuestionsTable extends Migrati
      */
     public function up()
     {
-        Schema::create('dictionaries_banks_years_sets_competencies_questions', function (Blueprint $table) {
+        Schema::create('dict_bank_sets_competencies_questions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('dictionaries_banks_years_sets_items_id');
+            $table->integer('dict_bank_sets_items_id');
             $table->text('title_eng');
             $table->text('title_mal');
             $table->integer('flag');
@@ -23,8 +23,8 @@ class CreateDictionariesBanksYearsSetsCompetenciesQuestionsTable extends Migrati
             $table->timestamps();
         });
 
-        Schema::table('dictionaries_banks_years_sets_competencies_questions', function(Blueprint $table){
-            $table->foreign('dictionaries_banks_years_sets_items_id')->references('id')->on('dictionaries_banks_years_sets_items');
+        Schema::table('dict_bank_sets_competencies_questions', function(Blueprint $table){
+            $table->foreign('dict_bank_sets_items_id')->references('id')->on('dict_bank_sets_items');
         });
     }
 
@@ -35,6 +35,6 @@ class CreateDictionariesBanksYearsSetsCompetenciesQuestionsTable extends Migrati
      */
     public function down()
     {
-        Schema::dropIfExists('dictionaries_banks_years_sets_competencies_questions');
+        Schema::dropIfExists('dict_bank_sets_competencies_questions');
     }
 }

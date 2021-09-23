@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompetencyTypesTable extends Migration
+class CreateDictColGradesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateCompetencyTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('competency_types', function (Blueprint $table) {
+        Schema::create('dict_col_grades', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('dict_col_grades_categories_id');
             $table->string('name');
-            $table->integer('years_id');
             $table->integer('flag');
             $table->integer('delete_id');
             $table->timestamps();
         });
 
-        Schema::table('competency_types', function(Blueprint $table){
-            $table->foreign('years_id')->references('id')->on('years');
+        Schema::table('dict_col_grades', function(Blueprint $table){
+            $table->foreign('dict_col_grades_categories_id')->references('id')->on('dict_col_grades_categories');
         });
     }
 
@@ -34,6 +34,6 @@ class CreateCompetencyTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('competency_types');
+        Schema::dropIfExists('dict_col_grades');
     }
 }

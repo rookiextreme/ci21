@@ -42,10 +42,9 @@
 {{--                </ul>--}}
 {{--            </li>--}}
             @role('Admin')
-            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Pentadbir</span><i data-feather="more-horizontal"></i>
+            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Pentadbir</span><i data-feather="more-horizontal"></i></li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{Request::root()}}/admin/user"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Pengguna</span></a>
             </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="{{Request::root()}}/admin/user"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Pengguna</span></a>
-                </li>
             @endrole
             @role('Urussetia')
             <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Halaman Utama</span><i data-feather="more-horizontal"></i>
@@ -63,6 +62,25 @@
             <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">KPA</span><i data-feather="more-horizontal"></i>
             </li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="{{Request::root()}}/kpa/penilaian"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Penilaian</span></a>
+            </li>
+            @endrole
+            @role('Admin')
+            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Tetapan</span><i data-feather="more-horizontal"></i></li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">Tetapan Asas</span></a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center" href="app-invoice-list.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">Tahun</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">Tetapan Penilaian</span></a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/catgrade/year"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Preview">Kategori Pelaksanaan</span></a>
+                    </li>
+                    <li><a class="d-flex align-items-center" href="app-invoice-edit.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Edit">Scale Level</span></a>
+                    </li>
+                    <li><a class="d-flex align-items-center" href="app-invoice-add.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Add">Measuring Level</span></a>
+                    </li>
+                </ul>
             </li>
             @endrole
         </ul>

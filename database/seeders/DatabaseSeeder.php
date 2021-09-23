@@ -15,76 +15,113 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('measuring_lvls')->insert([
-            'name' => 'Corporate Effectiveness',
-            'flag' => 1,
-            'delete_id' => 0
+        DB::table('dict_bank_measuring_lvls')->insert([
+            [
+                'name' => 'Corporate Effectiveness',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Leadership Effectiveness',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Personal Effectiveness',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Technical Mastery',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Keberkesanan Korporat',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Keberkesanan Kepimpinan',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Keberkesanan Sahsiah',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Kepakaran Teknikal',
+                'flag' => 1,
+                'delete_id' => 0
+            ]
         ]);
 
-        DB::table('measuring_lvls')->insert([
-            'name' => 'Leadership Effectiveness',
-            'flag' => 1,
-            'delete_id' => 0
-        ]);
-
-        DB::table('measuring_lvls')->insert([
-            'name' => 'Personal Effectiveness',
-            'flag' => 1,
-            'delete_id' => 0
-        ]);
-
-        DB::table('measuring_lvls')->insert([
-            'name' => 'Technical Mastery',
-            'flag' => 1,
-            'delete_id' => 0
-        ]);
-
-        DB::table('measuring_lvls')->insert([
-            'name' => 'Keberkesanan Korporat',
-            'flag' => 1,
-            'delete_id' => 0
-        ]);
-
-        DB::table('measuring_lvls')->insert([
-            'name' => 'Keberkesanan Kepimpinan',
-            'flag' => 1,
-            'delete_id' => 0
-        ]);
-
-        DB::table('measuring_lvls')->insert([
-            'name' => 'Keberkesanan Sahsiah',
-            'flag' => 1,
-            'delete_id' => 0
-        ]);
-
-        DB::table('measuring_lvls')->insert([
-            'name' => 'Kepakaran Teknikal',
-            'flag' => 1,
-            'delete_id' => 0
+        DB::table('dict_col_measuring_lvls')->insert([
+            [
+                'name' => 'Corporate Effectiveness',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Leadership Effectiveness',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Personal Effectiveness',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Technical Mastery',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Keberkesanan Korporat',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Keberkesanan Kepimpinan',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Keberkesanan Sahsiah',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Kepakaran Teknikal',
+                'flag' => 1,
+                'delete_id' => 0
+            ]
         ]);
 
         DB::table('roles')->insert([
-            'name' => 'Admin',
-            'display_name' => 'Admin',
-            'description' => 'Admin User'
-        ]);
-
-        DB::table('roles')->insert([
-            'name' => 'Penyelaras',
-            'display_name' => 'Penyelaras',
-            'description' => 'Penyelaras User'
-        ]);
-
-        DB::table('roles')->insert([
-            'name' => 'Penyelia',
-            'display_name' => 'Penyelia',
-            'description' => 'Penyelia User'
-        ]);
-
-        DB::table('roles')->insert([
-            'name' => 'Pengguna',
-            'display_name' => 'Pengguna',
-            'description' => 'Pengguna User'
+            [
+                'name' => 'Admin',
+                'display_name' => 'Admin',
+                'description' => 'Admin User'
+            ],
+            [
+                'name' => 'Penyelaras',
+                'display_name' => 'Penyelaras',
+                'description' => 'Penyelaras User'
+            ],
+            [
+                'name' => 'Penyelia',
+                'display_name' => 'Penyelia',
+                'description' => 'Penyelia User'
+            ],
+            [
+                'name' => 'Pengguna',
+                'display_name' => 'Pengguna',
+                'description' => 'Pengguna User'
+            ]
         ]);
 
         DB::table('users')->insert([

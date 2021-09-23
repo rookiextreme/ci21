@@ -56,7 +56,7 @@ class User extends Authenticatable
     }
 
     public function users_roles(){
-        return $this->hasOne('App\Models\Entrust\UserRole', 'user_id', 'id');
+        return $this->hasOne('App\Models\LaratrustModels\RoleUser', 'user_id', 'id');
     }
 
     public static function createOrUpdate($peg_maklumat){

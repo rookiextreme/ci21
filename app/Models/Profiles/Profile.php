@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     public function profile_Users(){
-        return $this->hasOne('App\User', 'id', 'users_id');
+        return $this->hasOne('App\Models\User', 'id', 'users_id');
     }
 
     public function profile_Profile_cawangan_log(){

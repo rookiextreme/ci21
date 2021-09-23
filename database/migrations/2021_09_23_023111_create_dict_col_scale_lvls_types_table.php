@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGradesCategoriesTable extends Migration
+class CreateDictColScaleLvlsTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,12 @@ class CreateGradesCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('grades_categories', function (Blueprint $table) {
+        Schema::create('dict_col_scale_lvls_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('years_id');
-            $table->string('nama');
+            $table->string('name');
             $table->integer('flag');
             $table->integer('delete_id');
             $table->timestamps();
-        });
-
-        Schema::table('grades_categories', function(Blueprint $table){
-            $table->foreign('years_id')->references('id')->on('years');
         });
     }
 
@@ -34,6 +29,6 @@ class CreateGradesCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grades_categories');
+        Schema::dropIfExists('dict_col_scale_lvls_types');
     }
 }

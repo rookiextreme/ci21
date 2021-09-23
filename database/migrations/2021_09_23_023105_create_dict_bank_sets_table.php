@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDictionariesBanksYearsSetsTable extends Migration
+class CreateDictBankSetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateDictionariesBanksYearsSetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('dictionaries_banks_years_sets', function (Blueprint $table) {
+        Schema::create('dict_bank_sets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('profiles_id');
             $table->integer('years_id');
@@ -27,7 +27,7 @@ class CreateDictionariesBanksYearsSetsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('dictionaries_banks_years_sets', function(Blueprint $table){
+        Schema::table('dict_bank_sets', function(Blueprint $table){
             $table->foreign('profiles_id')->references('id')->on('profiles');
             $table->foreign('years_id')->references('id')->on('years');
         });
