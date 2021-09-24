@@ -25,4 +25,11 @@ class Profile extends Model
         return $this->hasMany('App\Models\Profiles\ProfilesAlamatPejabat', 'profiles_id', 'id');
     }
 
+    public function profileDictBankSet(){
+        return $this->hasMany('App\Models\Penilaian\DictBank\Set\DictColSet', 'profiles_id', 'id');
+    }
+
+    public function profileDictBankJobgroupSet(){
+        return $this->hasMany('App\Models\Penilaian\Jobgroup\Set\DictColJobgroupSet', 'profiles_id', 'id');
+    }
 }
