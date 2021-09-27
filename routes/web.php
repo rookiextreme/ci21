@@ -20,19 +20,6 @@ Route::prefix('/admin')->group(function () {
         Route::post('/get-one-pengguna', [UserController::class, 'get_one_user']);
         Route::post('/role-update', [UserController::class, 'pengguna_role_update']);
     });
-
-    Route::prefix('/catgrade')->group(function () {
-        //Year List: First Step
-        Route::get('/year', [CategoryGradeController::class, 'year_index']);
-        Route::get('/year-list', [CategoryGradeController::class, 'kategori_grade_year_list']);
-        Route::get('/{year_id}', [CategoryGradeController::class, 'index']);
-
-        //Kategori List: Second Step
-        Route::get('/list', [CategoryGradeController::class, 'kategori_grade_list']);
-        Route::post('/tambah', [CategoryGradeController::class, 'kategori_grade_tambah']);
-        Route::post('/aktif', [CategoryGradeController::class, 'kategori_grade_aktif']);
-        Route::post('/delete', [CategoryGradeController::class, 'kategori_grade_delete']);
-    });
 });
 
 //Common Controller
