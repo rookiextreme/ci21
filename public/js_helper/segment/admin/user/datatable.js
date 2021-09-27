@@ -34,6 +34,7 @@ $('.pengguna-table').DataTable({
             orderable: false,
             render: function (data, type, full, meta) {
                 return (
+                    '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light pengguna-info">'+ feather.icons['user'].toSvg() +'</button>' +
                     '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light pengguna-delete">'+ feather.icons['trash-2'].toSvg() +'</button>'
                 );
             }

@@ -108,4 +108,22 @@ class UserController extends Controller{
             'flag' => $model->flag,
         ];
     }
+
+    public function get_one_user(Request $request){
+        $user_id = $request->input('user_id');
+        $model = User::getPengguna($user_id);
+
+        return response()->json([
+            'success' => 1,
+            'data' => $model
+        ]);
+    }
+
+    public function pengguna_role_update(Request $request){
+        $model = User::roleUpdate($request->all());
+
+        return response()->json([
+            'success' => $model,
+        ]);
+    }
 }

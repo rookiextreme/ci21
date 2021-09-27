@@ -50,6 +50,26 @@ function ajax(url, data, postfunc){
                 if(success == 1){
 
                 }
+            }else if(postfunc == 4){
+                if(success == 1){
+                    $('.user-id').val(parseData.user_info.user_id);
+                    $('.pengguna-info-nokp').html(parseData.user_info.nric);
+                    $('.pengguna-info-penempatan').html(parseData.user_info.penempatan);
+                    $('.pengguna-info-telefon').html('(' + parseData.user_info.telefon.bimbit + ')' + ' / ' + '(' + parseData.user_info.telefon.pejabat + ')');
+
+                    if(data['data']['roles'].length > 0){
+                        for(var x = 0; x < data['data']['roles'].length; x++){
+                            $('.pengguna-role[data-role-id='+ data['data']['roles'][x]['id'] +']').prop('checked', true);
+                        }
+                    }
+                }
+            }else if(postfunc == 5){
+                if(success == 1){
+                    $('#pengguna-modal-info').modal('hide');
+                    toasting('Peranan Telah Dikemaskini', 'success');
+                }else{
+                    toasting('Masalah Telah Berlaku', 'error');
+                }
             }
         }
     });

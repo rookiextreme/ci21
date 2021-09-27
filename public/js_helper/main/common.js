@@ -32,6 +32,15 @@ function ajax_common(methods,url, data, postfunc, selectorClass, inputClass, lis
                                     append += '<option value="">Please Select</option>';
                                 }
                                 append += '<option value="' + data.data[x].value + '">' + data.data[x].label + '</option>';
+                            }else if(listType === 'checkbox'){
+                                append += '<div class="col-xl-3 col-md-4 col-12">' +
+                                    '<div class="form-group">' +
+                                        '<div class="custom-control custom-control-primary custom-checkbox">' +
+                                            '<input type="checkbox" class="custom-control-input '+ inputClass +'" id="'+ data['data'][x]['value'] +'" data-role-id="'+ data['data'][x]['value'] +'"/>' +
+                                            '<label class="custom-control-label" for="'+ data['data'][x]['value'] +'">'+ data['data'][x]['label'] +'</label>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>';
                             }
                         }
                     }

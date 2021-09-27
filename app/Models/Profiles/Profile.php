@@ -18,7 +18,7 @@ class Profile extends Model
     }
 
     public function profile_Profile_telefon(){
-        return $this->hasMany('App\Models\Profiles\ProfilesTelefon', 'profiles_id', 'id');
+        return $this->hasOne('App\Models\Profiles\ProfilesTelefon', 'profiles_id', 'id')->orderBy('id', 'desc');
     }
 
     public function profile_Profile_alamat_pejabat(){

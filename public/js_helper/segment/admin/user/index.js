@@ -56,6 +56,38 @@ $(document).on('click', '.post-add-pengguna', function(){
     ajax('/admin/user/tambah', data, 1);
 });
 
+$(document).on('click', '.pengguna-info', function(){
+    let user_id = $(this).closest('tr').attr('data-profile-id');
+
+    $('.pengguna-role').each(function(index, value){
+        $(this).prop('checked', false);
+    });
+
+    let data = new FormData;
+    data.append('user_id', user_id);
+    data.append('_token', getToken());
+    ajax('/admin/user/get-one-pengguna', data, 4);
+    $('#pengguna-modal-info').modal('show');
+});
+
+$(document).on('click', '.post-update-roles', function(){
+    let user_id = $('.user-id').val();
+
+    let roleArr = new Array();
+    $('.pengguna-role').each(function(){
+        if($(this).prop('checked') == true){
+            roleArr.push($(this).attr('data-role-id'));
+        }
+    });
+
+    var data = new FormData;
+    data.append('roleArr', JSON.stringify(roleArr));
+    data.append('user_id', user_id);
+    data.append('_token', getToken());
+
+    ajax('/admin/user/role-update', data, 5);
+});
+
 $(document).on('click', '.pengguna-delete, .pengguna-aktif', function(){
     let selectedClass = $(this);
     let profile_id = selectedClass.closest('tr').attr('data-profile-id');

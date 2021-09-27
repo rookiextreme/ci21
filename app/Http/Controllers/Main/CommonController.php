@@ -2,12 +2,42 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use App\Models\LaratrustModels\Role;
 use App\Models\Mykj\ListPegawai2;
 use App\Models\Mykj\Peribadi;
 use App\Models\Regular\Year;
 use Illuminate\Http\Request;
 
 class CommonController extends Controller{
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function listing(Request $request)
+    {
+        $model = $request->input('model');
+        $queryString = json_decode($request->input('queryString'));
+        $data = [];
+
+        if($model == 'Role'){
+            $query = Role::all();
+
+            foreach($query as $list){
+                $data[] = array(
+                    'label' => $list->display_name,
+                    'value' => $list->id
+                );
+            }
+        }
+
+        return response()->json([
+            'success' => 1,
+            'data' => $data,
+        ]);
+    }
+
     public function pengguna_carian(Request $request){
         $data = [];
         $search_term = $request->input('q');

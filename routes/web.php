@@ -17,6 +17,8 @@ Route::prefix('/admin')->group(function () {
         Route::post('/tambah', [UserController::class, 'pengguna_tambah']);
         Route::post('/aktif', [UserController::class, 'pengguna_aktif']);
         Route::post('/delete', [UserController::class, 'pengguna_delete']);
+        Route::post('/get-one-pengguna', [UserController::class, 'get_one_user']);
+        Route::post('/role-update', [UserController::class, 'pengguna_role_update']);
     });
 
     Route::prefix('/catgrade')->group(function () {
@@ -39,6 +41,7 @@ Route::prefix('/common')->group(function () {
         Route::get('/carian', [CommonController::class, 'pengguna_carian']);
         Route::post('/maklumat', [CommonController::class, 'pengguna_maklumat']);
     });
+    Route::post('/get-listing', [CommonController::class, 'listing']);
 });
 
 require __DIR__.'/auth.php';

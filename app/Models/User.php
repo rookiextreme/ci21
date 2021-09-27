@@ -121,4 +121,57 @@ class User extends Authenticatable
             }
         }
     }
+
+    public static function getPengguna($profile_id){
+        $profile = Profile::find($profile_id);
+        $profile_user = $profile->profile_Users;
+
+        $data = [
+            'user_info' => [
+                'user_id' => $profile_user->id,
+                'name' => $profile_user->name,
+                'nric' => $profile_user->nokp,
+                'penempatan' => $profile->profile_Profile_cawangan_log_active->penempatan_name ?? '',
+                'telefon' => [
+                    'pejabat' => $profile->profile_Profile_telefon->no_tel_pejabat ?? '',
+                    'bimbit' => $profile->profile_Profile_telefon->no_tel_bimbit ?? '',
+                ]
+            ],
+            'roles' => User::getPenggunaRoles($profile_user->id)
+        ];
+
+        return $data;
+    }
+
+    public static function getPenggunaRoles($profile_id) : array{
+        $data = [];
+        $model = RoleUser::where('user_id', $profile_id)->get();
+
+        if(count($model) > 0){
+            foreach ($model as $roles){
+                $data[] = [
+                    'id' => $roles->roleUserRole->id,
+                    'name' => $roles->roleUserRole->name,
+                ];
+            }
+        }
+        return $data;
+    }
+
+    public static function roleUpdate($data){
+        $roleArr = json_decode($data['roleArr']);
+        $user_id = $data['user_id'];
+
+        RoleUser::where('user_id', $user_id)->delete();
+
+        foreach($roleArr as $r){
+            $newQuery = new RoleUser;
+            $newQuery->user_id = $user_id;
+            $newQuery->role_id = $r;
+            $newQuery->user_type = 'App\Models\User';
+            $newQuery->save();
+        }
+
+        return 1;
+    }
 }
