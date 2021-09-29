@@ -13,10 +13,14 @@ class DictBankJobgroupSet extends Model{
     }
 
     public function dictBankJobgroupSetJurusan(){
-        $this->hasOne('App\Models\Mykj\LJurusan', 'id', 'jurusan_id');
+        return $this->hasOne('App\Models\Mykj\LJurusan', 'id', 'jurusan_id');
     }
 
     public function dictBankJobgroupSetDictGradeCategory(){
-        $this->hasOne('App\Models\Penilaian\Grade\DictBankGradeCategory', 'id', 'dict_bank_grades_categories_id');
+        return $this->hasOne('App\Models\Penilaian\Grade\DictBankGradeCategory', 'id', 'dict_bank_grades_categories_id');
+    }
+
+    public function dictBankJobgroupSetDictBankSet(){
+        return $this->hasOne('App\Models\Penilaian\DictBank\Set\DictBankSet', 'id', 'dict_bank_sets_id');
     }
 }

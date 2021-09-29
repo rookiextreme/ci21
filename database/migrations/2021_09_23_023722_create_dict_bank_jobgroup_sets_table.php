@@ -19,6 +19,7 @@ class CreateDictBankJobgroupSetsTable extends Migration
             $table->integer('years_id');
             $table->integer('jurusan_id');
             $table->integer('dict_bank_grades_categories_id');
+            $table->integer('dict_bank_sets_id');
             $table->text('title_eng');
             $table->text('title_mal');
             $table->text('desc_eng');
@@ -33,6 +34,7 @@ class CreateDictBankJobgroupSetsTable extends Migration
             $table->foreign('profiles_id')->references('id')->on('profiles');
             $table->foreign('years_id')->references('id')->on('years');
             $table->foreign('dict_bank_grades_categories_id')->references('id')->on('dict_bank_grades_categories');
+            $table->foreign('dict_bank_sets_id')->references('id')->on('dict_bank_sets');
         });
     }
 

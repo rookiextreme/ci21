@@ -17,7 +17,7 @@ class DictBankSetsItem extends Model{
     }
 
     public function dictBankSetsItemJurusan(){
-        $this->hasOne('App\Models\Mykj\LJurusan', 'id', 'jurusan_id');
+        return $this->hasOne('App\Models\Mykj\LJurusan', 'id', 'jurusan_id');
     }
 
     public function dictBankSetsItemDictGradeCategory(){

@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 class ProfilesTelefon extends Model
 {
     public function profile_telefon_Profile(){
-        $this->hasOne('App\Models\Profiles\Profile', 'id', 'profiles_id');
+        return $this->hasOne('App\Models\Profiles\Profile', 'id', 'profiles_id');
     }
 }
