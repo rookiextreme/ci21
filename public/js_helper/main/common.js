@@ -102,3 +102,20 @@ function reloadDataTableAjax({className, closeModal, modalClass, alert, alertMes
 function checkEmptyClause({className}){
     return className.val() == '' || typeof className.val() == 'undefined';
 }
+
+function toggle_activate({rowClass, rowDataClass, rowId, activeClass, flag}){
+    let removeClass;
+    let addClass;
+
+    console.log(flag);
+    if(flag == 0){
+        removeClass = 'btn-outline-success';
+        addClass = 'btn-outline-danger';
+        toasting('Telah Dinyahaktifkan', 'error');
+    }else{
+        removeClass = 'btn-outline-danger';
+        addClass = 'btn-outline-success';
+        toasting('Telah Diaktifkan', 'success');
+    }
+    $(''+ rowClass +'['+ rowDataClass +'='+ rowId +']').find(activeClass).removeClass(removeClass).addClass(addClass);
+}
