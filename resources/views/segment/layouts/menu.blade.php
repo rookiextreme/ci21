@@ -25,7 +25,7 @@
                                     </g>
                                 </g>
                             </svg></span>
-                    <h2 class="brand-text">Vuexy</h2>
+                    <h2 class="brand-text">CI</h2>
                 </a></li>
             <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle toggle-main-button pr-0" data-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>
         </ul>
@@ -65,20 +65,18 @@
             </li>
             @endrole
             @role('Admin')
-            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Tetapan</span><i data-feather="more-horizontal"></i></li>
-            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">Tetapan Asas</span></a>
+            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Dictionary</span><i data-feather="more-horizontal"></i></li>
+            <li class=" nav-item active"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">Collection</span></a>
                 <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="app-invoice-list.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="List">Tahun</span></a>
+                    <li class="active"><a class="d-flex align-items-center" href="app-invoice-list.html"><i data-feather="list"></i><span class="menu-item text-truncate" data-i18n="List">Koleksi</span></a>
                     </li>
-                </ul>
-            </li>
-            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">Tetapan Penilaian</span></a>
-                <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/catgrade/year"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Preview">Kategori Pelaksanaan</span></a>
+                    <li><a class="d-flex align-items-center" href=""><i data-feather="type"></i><span class="menu-item text-truncate" data-i18n="List">Competency Type</span></a>
                     </li>
-                    <li><a class="d-flex align-items-center" href="app-invoice-edit.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Edit">Scale Level</span></a>
+                    <li><a class="d-flex align-items-center" href=""><i data-feather="box"></i><span class="menu-item text-truncate" data-i18n="List">Scale Level</span></a>
                     </li>
-                    <li><a class="d-flex align-items-center" href="app-invoice-add.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Add">Measuring Level</span></a>
+                    <li><a class="d-flex align-items-center" href=""><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Grade Category</span></a>
+                    </li>
+                    <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/dictionary/collection/measuring-level"><i data-feather="tool"></i><span class="menu-item text-truncate" data-i18n="List">Measuring Level</span></a>
                     </li>
                 </ul>
             </li>

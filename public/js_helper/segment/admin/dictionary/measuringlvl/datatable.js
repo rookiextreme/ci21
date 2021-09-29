@@ -1,32 +1,30 @@
-$('.pengguna-table').DataTable({
+$('.measuring-lvl-table').DataTable({
     processing: true,
     serverSide: true,
-    ajax: getUrl() + '/admin/catgrade/list',
+    ajax: getUrl() + '/admin/dictionary/collection/measuring-level/list',
     lengthChange:true,
     columns: [
-        { data: 'nama' },
-        { data: 'email' },
-        { data: 'penempatan' },
-        // { data: 'active' },
+        { data: 'name' },
+        { data: 'active' },
         { data: 'action' },
     ],
     createdRow: function( row, data, dataIndex ) {
-        $(row).addClass('pengguna-row');
+        $(row).addClass('measuring-lvl-row');
     },
     columnDefs: [
-        // {
-        //     // Actions
-        //     targets: -2,
-        //     title: 'Aktif',
-        //     orderable: false,
-        //     render: function (data, type, full, meta) {
-        //         let row_flag = full.flag;
-        //         let outLine = row_flag == 1 ? 'btn-outline-success' : 'btn-outline-danger';
-        //         return (
-        //             '<button type="button" class="btn btn-icon '+ outLine +' mr-1 mb-1 waves-effect waves-light pengguna-aktif">'+ feather.icons['power'].toSvg() +'</button>'
-        //         );
-        //     }
-        // },
+        {
+            // Actions
+            targets: -2,
+            title: 'Aktif',
+            orderable: false,
+            render: function (data, type, full, meta) {
+                let row_flag = full.flag;
+                let outLine = row_flag == 1 ? 'btn-outline-success' : 'btn-outline-danger';
+                return (
+                    '<button type="button" class="btn btn-icon '+ outLine +' mr-1 mb-1 waves-effect waves-light active-measuring-lvl">'+ feather.icons['power'].toSvg() +'</button>'
+                );
+            }
+        },
         {
             // Actions
             targets: -1,
@@ -34,7 +32,8 @@ $('.pengguna-table').DataTable({
             orderable: false,
             render: function (data, type, full, meta) {
                 return (
-                    '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light pengguna-delete">'+ feather.icons['trash-2'].toSvg() +'</button>'
+                    '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-measuring-lvl">'+ feather.icons['edit-3'].toSvg() +'</button>' +
+                    '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-measuring-lvl">'+ feather.icons['trash-2'].toSvg() +'</button>'
                 );
             }
         }
@@ -44,8 +43,8 @@ $('.pengguna-table').DataTable({
     lengthMenu: [7, 10, 25, 50, 75, 100],
     buttons: [,
         {
-            text: feather.icons['plus'].toSvg({ class: 'mr-50 font-small-4' }) + 'Tambah Pengguna',
-            className: 'create-new btn btn-primary add-pengguna',
+            text: feather.icons['plus'].toSvg({ class: 'mr-50 font-small-4' }) + 'Tambah Measuring Level',
+            className: 'create-new btn btn-primary add-measuring-lvl',
             attr: {
                 'data-toggle': 'modal',
                 'data-target': '#modals-slide-in'
