@@ -16,7 +16,7 @@ class CreateDictBankGradesCategoriesTable extends Migration
         Schema::create('dict_bank_grades_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('dict_bank_sets_id');
-            $table->string('nama');
+            $table->string('name');
             $table->integer('flag');
             $table->integer('delete_id');
             $table->timestamps();

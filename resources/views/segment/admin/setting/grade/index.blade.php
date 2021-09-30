@@ -16,14 +16,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Grade Category</h2>
+                            <h2 class="content-header-title float-left mb-0">Grade</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Dictionary</a>
+                                    <li class="breadcrumb-item"><a href="#">Setting</a>
                                     </li>
-                                    <li class="breadcrumb-item">Collection
-                                    </li>
-                                    <li class="breadcrumb-item active">Grade Category
+                                    <li class="breadcrumb-item active">Grade
                                     </li>
                                 </ol>
                             </div>
@@ -36,11 +34,10 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <table class="grade-category-table table">
+                                <table class="grade-table table">
                                     <thead>
                                     <tr>
                                         <th>Nama</th>
-                                        <th>Jumlah Gred</th>
                                         <th>Aktif</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -53,7 +50,7 @@
             </div>
         </div>
     </div>
-    @include('segment.admin.dictionary.gradecategory.modals.index')
+    @include('segment.admin.setting.grade.modals.index')
 @endsection
 
 @section('customJS')
@@ -64,10 +61,10 @@
     @include('segment.layouts.asset_include_links.sweetAlert.js.sweet_alert_js')
 
     {{--  Custom files  --}}
-    <script src="{{ asset('js_helper/segment/admin/dictionary/gradecategory/swal.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionary/gradecategory/page_settings.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionary/gradecategory/datatable.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionary/gradecategory/ajax.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionary/gradecategory/index.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/setting/grade/swal.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/setting/grade/page_settings.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/setting/grade/datatable.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/setting/grade/ajax.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/setting/grade/index.js') }}"></script>
 
 @endsection

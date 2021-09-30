@@ -16,7 +16,7 @@ class CreateDictColGradesTable extends Migration
         Schema::create('dict_col_grades', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('dict_col_grades_categories_id');
-            $table->string('name');
+            $table->integer('grades_id');
             $table->integer('flag');
             $table->integer('delete_id');
             $table->timestamps();
@@ -24,6 +24,7 @@ class CreateDictColGradesTable extends Migration
 
         Schema::table('dict_col_grades', function(Blueprint $table){
             $table->foreign('dict_col_grades_categories_id')->references('id')->on('dict_col_grades_categories');
+            $table->foreign('grades_id')->references('id')->on('grades');
         });
     }
 

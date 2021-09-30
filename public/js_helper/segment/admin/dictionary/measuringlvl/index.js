@@ -1,4 +1,4 @@
-$(document).on('click', '.add-measuring-lvl, .update-measuring-lvl, .delete-measuring-lvl, .active-measuring-lvl', function(){
+$(document).on('click', '.add-measuring-lvl, .update-measuring-lvl, .delete-measuring-lvl, .active-measuring-lvl, .delete-measuring-lvl', function(){
     let selectedClass = $(this);
     if(selectedClass.hasClass('add-measuring-lvl')){
         postEmptyFields([
@@ -30,6 +30,24 @@ $(document).on('click', '.add-measuring-lvl, .update-measuring-lvl, .delete-meas
         data.append('measuring_lvl_id', measuring_lvl_id);
         data.append('_token', getToken());
         ajax('/admin/dictionary/collection/measuring-level/activate', data, 2);
+    }else if(selectedClass.hasClass('delete-measuring-lvl')){
+        let measuring_lvl_id = selectedClass.closest('tr').attr('data-measuring-lvl-id');
+
+        let data = new FormData;
+        data.append('measuring_lvl_id', measuring_lvl_id);
+        data.append('_token', getToken());
+
+        swalAjax({
+            titleText : 'Adakah Anda Pasti?',
+            mainText : 'Measuring Level Akan Dipadam',
+            icon: 'error',
+            confirmButtonText: 'Padam',
+            postData: {
+                url : '/admin/dictionary/collection/measuring-level/delete',
+                data: data,
+                postfunc: 0
+            }
+        });
     }
 });
 
@@ -58,33 +76,4 @@ $(document).on('click', '.post-add-measuring-lvl, .post-update-measuring-lvl', f
     data.append('_token', getToken());
 
     ajax('/admin/dictionary/collection/measuring-level/tambah-kemaskini', data, 0);
-});
-
-$(document).on('click', '.pengguna-delete, .pengguna-aktif', function(){
-    let selectedClass = $(this);
-    let profile_id = selectedClass.closest('tr').attr('data-profile-id');
-    let trigger;
-    let url;
-
-    let data = new FormData;
-    data.append('profile_id', profile_id);
-    data.append('_token', getToken());
-
-    if(selectedClass.hasClass('pengguna-delete')){
-        swalAjax({
-            titleText : 'Adakah Anda Pasti?',
-            mainText : 'Data Pengguna Akan Dipadam',
-            icon: 'error',
-            confirmButtonText: 'Padam',
-            postData: {
-                url : '/admin/user/delete',
-                data: data,
-                postfunc: 0
-            }
-        });
-    }else if(selectedClass.hasClass('pengguna-aktif')){
-        trigger = 2;
-        url = '/admin/user/aktif';
-        ajax(url, data, trigger);
-    }
 });

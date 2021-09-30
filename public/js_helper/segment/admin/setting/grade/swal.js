@@ -39,8 +39,8 @@ function swalAjaxFire(postData){
 
             if(postfunc == 0){
                 if(success == 1){
-                    $('.measuring-lvl-table').DataTable().ajax.reload(null, false);
-                    swalPostFire('error', 'Berjaya Dipadam', 'Measuring Level Sudah Dipadam');
+                    $('.grade-table').DataTable().ajax.reload(null, false);
+                    swalPostFire('error', 'Berjaya Dipadam', 'Grade Sudah Dipadam');
                 }
                 $.unblockUI();
             }

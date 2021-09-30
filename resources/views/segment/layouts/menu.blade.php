@@ -74,9 +74,19 @@
                     </li>
                     <li><a class="d-flex align-items-center" href=""><i data-feather="box"></i><span class="menu-item text-truncate" data-i18n="List">Scale Level</span></a>
                     </li>
-                    <li><a class="d-flex align-items-center" href=""><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Grade Category</span></a>
+                    <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/dictionary/collection/grade-category"><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Grade Category</span></a>
+                    </li>
+                    <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/setting/grade"><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Grade</span></a>
                     </li>
                     <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/dictionary/collection/measuring-level"><i data-feather="tool"></i><span class="menu-item text-truncate" data-i18n="List">Measuring Level</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Tetapan</span><i data-feather="more-horizontal"></i></li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">Collection</span></a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/setting/grade"><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Grade</span></a>
                     </li>
                 </ul>
             </li>

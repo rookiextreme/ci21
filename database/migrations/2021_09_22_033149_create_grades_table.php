@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDictColGradesCategoriesTable extends Migration
+class CreateGradesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,12 @@ class CreateDictColGradesCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('dict_col_grades_categories', function (Blueprint $table) {
+        Schema::create('grades', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->integer('flag');
             $table->integer('delete_id');
             $table->timestamps();
-        });
-
-        Schema::table('dict_col_grades_categories', function(Blueprint $table){
-            $table->foreign('dict_col_sets_id')->references('id')->on('dict_bank_sets');
         });
     }
 
@@ -33,6 +29,6 @@ class CreateDictColGradesCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dict_col_grades_categories');
+        Schema::dropIfExists('grades');
     }
 }
