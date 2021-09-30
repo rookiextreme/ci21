@@ -20,10 +20,6 @@ class CreateDictColGradesCategoriesTable extends Migration
             $table->integer('delete_id');
             $table->timestamps();
         });
-
-        Schema::table('dict_col_grades_categories', function(Blueprint $table){
-            $table->foreign('dict_col_sets_id')->references('id')->on('dict_bank_sets');
-        });
     }
 
     /**
