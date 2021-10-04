@@ -8,6 +8,10 @@ use App\Http\Controllers\Main\CommonController;
 use App\Http\Controllers\Segment\Admin\Dictionary\MeasuringLvl\ColMeasuringLvlController;
 use App\Http\Controllers\Segment\Admin\Dictionary\GradeCategory\ColGradeCategoryController;
 use App\Http\Controllers\Segment\Admin\Setting\Grade\GradeController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Setting\Skillset\ColSkillsetController;
+use App\Http\Controllers\Segment\Admin\Dictionary\ScaleLvl\ColScaleLvlController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Setting\CompetencyType\ColCompetencyTypeController;
+use App\Http\Controllers\Segment\Admin\Dictionary\CompetencyTypeSet\ColCompetencyTypeSetController;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
@@ -45,10 +49,57 @@ Route::prefix('/admin')->group(function () {
                 Route::post('/activate', [ColGradeCategoryController::class, 'grade_category_activate']);
                 Route::post('/delete', [ColGradeCategoryController::class, 'grade_category_delete']);
             });
+
+            Route::prefix('/competency-type-set')->group(function () {
+                Route::get('/', [ColCompetencyTypeSetController::class, 'index']);
+                Route::get('/list', [ColCompetencyTypeSetController::class, 'competency_type_set_list']);
+                Route::post('/tambah-kemaskini', [ColCompetencyTypeSetController::class, 'competency_type_set_tambah']);
+                Route::post('/get-record', [ColCompetencyTypeSetController::class, 'competency_type_set_get_record']);
+                Route::post('/activate', [ColCompetencyTypeSetController::class, 'competency_type_set_activate']);
+                Route::post('/delete', [ColCompetencyTypeSetController::class, 'competency_type_set_delete']);
+            });
+
+            Route::prefix('/scale-level')->group(function () {
+                Route::get('/', [ColScaleLvlController::class, 'index']);
+                Route::get('/list', [ColScaleLvlController::class, 'scale_level_list']);
+                Route::post('/tambah-kemaskini', [ColScaleLvlController::class, 'scale_level_tambah']);
+                Route::post('/get-record', [ColScaleLvlController::class, 'scale_level_get_record']);
+                Route::post('/activate', [ColScaleLvlController::class, 'scale_level_activate']);
+                Route::post('/delete', [ColScaleLvlController::class, 'scale_level_delete']);
+
+                Route::prefix('/set')->group(function () {
+                    Route::post('/list', [ColScaleLvlController::class, 'scale_level_set_list']);
+                    Route::post('/tambah-kemaskini', [ColScaleLvlController::class, 'scale_level_set_tambah']);
+                    Route::post('/get-record', [ColScaleLvlController::class, 'scale_level_set_get_record']);
+                    Route::post('/activate', [ColScaleLvlController::class, 'scale_level_set_activate']);
+                    Route::post('/delete', [ColScaleLvlController::class, 'scale_level_set_delete']);
+                });
+            });
+
+            Route::prefix('/setting')->group(function () {
+                //Skill Set For Scale Level
+                Route::prefix('/scale-skill-set')->group(function () {
+                    Route::get('/', [ColSkillsetController::class, 'index']);
+                    Route::get('/list', [ColSkillsetController::class, 'skill_set_list']);
+                    Route::post('/tambah-kemaskini', [ColSkillsetController::class, 'skill_set_tambah']);
+                    Route::post('/get-record', [ColSkillsetController::class, 'skill_set_get_record']);
+                    Route::post('/activate', [ColSkillsetController::class, 'skill_set_activate']);
+                    Route::post('/delete', [ColSkillsetController::class, 'skill_set_delete']);
+                });
+
+                //Competency Type
+                Route::prefix('/competency-type')->group(function () {
+                    Route::get('/', [ColCompetencyTypeController::class, 'index']);
+                    Route::get('/list', [ColCompetencyTypeController::class, 'competency_type_list']);
+                    Route::post('/tambah-kemaskini', [ColCompetencyTypeController::class, 'competency_type_tambah']);
+                    Route::post('/get-record', [ColCompetencyTypeController::class, 'competency_type_get_record']);
+                    Route::post('/activate', [ColCompetencyTypeController::class, 'competency_type_activate']);
+                    Route::post('/delete', [ColCompetencyTypeController::class, 'competency_type_delete']);
+                });
+            });
         });
     });
 
-    //Regular Grade Listing
     Route::prefix('/setting')->group(function () {
         //Grade
         Route::prefix('/grade')->group(function () {

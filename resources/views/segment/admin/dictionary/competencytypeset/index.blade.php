@@ -16,12 +16,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Dictionary</h2>
+                            <h2 class="content-header-title float-left mb-0">Competency Type Set</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Collection</a>
+                                    <li class="breadcrumb-item"><a href="#">Dictionary</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Scale Level
+                                    <li class="breadcrumb-item active">Competency Type Set
                                     </li>
                                 </ol>
                             </div>
@@ -34,10 +34,11 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <table class="scale-level-table table">
+                                <table class="competency-type-set-table table">
                                     <thead>
                                     <tr>
-                                        <th>Nama</th>
+                                        <th>Competency</th>
+                                        <th>Scale Level</th>
                                         <th>Aktif</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -50,7 +51,7 @@
             </div>
         </div>
     </div>
-    @include('segment.admin.dictionary.scalelvl.modals.index')
+    @include('segment.admin.dictionary.competencytypeset.modals.index')
 @endsection
 
 @section('customJS')
@@ -61,10 +62,10 @@
     @include('segment.layouts.asset_include_links.sweetAlert.js.sweet_alert_js')
 
     {{--  Custom files  --}}
-    <script src="{{ asset('js_helper/segment/admin/dictionary/scalelvl/swal.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionary/scalelvl/page_settings.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionary/scalelvl/datatable.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionary/scalelvl/ajax.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionary/scalelvl/index.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionary/competencytypeset/swal.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionary/competencytypeset/page_settings.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionary/competencytypeset/datatable.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionary/competencytypeset/ajax.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionary/competencytypeset/index.js') }}"></script>
 
 @endsection

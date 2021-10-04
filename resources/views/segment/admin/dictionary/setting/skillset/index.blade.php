@@ -19,9 +19,9 @@
                             <h2 class="content-header-title float-left mb-0">Dictionary</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Collection</a>
+                                    <li class="breadcrumb-item"><a href="#">Setting</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Scale Level
+                                    <li class="breadcrumb-item active">Skill Set
                                     </li>
                                 </ol>
                             </div>
@@ -34,7 +34,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <table class="scale-level-table table">
+                                <table class="scale-skill-set-table table">
                                     <thead>
                                     <tr>
                                         <th>Nama</th>
@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-    @include('segment.admin.dictionary.scalelvl.modals.index')
+    @include('segment.admin.dictionary.setting.skillset.modals.index')
 @endsection
 
 @section('customJS')
@@ -61,10 +61,10 @@
     @include('segment.layouts.asset_include_links.sweetAlert.js.sweet_alert_js')
 
     {{--  Custom files  --}}
-    <script src="{{ asset('js_helper/segment/admin/dictionary/scalelvl/swal.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionary/scalelvl/page_settings.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionary/scalelvl/datatable.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionary/scalelvl/ajax.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionary/scalelvl/index.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionary/setting/skillset/swal.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionary/setting/skillset/page_settings.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionary/setting/skillset/datatable.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionary/setting/skillset/ajax.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionary/setting/skillset/index.js') }}"></script>
 
 @endsection
