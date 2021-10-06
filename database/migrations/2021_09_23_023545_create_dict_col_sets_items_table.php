@@ -20,7 +20,7 @@ class CreateDictColSetsItemsTable extends Migration
             $table->integer('jurusan_id');
             $table->integer('dict_col_grades_categories_id');
             $table->text('title_eng');
-            $table->text('title_mal');
+            $table->text('title_mal')->nullable();
             $table->integer('flag');
             $table->integer('delete_id');
             $table->timestamps();

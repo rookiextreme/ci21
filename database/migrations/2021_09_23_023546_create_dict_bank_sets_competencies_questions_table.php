@@ -17,7 +17,7 @@ class CreateDictBankSetsCompetenciesQuestionsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('dict_bank_sets_items_id');
             $table->text('title_eng');
-            $table->text('title_mal');
+            $table->text('title_mal')->nullable();
             $table->integer('flag');
             $table->integer('delete_id');
             $table->timestamps();

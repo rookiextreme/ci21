@@ -12,6 +12,8 @@ use App\Http\Controllers\Segment\Admin\Dictionary\Setting\Skillset\ColSkillsetCo
 use App\Http\Controllers\Segment\Admin\Dictionary\ScaleLvl\ColScaleLvlController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Setting\CompetencyType\ColCompetencyTypeController;
 use App\Http\Controllers\Segment\Admin\Dictionary\CompetencyTypeSet\ColCompetencyTypeSetController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Collection\ColController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Collection\ColQuesController;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
@@ -30,6 +32,24 @@ Route::prefix('/admin')->group(function () {
     //Dictionary Collection
     Route::prefix('/dictionary')->group(function () {
         Route::prefix('/collection')->group(function () {
+            //Collection
+            Route::prefix('/listing')->group(function () {
+                Route::get('/', [ColController::class, 'index']);
+                Route::get('/list', [ColController::class, 'dict_list']);
+                Route::post('/tambah-kemaskini', [ColController::class, 'dict_tambah']);
+                Route::post('/get-record', [ColController::class, 'dict_get_record']);
+                Route::post('/activate', [ColController::class, 'dict_activate']);
+                Route::post('/delete', [ColController::class, 'dict_delete']);
+
+                Route::prefix('/ques')->group(function () {
+                    Route::post('/list', [ColQuesController::class, 'dict_ques_list']);
+                    Route::post('/tambah-kemaskini', [ColQuesController::class, 'dict_ques_tambah']);
+                    Route::post('/get-record', [ColQuesController::class, 'dict_ques_get_record']);
+                    Route::post('/activate', [ColQuesController::class, 'dict_ques_activate']);
+                    Route::post('/delete', [ColQuesController::class, 'dict_ques_delete']);
+                });
+            });
+
             //Measuring Lvl
             Route::prefix('/measuring-level')->group(function () {
                 Route::get('/', [ColMeasuringLvlController::class, 'index']);

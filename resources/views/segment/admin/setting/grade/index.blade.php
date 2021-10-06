@@ -4,7 +4,6 @@
     @include('segment.layouts.asset_include_links.datatable.css.datatable_css')
     @include('segment.layouts.asset_include_links.select2.css.select2_css')
     @include('segment.layouts.asset_include_links.sweetAlert.css.sweet_alert_css')
-
 @endsection
 
 @section('content')
@@ -66,5 +65,4 @@
     <script src="{{ asset('js_helper/segment/admin/setting/grade/datatable.js') }}"></script>
     <script src="{{ asset('js_helper/segment/admin/setting/grade/ajax.js') }}"></script>
     <script src="{{ asset('js_helper/segment/admin/setting/grade/index.js') }}"></script>
-
 @endsection
