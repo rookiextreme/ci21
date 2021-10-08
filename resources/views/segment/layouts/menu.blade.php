@@ -58,9 +58,11 @@
             @endrole
             @role('Admin')
             <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Dictionary</span><i data-feather="more-horizontal"></i></li>
-            <li class=" nav-item active"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">Collection</span></a>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">Collection</span></a>
                 <ul class="menu-content">
-                    <li class="active"><a class="d-flex align-items-center" href="{{Request::root()}}/admin/dictionary/collection/listing"><i data-feather="list"></i><span class="menu-item text-truncate" data-i18n="List">Koleksi</span></a>
+                    <li ><a class="d-flex align-items-center" href="{{Request::root()}}/admin/dictionary/collection/listing"><i data-feather="list"></i><span class="menu-item text-truncate" data-i18n="List">Koleksi</span></a>
+                    </li>
+                    <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/dictionary/collection/score-card"><i data-feather="list"></i><span class="menu-item text-truncate" data-i18n="List">Score Card</span></a>
                     </li>
                     <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/dictionary/collection/competency-type-set"><i data-feather="type"></i><span class="menu-item text-truncate" data-i18n="List">Competency Type Set</span></a>
                     </li>
@@ -70,7 +72,7 @@
                     </li>
                     <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/dictionary/collection/measuring-level"><i data-feather="tool"></i><span class="menu-item text-truncate" data-i18n="List">Measuring Level</span></a>
                     </li>
-                    <li><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Second Level">Settings</span></a>
+                    <li><a class="d-flex align-items-center" href="#"><i data-feather="zap"></i><span class="menu-item text-truncate" data-i18n="Second Level">Settings</span></a>
                         <ul class="menu-content">
                             <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/dictionary/collection/setting/scale-skill-set"><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Scale Skill Sets</span></a>
                             </li>
@@ -81,12 +83,13 @@
                 </ul>
             </li>
             <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Tetapan</span><i data-feather="more-horizontal"></i></li>
-            <li class=" nav-item active"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">Setting</span></a>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">Setting</span></a>
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/setting/grade"><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Grade</span></a>
                     </li>
                 </ul>
             </li>
+            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Penilaian</span><i data-feather="more-horizontal"></i></li>
             @endrole
         </ul>
     </div>

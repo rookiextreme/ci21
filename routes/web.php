@@ -96,6 +96,10 @@ Route::prefix('/admin')->group(function () {
                 });
             });
 
+            Route::prefix('/score-card')->group(function () {
+
+            });
+
             Route::prefix('/setting')->group(function () {
                 //Skill Set For Scale Level
                 Route::prefix('/scale-skill-set')->group(function () {
