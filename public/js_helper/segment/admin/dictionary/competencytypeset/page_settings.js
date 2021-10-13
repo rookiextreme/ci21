@@ -9,7 +9,7 @@ $('.select2').each(function () {
 });
 
 $(document).on('click', '.show-competency-type-page', function (){
-    window.location.href = getUrl() + 'admin/dictionary/collection/setting/competency-type';
+    window.location.href = getUrl() + '/admin/dictionary/collection/setting/competency-type';
 })
 
 $(document).on('click', '.show-scale-level-page', function (){

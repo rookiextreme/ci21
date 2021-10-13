@@ -14,6 +14,7 @@ use App\Http\Controllers\Segment\Admin\Dictionary\Setting\CompetencyType\ColComp
 use App\Http\Controllers\Segment\Admin\Dictionary\CompetencyTypeSet\ColCompetencyTypeSetController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Collection\ColController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Collection\ColQuesController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankController;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
@@ -31,6 +32,7 @@ Route::prefix('/admin')->group(function () {
 
     //Dictionary Collection
     Route::prefix('/dictionary')->group(function () {
+        //start collection
         Route::prefix('/collection')->group(function () {
             //Collection
             Route::prefix('/listing')->group(function () {
@@ -121,8 +123,20 @@ Route::prefix('/admin')->group(function () {
                     Route::post('/delete', [ColCompetencyTypeController::class, 'competency_type_delete']);
                 });
             });
+
+            
         });
+        //end collection
+        /////////////////////////////////////////////////RUBMIN////////////////////////////////////////
+        // start bank
+         Route::prefix('/bank')->group(function () {
+                Route::get('/', [BankController::class, 'index'])->name('bank.index');
+                Route::get('/bank-datalist', [BankController::class, 'dict_bank_datalist'])->name('bank.datalist');
+            });
+        // end bank
     });
+
+
 
     Route::prefix('/setting')->group(function () {
         //Grade
