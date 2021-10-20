@@ -132,6 +132,10 @@ Route::prefix('/admin')->group(function () {
          Route::prefix('/bank')->group(function () {
                 Route::get('/', [BankController::class, 'index'])->name('bank.index');
                 Route::get('/bank-datalist', [BankController::class, 'dict_bank_datalist'])->name('bank.datalist');
+                Route::post('/load_grades',[BankController::class, 'load_grades_category']);
+                Route::post('/save_bank',[BankController::class,'save_dict_bank']);
+                Route::post('/delete_bank',[BankController::class,'delete_dict_bank']);
+                Route::post('/load_bank',[BankController::class,'load_saved_dict_bank']);
             });
         // end bank
     });

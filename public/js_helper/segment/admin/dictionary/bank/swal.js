@@ -24,7 +24,7 @@ function swalAjaxFire(postData){
     let data = postData.data;
     let postfunc = postData.postfunc;
 
-    $.blockUI();
+    // $.blockUI();
     $.ajax({
         type:'POST',
         url: getUrl() + url,
@@ -39,7 +39,7 @@ function swalAjaxFire(postData){
 
             if(postfunc == 0){
                 if(success == 1){
-                    $('.grade-table').DataTable().ajax.reload(null, false);
+                    $('.dictionary-bank-table').DataTable().ajax.reload(null, false);
                     swalPostFire('error', 'Berjaya Dipadam', 'Grade Sudah Dipadam');
                 }
                 $.unblockUI();

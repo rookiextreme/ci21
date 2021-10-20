@@ -49,11 +49,11 @@
 			                                 <div class="row">
 			                                 	<div class="form-group col-md-6">
 			                                        <label class="form-label" for="title">Tajuk</label>
-			                                        <input type="text" id="title" value="" name="title" class="form-control"/>
+			                                        <input type="text" id="title" value="" name="title" class="form-control title-bank-text"/>
 			                                    </div>
 			                                    <div class="form-group col-md-6">
 			                                    	<label class="form-label" for="title">Tahun</label>
-			                                        <select id="title" name="title" class="form-control select2">
+			                                        <select id="title" name="title" class="form-control select2 year-bank-select">
 			                                        	<option value="">- Sila Pilih Tahun -</option>
 			                                        	@foreach($years as $year)
 			                                        	<option value="{{$year}}">{{$year}}</option>
@@ -64,11 +64,11 @@
 			                                 <div class="row">
 			                                 	<div class="col-md-6 form-group">
 				                                    <label for="tkh_mula">Tarikh mula</label>
-				                                    <input type="text" id="tkh_mula" name="" class="form-control flatpickr-date-time" />
+				                                    <input type="text" id="tkh_mula" name="" class="form-control flatpickr-date-time start-date-bank" />
 				                                </div>
 				                                <div class="col-md-6 form-group">
 				                                    <label for="tkh_akhir">Tarikh akhir</label>
-				                                    <input type="text" id="tkh_akhir" name="" class="form-control flatpickr-date-time" />
+				                                    <input type="text" id="tkh_akhir" name="" class="form-control flatpickr-date-time end-date-bank" />
 				                                </div>
 			                                 </div>
 			                                 <div class="d-flex justify-content-between">
@@ -90,20 +90,40 @@
 			                                </div>
 			                                <div class="row">
 			                                    <div class="form-group col-md-6">
-			                                    	<label class="form-label" for="title">Jenis Kecekapan</label>
-			                                        <select id="" name="competency-type" class="form-control select2">
+			                                    	<label class="form-label" for="competency-type">Jenis Kecekapan</label>
+			                                        <select id="" name="competency-type" class="form-control select2 select-compentency-type">
 			                                        	<option value="">- Sila Pilih Jenis Kecekapan -</option>
 			                                        	@foreach($competency_types as $ct)
-			                                        	<option value="{{$ct->name}}">{{$ct->name}}</option>
+			                                        	<option value="{{$ct->id}}">{{$ct->name}}</option>
 			                                        	@endforeach
 			                                        </select>
 			                                    </div>
 			                                    <div class="form-group col-md-6">
-			                                    	<label class="form-label" for="title">Tahap Pengukuran</label>
-			                                        <select id="" name="measuring-lvl" class="form-control select2">
+			                                    	<label class="form-label" for="measuring-lvl">Tahap Pengukuran</label>
+			                                        <select id="" name="measuring-lvl" class="form-control select2 select-measuring-lvl">
 			                                        	<option value="">- Sila Pilih Tahap Pengukuran -</option>
 			                                        	@foreach($measuring_levels as $ml)
-			                                        	<option value="{{$ml->name}}">{{$ml->name}}</option>
+			                                        	<option value="{{$ml->id}}">{{$ml->name}}</option>
+			                                        	@endforeach
+			                                        </select>
+			                                    </div>
+			                                </div>
+			                                <div class="row">
+			                                	<div class="form-group col-md-6">
+			                                    	<label class="form-label" for="grade-category">Kategori Gred</label>
+			                                        <select id="" name="grade-category" class="form-control select2 select-grade-category">
+			                                        	<option value="">- Sila Pilih Kategori Gred -</option>
+			                                        	@foreach($grade_category as $gc)
+			                                        	<option value="{{$gc->id}}">{{$gc->name}}</option>
+			                                        	@endforeach
+			                                        </select>
+			                                    </div>
+			                                    <div class="form-group col-md-6">
+			                                    	<label class="form-label" for="grades">Gred - Gred</label>
+			                                        <select id="" name="grades" class="form-control select2 select-grades" multiple>
+			                                        	<option value="">- Sila Pilih Gred -</option>
+			                                        	@foreach($grades as $g)
+			                                        	<option value="{{$g->id}}">{{$g->name}}</option>
 			                                        	@endforeach
 			                                        </select>
 			                                    </div>
@@ -113,10 +133,7 @@
 			                                        <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
 			                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
 			                                    </button>
-			                                    <button class="btn btn-outline-secondary btn-next" disabled>
-			                                        <span class="align-middle d-sm-inline-block d-none">Next</span>
-			                                        <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
-			                                    </button>
+			                                    <button class="btn btn-success btn-submit btn-submit-bank">Submit</button>
 			                                </div>
 	            						</div>
 	            					</div>

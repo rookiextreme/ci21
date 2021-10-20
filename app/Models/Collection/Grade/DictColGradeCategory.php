@@ -12,6 +12,10 @@ class DictColGradeCategory extends Model{
         return $this->hasMany('App\Models\Collection\Grade\DictColGrade', 'dict_col_grades_categories_id', 'id')->where('delete_id', 0);
     }
 
+    public function grades(){
+        return $this->belongsToMany('App\Models\Regular\Grade','dict_col_grades','dict_col_grades_categories_id','grades_id');
+    }
+
     public function createAndUpdate(Request $request) : array{
         $grade_category_nama = $request->input('grade_category_nama');
         $grade_category_grade_listing = json_decode($request->input('grade_category_grade_listing'));

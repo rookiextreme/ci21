@@ -4,6 +4,7 @@ namespace App\Models\Penilaian\DictBank\Set;
 use Illuminate\Database\Eloquent\Model;
 
 class DictBankSet extends Model{
+    
     public function dictBankSetProfile(){
         return $this->hasOne('App\Models\Profiles\Profile', 'id', 'profiles_id');
     }

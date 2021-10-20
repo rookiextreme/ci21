@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class DictColCompetencyType extends Model{
+    protected $table = 'dict_col_competency_types';
+    
     public function dictColCompetencyTypeYear(){
         return $this->hasOne('App\Models\Regular\Year', 'id', 'years_id');
     }

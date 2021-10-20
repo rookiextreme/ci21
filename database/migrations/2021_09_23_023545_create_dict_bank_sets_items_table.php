@@ -17,13 +17,13 @@ class CreateDictBankSetsItemsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('dict_bank_sets_id');
             $table->integer('dict_bank_measuring_lvls_id');
-            $table->integer('dict_bank_competency_types_scale_lvls_id');
-            $table->integer('jurusan_id');
+            $table->integer('dict_bank_competency_types_scale_lvls_id')->nullable();
+            $table->integer('jurusan_id')->nullable();
             $table->integer('dict_bank_grades_categories_id');
-            $table->text('title_eng');
-            $table->text('title_mal');
-            $table->integer('flag');
-            $table->integer('delete_id');
+            $table->text('title_eng')->nullable();
+            $table->text('title_mal')->nullable();
+            $table->integer('flag')->nullable();
+            $table->integer('delete_id')->nullable();
             $table->timestamps();
         });
 

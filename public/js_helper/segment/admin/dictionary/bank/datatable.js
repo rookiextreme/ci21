@@ -6,7 +6,7 @@ $('.dictionary-bank-table').DataTable({
     columns: [
         { data: 'title' },
         { data: 'tkh_mula' },
-        { data: 'tkh_akhir' },
+        { data: 'tkh_tamat' },
         { data: 'flag_publish' },
         { data: 'action' },
     ],
@@ -24,7 +24,7 @@ $('.dictionary-bank-table').DataTable({
                 let outLine = row_flag == 1 ? 'badge-success' : 'badge-warning';
                 let text = row_flag == 1 ? 'Sudah Terbit' : 'Tidak Terbit';
                 return (
-                    '<span class="badge badge-glow '+outline+'">'+text+'</span>'
+                    '<span class="badge badge-glow '+outLine+'">'+text+'</span>'
                 );
             }
         },
@@ -35,8 +35,9 @@ $('.dictionary-bank-table').DataTable({
             orderable: false,
             render: function (data, type, full, meta) {
                 return (
-                    '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light update-dict-col-questions-list">'+ feather.icons['copy'].toSvg() +'</button>' +
-                    '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-dict-col">'+ feather.icons['trash-2'].toSvg() +'</button>'
+                    // '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light copy-dict-bank">'+ feather.icons['copy'].toSvg() +'</button>' +
+                    '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light update-dict-bank">'+ feather.icons['edit-3'].toSvg() +'</button>' +
+                    '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-dict-bank">'+ feather.icons['trash-2'].toSvg() +'</button>'
                 );
             }
         }

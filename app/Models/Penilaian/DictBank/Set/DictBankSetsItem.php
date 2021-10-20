@@ -4,6 +4,8 @@ namespace App\Models\Penilaian\DictBank\Set;
 use Illuminate\Database\Eloquent\Model;
 
 class DictBankSetsItem extends Model{
+    protected $table = 'dict_bank_sets_items';
+
     public function dictBankSetsItemDictBankSet(){
         return $this->hasOne('App\Models\Penilaian\DictBank\Set\DictBankSet', 'id', 'dict_bank_sets_id');
     }

@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        /* it should be copy from dict_col_measuring_lvls table - by rubmin
         DB::table('dict_bank_measuring_lvls')->insert([
             [
                 'name' => 'Corporate Effectiveness',
@@ -57,6 +58,7 @@ class DatabaseSeeder extends Seeder
                 'delete_id' => 0
             ]
         ]);
+        */
 
         DB::table('dict_col_measuring_lvls')->insert([
             [
@@ -450,6 +452,44 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'None',
+                'flag' => 1,
+                'delete_id' => 0
+            ]
+        ]);
+
+        DB::table('dict_col_competency_types')->insert([
+            [
+                'name' => 'Behavioural',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Functional',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Generic',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'ICT',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Language',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Technical (Discipline)',
+                'flag' => 1,
+                'delete_id' => 0
+            ],
+            [
+                'name' => 'Technical (Generic)',
                 'flag' => 1,
                 'delete_id' => 0
             ]

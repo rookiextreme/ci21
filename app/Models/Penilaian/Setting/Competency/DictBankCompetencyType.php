@@ -4,6 +4,8 @@ namespace App\Models\Penilaian\Setting\Competency;
 use Illuminate\Database\Eloquent\Model;
 
 class DictBankCompetencyType extends Model{
+    protected $table = 'dict_bank_competency_types';
+    
     public function dictBankCompetencyTypeYear(){
         return $this->hasOne('App\Models\Regular\Year', 'id', 'years_id');
     }

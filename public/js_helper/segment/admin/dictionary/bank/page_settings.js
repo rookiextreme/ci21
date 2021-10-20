@@ -264,11 +264,5 @@
       .on('click', function () {
         modernStepper.previous();
       });
-
-    $(modernWizard)
-      .find('.btn-submit')
-      .on('click', function () {
-        alert('Submitted..!!');
-      });
-  
+      
 })(window, document, jQuery);

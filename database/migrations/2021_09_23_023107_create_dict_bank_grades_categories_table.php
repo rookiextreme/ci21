@@ -16,6 +16,7 @@ class CreateDictBankGradesCategoriesTable extends Migration
         Schema::create('dict_bank_grades_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('dict_bank_sets_id');
+            $table->integer('dict_col_grades_categories_id');
             $table->string('name');
             $table->integer('flag');
             $table->integer('delete_id');
@@ -24,6 +25,7 @@ class CreateDictBankGradesCategoriesTable extends Migration
 
         Schema::table('dict_bank_grades_categories', function(Blueprint $table){
             $table->foreign('dict_bank_sets_id')->references('id')->on('dict_bank_sets');
+            $table->foreign('dict_col_grades_categories_id')->references('id')->on('dict_col_grades_categories');
         });
     }
 

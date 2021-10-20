@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class Grade extends Model{
+    protected $table = 'grades';
+
     public function createAndUpdate(Request $request) : array{
         $grade_nama = $request->input('grade_nama');
         $grade_id = $request->input('grade_id');
