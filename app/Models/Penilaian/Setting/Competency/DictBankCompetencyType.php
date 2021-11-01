@@ -13,4 +13,8 @@ class DictBankCompetencyType extends Model{
     public function dictBankCompetencyTypeScaleBridge(){
         return $this->hasMany('App\Models\Penilaian\Setting\Scalelvl\DictBankCompetencyTypesScaleLvl', 'dict_bank_competency_types_id', 'id');
     }
+
+    public function dictColCompetencyTypes(){
+        return $this->hasOne('App\Models\Collection\Setting\Competency\DictColCompetencyType', 'id', 'dict_col_competency_types_id');
+    }
 }

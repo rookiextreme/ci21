@@ -23,6 +23,6 @@ class DictBankSetsItem extends Model{
     }
 
     public function dictBankSetsItemDictGradeCategory(){
-        $this->hasOne('App\Models\Penilaian\Grade\DictBankGradeCategory', 'id', 'dict_bank_grades_categories_id');
+        return $this->hasOne('App\Models\Penilaian\Grade\DictBankGradeCategory', 'id', 'dict_bank_grades_categories_id');
     }
 }

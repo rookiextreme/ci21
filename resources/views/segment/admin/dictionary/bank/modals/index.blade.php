@@ -50,6 +50,7 @@
 			                                 	<div class="form-group col-md-6">
 			                                        <label class="form-label" for="title">Tajuk</label>
 			                                        <input type="text" id="title" value="" name="title" class="form-control title-bank-text"/>
+			                                        <input type="hidden" class="hidden-id-bank" />
 			                                    </div>
 			                                    <div class="form-group col-md-6">
 			                                    	<label class="form-label" for="title">Tahun</label>
@@ -97,6 +98,7 @@
 			                                        	<option value="{{$ct->id}}">{{$ct->name}}</option>
 			                                        	@endforeach
 			                                        </select>
+			                                        <input type="hidden" class="hidden-id-competency" />
 			                                    </div>
 			                                    <div class="form-group col-md-6">
 			                                    	<label class="form-label" for="measuring-lvl">Tahap Pengukuran</label>
@@ -106,6 +108,7 @@
 			                                        	<option value="{{$ml->id}}">{{$ml->name}}</option>
 			                                        	@endforeach
 			                                        </select>
+			                                        <input type="hidden" class="hidden-id-measuring" />
 			                                    </div>
 			                                </div>
 			                                <div class="row">
@@ -117,6 +120,7 @@
 			                                        	<option value="{{$gc->id}}">{{$gc->name}}</option>
 			                                        	@endforeach
 			                                        </select>
+			                                        <input type="hidden" class="hidden-id-grade-catgory" />
 			                                    </div>
 			                                    <div class="form-group col-md-6">
 			                                    	<label class="form-label" for="grades">Gred - Gred</label>
@@ -133,6 +137,7 @@
 			                                        <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
 			                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
 			                                    </button>
+			                                    <button class="btn btn-success btn-submit btn-save-bank">Save</button>
 			                                    <button class="btn btn-success btn-submit btn-submit-bank">Submit</button>
 			                                </div>
 	            						</div>

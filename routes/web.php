@@ -136,6 +136,7 @@ Route::prefix('/admin')->group(function () {
                 Route::post('/save_bank',[BankController::class,'save_dict_bank']);
                 Route::post('/delete_bank',[BankController::class,'delete_dict_bank']);
                 Route::post('/load_bank',[BankController::class,'load_saved_dict_bank']);
+                Route::post('/update_bank',[BankController::class,'update_dict_bank']);
             });
         // end bank
     });
