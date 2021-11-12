@@ -18,7 +18,7 @@ class CreateDictBankScaleLvlsSetsTable extends Migration
             $table->integer('dict_bank_scale_lvls_id');
             $table->integer('dict_bank_scale_lvls_skillsets_id');
             $table->string('name');
-            $table->integer('score');
+            $table->integer('score')->nullable();
             $table->integer('flag');
             $table->integer('delete_id');
             $table->timestamps();

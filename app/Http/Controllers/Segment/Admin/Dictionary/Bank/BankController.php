@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Penilaian\DictBank\Set\DictBankSet;
 use App\Models\Penilaian\DictBank\Set\DictBankSetsItem;
-use App\Models\Penilaian\Setting\Competency\DictBankCompetencyType;
+use App\Models\Penilaian\Setting\Competency\DictBankCompentencyType;
 use App\Models\Penilaian\Setting\Measuringlvl\DictBankMeasuringlvl;
 use App\Models\Penilaian\Grade\DictBankGradeCategory;
 use App\Models\Penilaian\Grade\DictBankGrade;
@@ -117,7 +117,7 @@ class BankController extends Controller
         $dict_bank_sets_id = DictBankSet::insertGetId($dict_bank_sets_data);
 
         if(isset($dict_bank_sets_id)) {
-            $compentency_types = $request->input('compentency_type');
+            /*$compentency_types = $request->input('compentency_type');
 
             if(isset($compentency_types)) {
                 $ct = DictColCompetencyType::find($compentency_types);
@@ -132,12 +132,17 @@ class BankController extends Controller
                     'created_at' => $dt->format('Y-m-d H:i:s.uT')
                 ];
 
-                $dict_bank_compentency_types_id = DictBankCompetencyType::insertGetId($dict_bank_competency_types_data);
+
+                $dict_bank_compentency_types_id = DictBankCompentencyType::insertGetId($dict_bank_competency_types_data);
             }
 
-            $measuring_level = $request->input('measuring_level');
+                $dict_bank_compentency_types_id = DictBankCompetencyType::insertGetId($dict_bank_competency_types_data);
+            }*/
 
-            if(isset($measuring_level)) {
+
+            // $measuring_level = $request->input('measuring_level');
+
+            /*if(isset($measuring_level)) {
                 $ml = DictColMeasuringlvl::find($measuring_level);
 
                 $dict_bank_measuring_lvls_data = [
@@ -150,7 +155,8 @@ class BankController extends Controller
 
                 $dict_bank_measuring_lvls_id = DictBankMeasuringlvl::insertGetId($dict_bank_measuring_lvls_data);
             }
-
+            */
+            
             $grade_category = $request->input('grade_category');
 
             if(isset($grade_category)) {
@@ -192,7 +198,7 @@ class BankController extends Controller
                 DictBankGrade::insert($dict_bank_grades_data);
             }
 
-            $dict_bank_sets_items_data = [
+            /*$dict_bank_sets_items_data = [
                 'dict_bank_sets_id' => $dict_bank_sets_id,
                 'dict_bank_measuring_lvls_id' => $dict_bank_measuring_lvls_id,
                 'dict_bank_grades_categories_id' => $dict_bank_grades_categories_id,
@@ -201,7 +207,8 @@ class BankController extends Controller
                 'created_at' => $dt->format('Y-m-d H:i:s.uT')
             ];
 
-            DictBankSetsItem::insert($dict_bank_sets_items_data);
+            DictBankSetsItem::insert($dict_bank_sets_items_data);*/
+
 
             $data = [
                 'success' => 1,
@@ -233,17 +240,18 @@ class BankController extends Controller
     public function load_saved_dict_bank(Request $request) {
         $dict_bank_sets_id = $request->input('dict_bank_sets_id');
 
-        $model = DictBankSetsItem::where('dict_bank_sets_id',$dict_bank_sets_id)->first();
+        // $model = DictBankSetsItem::where('dict_bank_sets_id',$dict_bank_sets_id)->first();
 
         $bank = DictBankSet::find($dict_bank_sets_id);
 
-        $grade_category = DictBankGradeCategory::find($model->dictBankSetsItemDictGradeCategory->id);
+        $grade_category = DictBankGradeCategory::where('dict_bank_sets_id',$bank->id)->first();
 
         $grades = DictBankGrade::where('dict_bank_grades_categories_id',$grade_category->id)->get();
 
-        $measuring_level = DictBankMeasuringlvl::find($model->dictBankSetsItemMeasuringLvl->id);
+        // $measuring_level = DictBankMeasuringlvl::find($model->dictBankSetsItemMeasuringLvl->id);
 
-        $competency_type = DictBankCompetencyType::where('dict_bank_sets_id',$dict_bank_sets_id)->first();
+        // $competency_type = DictBankCompetencyType::where('dict_bank_sets_id',$dict_bank_sets_id)->first();
+
 
         $grades_arr = array();
 
@@ -260,10 +268,10 @@ class BankController extends Controller
                 'year' => $bank->dictBankSetYear->year,
                 'start_date' => $bank->tkh_mula,
                 'end_date' => $bank->tkh_tamat,
-                'measuring_level' => $measuring_level->dictColMeasuringLvls->id,
-                'measuring_level_id' => $measuring_level->id,
-                'competency_type' => $competency_type->dictColCompetencyTypes->id,
-                'competency_type_id' => $competency_type->id,
+                // 'measuring_level' => $measuring_level->dictColMeasuringLvls->id,
+                // 'measuring_level_id' => $measuring_level->id,
+                // 'competency_type' => $competency_type->dictColCompetencyTypes->id,
+                // 'competency_type_id' => $competency_type->id,
                 'grade_category' => $grade_category->dict_col_grades_categories_id,
                 'grade_category_id' => $grade_category->id,
                 'grades' => $grades_arr
@@ -298,7 +306,7 @@ class BankController extends Controller
              DictBankSet::where('id',$dict_bank_sets_id)->update($dict_bank_sets_data);
         }
 
-        $compentency_types = $request->input('compentency_type');
+        /*$compentency_types = $request->input('compentency_type');
         $compentency_id = $request->input('competency_type_id');
 
         if(isset($compentency_id)) {
@@ -317,9 +325,9 @@ class BankController extends Controller
                 DictBankCompetencyType::where('id',$compentency_id)->update($dict_bank_competency_types_data);
             }
             
-        }
+        }*/
 
-        $measuring_level = $request->input('measuring_level');
+        /*$measuring_level = $request->input('measuring_level');
         $measuring_lvl_id = $request->input('measuring_lvl_id');
 
         if(isset($measuring_level)) {
@@ -336,7 +344,7 @@ class BankController extends Controller
 
                 DictBankMeasuringlvl::where('id',$measuring_lvl_id)->update($dict_bank_measuring_lvls_data);
             }
-        }
+        }*/
 
         $grade_category = $request->input('grade_category');
         $grade_category_id = $request->input('grade_category_id');
@@ -382,8 +390,8 @@ class BankController extends Controller
         $data = [
             'success' => 1,
             'data' => array()
-        ]; 
+        ];
 
-         return response()->json($data);   
-    } 
+        return response()->json($data);
+    }
 }

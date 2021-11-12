@@ -1,5 +1,6 @@
 //Grade
-$(document).on('click', '.add-dict-bank, .btn-submit-bank, .delete-dict-bank, .update-dict-bank, .btn-save-bank', function(){
+$(document).on('click', '.add-dict-bank, .btn-submit-bank, .delete-dict-bank, .update-dict-bank, .btn-save-bank, .open-bank-items', function(){
+
     let selectedClass = $(this);
     if(selectedClass.hasClass('add-dict-bank')){
         postEmptyFields([
@@ -32,10 +33,7 @@ $(document).on('click', '.add-dict-bank, .btn-submit-bank, .delete-dict-bank, .u
         data.append('grade_category', $('.select-grade-category').val());
         data.append('grades', JSON.stringify($('.select-grades').val()));
 
-        
         ajax('/admin/dictionary/bank/save_bank',data,1);
-        
-        
     } else if(selectedClass.hasClass('delete-dict-bank')){
         let dict_bank_sets_id = selectedClass.closest('tr').attr('data-dict-bank-id');
         let data = new FormData;
@@ -95,6 +93,9 @@ $(document).on('click', '.add-dict-bank, .btn-submit-bank, .delete-dict-bank, .u
         data.append('grade_category_id',$('.hidden-id-grade-catgory').val());
 
         ajax('/admin/dictionary/bank/update_bank',data,3);
+    } else if(selectedClass.hasClass('open-bank-items')){
+        let dict_bank_sets_id = selectedClass.closest('tr').attr('data-dict-bank-id');
+        window.location.href = getUrl() + '/admin/dictionary/bank/item/'+dict_bank_sets_id;
     }
 });
 

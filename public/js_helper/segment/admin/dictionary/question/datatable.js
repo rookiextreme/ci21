@@ -1,7 +1,7 @@
-$('.dictionary-bank-table').DataTable({
+$('.question-bank-table').DataTable({
     processing: true,
     serverSide: true,
-    ajax: getUrl() + '/admin/dictionary/bank/bank-datalist',
+    ajax: getUrl() + '/admin/dictionary/question/que-datalist',
     lengthChange:true,
     columns: [
         { data: 'title' },
@@ -36,9 +36,8 @@ $('.dictionary-bank-table').DataTable({
             render: function (data, type, full, meta) {
                 return (
                     // '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light copy-dict-bank">'+ feather.icons['copy'].toSvg() +'</button>' +
-                    '<button type="button" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light open-bank-items">'+ feather.icons['file-plus'].toSvg() +'</button>' +
-                    '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light update-dict-bank">'+ feather.icons['edit-3'].toSvg() +'</button>' +
-                    '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-dict-bank">'+ feather.icons['trash-2'].toSvg() +'</button>'
+                    '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light set-que-bank">'+ feather.icons['edit-3'].toSvg() +'</button>'
+                    // '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-dict-bank">'+ feather.icons['trash-2'].toSvg() +'</button>'
                 );
             }
         }
@@ -47,7 +46,7 @@ $('.dictionary-bank-table').DataTable({
         '<"card-header border-bottom p-1"<"head-label"><"dt-action-buttons text-right"B>><"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
     lengthMenu: [7, 10, 25, 50, 75, 100],
     buttons: [
-        {
+        /*{
             text: feather.icons['plus'].toSvg({ class: 'mr-50 font-small-4' }) + 'Tambah Penilaian',
             className: 'create-new btn btn-warning add-dict-bank',
             attr: {
@@ -57,7 +56,7 @@ $('.dictionary-bank-table').DataTable({
             init: function (api, node, config) {
                 $(node).removeClass('btn-secondary');
             }
-        },
+        },*/
     ],
     responsive: {
         details: {

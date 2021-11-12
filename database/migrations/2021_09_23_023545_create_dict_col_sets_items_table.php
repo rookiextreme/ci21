@@ -17,7 +17,7 @@ class CreateDictColSetsItemsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('dict_col_measuring_lvls_id');
             $table->integer('dict_col_competency_types_scale_lvls_id');
-            $table->integer('jurusan_id');
+            $table->text('jurusan_id')->nullable();
             $table->integer('dict_col_grades_categories_id');
             $table->text('title_eng');
             $table->text('title_mal')->nullable();

@@ -16,11 +16,11 @@ class CreateDictBankCompetencyTypesTable extends Migration
         Schema::create('dict_bank_competency_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->integer('years_id');
-            $table->integer('dict_col_competency_types_id');
-            $table->integer('dict_bank_sets_id');
-            $table->integer('flag');
-            $table->integer('delete_id');
+            $table->integer('years_id')->nullable();
+            $table->integer('dict_col_competency_types_id')->nullable();;
+            $table->integer('dict_bank_sets_id')->nullable();;
+            $table->integer('flag')->nullable();;
+            $table->integer('delete_id')->nullable();
             $table->timestamps();
         });
 
