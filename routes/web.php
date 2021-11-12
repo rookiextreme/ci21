@@ -15,6 +15,7 @@ use App\Http\Controllers\Segment\Admin\Dictionary\CompetencyTypeSet\ColCompetenc
 use App\Http\Controllers\Segment\Admin\Dictionary\Collection\ColController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Collection\ColQuesController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Bank\QuestionController;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
@@ -136,10 +137,21 @@ Route::prefix('/admin')->group(function () {
                 Route::post('/save_bank',[BankController::class,'save_dict_bank']);
                 Route::post('/delete_bank',[BankController::class,'delete_dict_bank']);
                 Route::post('/load_bank',[BankController::class,'load_saved_dict_bank']);
-            });
-        // end bank
-    });
+                Route::post('/update_bank',[BankController::class,'update_dict_bank']);
 
+                Route::prefix('/item')->group(function () {
+                    Route::get('/{id}', [QuestionController::class, 'index']);
+                    Route::get('/item-datalist/{id}', [QuestionController::class, 'item_sets_datalist']);
+                    Route::get('/list/col-datalist',[QuestionController::class, 'load_col_items']);
+                    Route::post('/add/item',[QuestionController::class, 'save_item_set']);
+                    Route::post('/delete/item',[QuestionController::class, 'remove_item']);
+                });
+            });
+
+        // end bank 
+    });
+    
+    // Route::get('/admin/dictionary/bank/item/col-datalist', [QuestionController::class, 'load_col_items']);
 
 
     Route::prefix('/setting')->group(function () {

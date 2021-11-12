@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class DictColSetsCompetenciesQuestion extends Model{
+    protected $table = 'dict_col_sets_competencies_questions';
+
     public function createAndUpdate(Request $request) : array{
         $dict_col_ques_nama_eng = $request->input('dict_col_ques_nama_eng');
         $dict_col_ques_nama_melayu = $request->input('dict_col_ques_nama_melayu');

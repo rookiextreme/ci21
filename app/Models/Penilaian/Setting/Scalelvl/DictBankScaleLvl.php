@@ -4,6 +4,8 @@ namespace App\Models\Penilaian\Setting\Scalelvl;
 use Illuminate\Database\Eloquent\Model;
 
 class DictBankScaleLvl extends Model{
+    protected $table = 'dict_bank_scale_lvls';
+    
     public function dictBankScaleLvlYear(){
         return $this->hasOne('App\Models\Regular\Year', 'id', 'years_id');
     }

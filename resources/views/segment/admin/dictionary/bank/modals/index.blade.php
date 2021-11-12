@@ -34,7 +34,7 @@
 			                                    </span>
 			                                    <span class="bs-stepper-label">
 			                                        <span class="bs-stepper-title">Maklumat Kategori</span>
-			                                        <span class="bs-stepper-subtitle">Isian Maklumat Kategori</span>
+			                                        {{-- <span class="bs-stepper-subtitle">Isian Maklumat Kategori</span> --}}
 			                                    </span>
 			                                </button>
 			                            </div>
@@ -71,15 +71,38 @@
 				                                    <input type="text" id="tkh_akhir" name="" class="form-control flatpickr-date-time end-date-bank" />
 				                                </div>
 			                                 </div>
+			                                 <div class="row">
+			                                	<div class="form-group col-md-6">
+			                                    	<label class="form-label" for="grade-category">Kategori Gred</label>
+			                                        <select id="" name="grade-category" class="form-control select2 select-grade-category">
+			                                        	<option value="">- Sila Pilih Kategori Gred -</option>
+			                                        	@foreach($grade_category as $gc)
+			                                        	<option value="{{$gc->id}}">{{$gc->name}}</option>
+			                                        	@endforeach
+			                                        </select>
+			                                        <input type="hidden" class="hidden-id-grade-catgory" />
+			                                    </div>
+			                                    <div class="form-group col-md-6">
+			                                    	<label class="form-label" for="grades">Gred - Gred</label>
+			                                        <select id="" name="grades" class="form-control select2 select-grades" multiple>
+			                                        	<option value="">- Sila Pilih Gred -</option>
+			                                        	@foreach($grades as $g)
+			                                        	<option value="{{$g->id}}">{{$g->name}}</option>
+			                                        	@endforeach
+			                                        </select>
+			                                    </div>
+			                                </div>
 			                                 <div class="d-flex justify-content-between">
-			                                    <button class="btn btn-outline-secondary btn-prev" disabled>
+			                                    {{-- <button class="btn btn-outline-secondary btn-prev" disabled>
 			                                        <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
 			                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
 			                                    </button>
 			                                    <button class="btn btn-primary btn-next">
 			                                        <span class="align-middle d-sm-inline-block d-none">Next</span>
 			                                        <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
-			                                    </button>
+			                                    </button> --}}
+			                                    <button class="btn btn-success btn-submit btn-save-bank">Save</button>
+			                                    <button class="btn btn-success btn-submit btn-submit-bank">Submit</button>
 			                                </div>
 	            						</div>
 
@@ -108,6 +131,7 @@
 			                                        </select>
 			                                    </div>
 			                                </div>
+
 			                                <div class="row">
 			                                	<div class="form-group col-md-6">
 			                                    	<label class="form-label" for="grade-category">Kategori Gred</label>
@@ -128,12 +152,13 @@
 			                                        </select>
 			                                    </div>
 			                                </div>
+
 			                                <div class="d-flex justify-content-between">
 			                                    <button class="btn btn-primary btn-prev">
 			                                        <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
 			                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
 			                                    </button>
-			                                    <button class="btn btn-success btn-submit btn-submit-bank">Submit</button>
+
 			                                </div>
 	            						</div>
 	            					</div>

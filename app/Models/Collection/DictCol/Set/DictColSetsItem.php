@@ -25,6 +25,10 @@ class DictColSetsItem extends Model{
         return $this->hasOne('App\Models\Collection\Grade\DictColGradeCategory', 'id', 'dict_col_grades_categories_id');
     }
 
+    public function dictColSetsCompetenciesQuestions() {
+        return $this->hasMany('App\Models\Collection\DictCol\Question\DictColSetsCompetenciesQuestion','id','dict_col_sets_items_id');
+    }
+
     public function createAndUpdate(Request $request) : array{
 
         $dict_col_nama_eng = $request->input('dict_col_nama_eng');

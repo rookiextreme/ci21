@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class DictColScaleLvl extends Model{
+
     public function dictColScaleLvlYear(){
         return $this->hasOne('App\Models\Regular\Year', 'id', 'years_id');
     }
@@ -19,6 +20,10 @@ class DictColScaleLvl extends Model{
 
     public function dictColScaleLvlScaleSet(){
         return $this->hasMany('App\Models\Collection\Setting\Scalelvl\DictColScaleLvlsSet', 'dict_bank_scale_lvls_id', 'id');
+    }
+
+    public function dictBankScaleLvlsSkillSets(){
+        return $this->belongsToMany('App\Models\Penilaian\Setting\Scalelvl\DictBankScaleLvlsSkillset','dict_col_scale_lvls_skillsets','dict_col_scale_lvls_id','dict_col_scale_lvls_skillsets_id');
     }
 
     public function createAndUpdate(Request $request) : array{

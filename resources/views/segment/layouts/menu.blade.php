@@ -86,6 +86,8 @@
                 <ul class="menu-content">
                     <li class=""><a class="d-flex align-items-center" href="{{route('bank.index')}}"><i data-feather='archive'></i><span class="menu-item text-truncate" data-i18n="List">Bank</span></a>
                     </li>
+                    {{-- <li class=""><a class="d-flex align-items-center" href="{{route('question.index')}}"><i data-feather='archive'></i><span class="menu-item text-truncate" data-i18n="List">Question</span></a>
+                    </li> --}}
                 </ul>
             </li>
             <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Tetapan</span><i data-feather="more-horizontal"></i></li>

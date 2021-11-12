@@ -1,0 +1,293 @@
+<?php
+
+namespace App\Http\Controllers\Segment\Admin\Dictionary\Bank;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Penilaian\DictBank\Set\DictBankSet;
+use App\Models\Penilaian\DictBank\Set\DictBankSetsItem;
+use App\Models\Penilaian\Setting\Measuringlvl\DictBankMeasuringlvl;
+use App\Models\Penilaian\Grade\DictBankGradeCategory;
+use App\Models\Penilaian\Setting\Competency\DictBankCompetencyType;
+use App\Models\Collection\DictCol\Question\DictColSetsCompetenciesQuestion;
+use App\Models\Collection\DictCol\Set\DictColSetsItem;
+use App\Models\Collection\Grade\DictColGradeCategory;
+use App\Models\Collection\Setting\Measuringlvl\DictColMeasuringlvl;
+use App\Models\Collection\Setting\Scalelvl\DictColCompetencyTypesScaleLvl;
+use App\Models\Collection\Setting\Scalelvl\DictColScaleLvl;
+use App\Models\Mykj\LJurusan;
+use App\Models\Collection\Setting\Competency\DictColCompetencyType;
+use App\Models\Penilaian\Setting\Scalelvl\DictBankScaleLvl;
+use App\Models\Penilaian\Setting\Scalelvl\DictBankScaleLvlsSkillset;
+use App\Models\Penilaian\Setting\Scalelvl\DictBankScaleLvlsSet;
+use App\Models\Collection\Setting\Scalelvl\DictColScaleLvlsSet;
+use App\Models\Penilaian\Setting\Scalelvl\DictBankCompetencyTypesScaleLvl;
+use App\Models\Penilaian\DictBank\Question\DictBankSetsCompetenciesQuestion;
+use DataTables;
+use DateTime;
+
+class QuestionController extends Controller
+{
+    //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function index(Request $request,$id) {
+        $measuring_level = DictColMeasuringlvl::where('flag', 1)->where('delete_id', 0)->get();
+        $jurusan = LJurusan::all();
+        $competency_type = DictColCompetencyTypesScaleLvl::where('flag', 1)->where('delete_id', 0)->get();
+        $gradeCategory = DictColGradeCategory::where('flag', 1)->where('delete_id', 0)->get();
+
+        return view('segment.admin.dictionary.bank.item', [
+            'measuring_level' => $measuring_level,
+            'jurusan' => $jurusan,
+            'competency_type' => $competency_type,
+            'grade_category' => $gradeCategory,
+            'dict_bank_id' =>$id
+        ]);
+    }
+
+    public function item_sets_datalist(Request $request,$id) {
+        $model = DictBankSetsItem::where('dict_bank_sets_id',$id)->where('delete_id',0);
+
+        return DataTables::of($model)
+            ->setRowAttr([
+                'data-bank-item-id' => function($data) {
+                    return $data->id;
+                }
+            ])
+            ->addColumn('measuring_level',function($data) {
+                if(isset($data->dictBankSetsItemMeasuringLvl)){
+                    return strtoupper($data->dictBankSetsItemMeasuringLvl->name);
+                } else {
+                    return "";
+                }
+                
+            })
+            ->addColumn('competency_type',function($data) {
+                //$data->loadMising('DictColCompetencyTypesScaleLvl');
+                if(isset($data->dictBankSetsItemCompetencyTypeScaleLvl)){
+                    if(isset($data->dictBankSetsItemCompetencyTypeScaleLvl->dictBankCompetencyTypeScaleBridgeCompetency)) {
+                        return strtoupper($data->dictBankSetsItemCompetencyTypeScaleLvl->dictBankCompetencyTypeScaleBridgeCompetency->name);
+                    } else {
+                        return "";
+                    }
+                    
+                } else {
+                    return "";
+                }
+                
+            })
+            ->addColumn('grade_category',function($data) {
+                if(isset($data->dictBankSetsItemDictGradeCategory)) {
+                    return strtoupper($data->dictBankSetsItemDictGradeCategory->name);
+                } else {
+                    return "";
+                }
+                
+            })
+            ->addColumn('jurusan',function($data) {
+                if(isset($data->dictBankSetsItemJurusan)){
+                    return strtoupper($data->dictBankSetsItemJurusan->jurusan);
+                } else {
+                    return "";
+                }
+                
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+
+    public function load_col_items(Request $request) {
+        $model = DictColSetsItem::where('delete_id', 0)->where('flag',1)->get();
+
+        return DataTables::of($model)
+            ->setRowAttr([
+                'data-dict-col-id' => function($data) {
+                    return $data->id;
+                },
+                'data-dict-col-flag-id' => function($data) {
+                    return $data->flag;
+                },
+            ])
+            ->addColumn('name', function($data){
+                return strtoupper($data->title_eng);
+            })
+            ->addColumn('measure', function($data){
+                return strtoupper($data->dictColSetsItemMeasuringLvl->name);
+            })
+            ->addColumn('com_type', function($data){
+                return strtoupper($data->dictColSetsItemCompetencyTypeScaleLvl->dictColCompetencyTypeScaleBridgeCompetency->name);
+            })
+            ->addColumn('jurusan', function($data){
+                return strtoupper($data->dictColSetsItemJurusan->jurusan ?: 'Tiada Jurusan');
+            })
+            ->addColumn('grade_category', function($data){
+                return strtoupper($data->dictColSetsItemDictGradeCategory->name);
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function save_item_set (Request $request) {
+        $dict_col_item = $request->input('dict_col_item');
+        $dict_bank_sets_id = $request->input('dict_bank_sets_id');
+
+        $bank = DictBankSet::find($dict_bank_sets_id);
+        $dict_col = DictColSetsItem::find($dict_col_item);
+
+        $dt = new DateTime;
+
+        if(isset($dict_col->dictColSetsItemMeasuringLvl)) {
+           $measuring_level = $dict_col->dictColSetsItemMeasuringLvl;
+
+           $dict_bank_measuring_lvls_data = [
+                'dict_col_measuring_lvls_id' => $measuring_level->id,
+                'name' => $measuring_level->name,
+                'flag' => 1,
+                'delete_id' => 0,
+                'created_at' => $dt->format('Y-m-d H:i:s.uT')
+            ];
+
+            $dict_bank_measuring_lvls_id = DictBankMeasuringlvl::insertGetId($dict_bank_measuring_lvls_data);
+        }
+
+
+
+        if(isset($dict_col->dictColSetsItemDictGradeCategory)) {
+            $gc = $dict_col->dictColSetsItemDictGradeCategory;
+
+            $dict_bank_grades_categories_data = [
+                'dict_col_grades_categories_id' => $gc->id,
+                'name' => $gc->name,
+                'flag' => 1,
+                'delete_id' => 0,
+                'created_at' => $dt->format('Y-m-d H:i:s.uT')
+            ];
+
+            $dict_bank_grades_categories_id = DictBankGradeCategory::insertGetId($dict_bank_grades_categories_data);
+        }
+
+        if(isset($dict_col->dictColSetsItemCompetencyTypeScaleLvl)) {
+           $competency_scale_level = $dict_col->dictColSetsItemCompetencyTypeScaleLvl;
+           $competency_type = DictColCompetencyType::find($competency_scale_level->dict_col_competency_types_id);
+           $scale_level = DictColScaleLvl::find($competency_scale_level->dict_col_scale_lvls_id);
+           $scale_level_sets = DictColScaleLvlsSet::where('dict_col_scale_lvls_id',$scale_level->id);
+           // $scale_level_skillset = $scale_level_sets->dictColScaleLvlSetSkill;
+
+           if(isset($competency_type)) {
+                //$ct = DictColCompetencyType::find($compentency_types);
+
+                $dict_bank_competency_types_data = [
+                    'name' => $competency_type->name,
+                    'dict_col_competency_types_id' => $competency_type->id,
+                    'years_id' => $bank->years_id,
+                    'flag' => 1,
+                    'delete_id' => 0,
+                    'created_at' => $dt->format('Y-m-d H:i:s.uT')
+                ];
+
+                $dict_bank_compentency_types_id = DictBankCompetencyType::insertGetId($dict_bank_competency_types_data);
+
+            }
+
+            if(isset($scale_level)) {
+                $dict_bank_scale_lvl_data = [
+                    'dict_col_scale_lvls_id' => $scale_level->id,
+                    'years_id' => $bank->years_id,
+                    'name' => $scale_level->name,
+                    'flag' => 1,
+                    'delete_id' => 0,
+                    'created_at' => $dt->format('Y-m-d H:i:s.uT')
+                ];
+                $dict_bank_scalelvl_id = DictBankScaleLvl::insertGetId($dict_bank_scale_lvl_data);
+            }
+
+            $bank_comp_type_scale_lvl_data = [
+                'dict_bank_competency_types_id' => $dict_bank_compentency_types_id,
+                'dict_bank_scale_lvls_id' => $dict_bank_scalelvl_id,
+                'flag' => 1,
+                'delete_id' => 0,
+                'created_at' => $dt->format('Y-m-d H:i:s.uT')
+            ];
+
+            $bank_comp_type_scale_lvl_id = DictBankCompetencyTypesScaleLvl::insertGetId($bank_comp_type_scale_lvl_data);
+
+            // insert set and skillset of scale level
+            foreach($scale_level_sets as $set) {
+                $skillset = $set->dictColScaleLvlSetSkill;
+                $skilset_data = [
+                    'name' => $skillset->name,
+                    'flag' => 1,
+                    'delete_id' => 0,
+                    'created_at' => $dt->format('Y-m-d H:i:s.uT')
+                ];
+
+                $skillset_id = DictBankScaleLvlsSkillset::insertGetId($skilset_data);
+
+                $bank_scalelvl_set_data = [
+                    'dict_bank_scale_lvls_id' => $dict_bank_scalelvl_id,
+                    'dict_bank_scale_lvls_skillsets_id' => $skillset_id,
+                    'name' => $set->name,
+                    'flag' => 1,
+                    'delete_id' => 0,
+                    'created_at' => $dt->format('Y-m-d H:i:s.uT')
+                ];
+            }
+
+        }
+
+        $dict_bank_sets_item_data = [
+            'dict_bank_sets_id' => $dict_bank_sets_id,
+            'dict_bank_measuring_lvls_id' => $dict_bank_measuring_lvls_id,
+            'dict_bank_competency_types_scale_lvls_id' => $bank_comp_type_scale_lvl_id,
+            'jurusan_id' => $dict_col->jurusan_id,
+            'dict_bank_grades_categories_id' => $dict_bank_grades_categories_id,
+            'title_eng' => $dict_col->title_eng,
+            'title_mal' => $dict_col->title_mal,
+            'flag' => 1,
+            'delete_id' => 0,
+            'created_at' => $dt->format('Y-m-d H:i:s.uT')
+        ];
+
+        $dict_bank_sets_item = DictBankSetsItem::insertGetId($dict_bank_sets_item_data);
+
+        $col_question = DictColSetsCompetenciesQuestion::where('dict_col_sets_items_id',$dict_col->id)->get();
+
+
+        foreach($col_question as $question) {
+            $bank_que_data = [
+                'dict_bank_sets_items_id' => $dict_bank_sets_item,
+                'title_eng' => $question->title_eng,
+                'title_mal' => $question->title_mal,
+                'flag' => 1,
+                'delete_id' => 0,
+                'created_at' => $dt->format('Y-m-d H:i:s.uT')
+            ];
+            DictBankSetsCompetenciesQuestion::insert($bank_que_data);
+        }
+
+        $data = [
+            'success' => 1,
+            'data' => array()
+        ];
+
+        return response()->json($data);
+
+    }
+
+    public function remove_item(Request $request) {
+        $bank_set_items_id = $request->input('dict_bank_item');
+        DictBankSetsItem::where('id',$bank_set_items_id)->update(['delete_id' => 1]);
+
+        $data = [
+            'success' => 1,
+            'data' => array()
+        ];
+
+        return response()->json($data);
+    }
+}

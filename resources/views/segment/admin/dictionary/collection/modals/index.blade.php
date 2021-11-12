@@ -40,7 +40,7 @@
                                 @if(count($competency_type) > 0)
                                     <option value="">Sila Pilih</option>
                                     @foreach($competency_type as $ct)
-                                        <option value="{{$ct->id}}">{{$ct->dictColCompetencyTypeScaleBridgeCompetency->name}}</option>
+                                        <option value="{{$ct->id}}">{{$ct->dictColCompetencyTypeScaleBridgeCompetency->name}}  ({{$ct->dictColCompetencyTypeScaleBridgeScale->name}})</option>
                                     @endforeach
                                 @else
                                     <option value="">Tiada Competency Type</option>
