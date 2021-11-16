@@ -23,7 +23,6 @@ use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigCompetencyTypeC
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigSkillSetController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigScaleLvlController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigCompetencyTypeSetController;
-use App\Http\Controllers\Segment\Admin\Dictionary\Bank\Items\BankItemsController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\BankJobGroupController;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
@@ -231,6 +230,12 @@ Route::prefix('/admin')->group(function () {
 
                     });
                 });
+                Route::get('/job-group/{penilaian_id}', [BankJobGroupController::class, 'index']);
+                Route::prefix('/job-group')->group(function () {
+                    Route::get('/list/{penilaian_id}', [BankJobGroupController::class, 'job_group_list']);
+                    Route::get('/insert-update/{penilaian_id}', [BankJobGroupController::class, 'job_group_insert_update_page']);
+                });
+
             });
         });
         // end bank
