@@ -17,7 +17,6 @@ class CreateDictBankGradesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('dict_bank_grades_categories_id');
             $table->integer('grades_id');
-            $table->string('name');
             $table->integer('flag');
             $table->integer('delete_id');
             $table->timestamps();

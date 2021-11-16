@@ -64,7 +64,7 @@ class QuestionController extends Controller
                 } else {
                     return "";
                 }
-                
+
             })
             ->addColumn('competency_type',function($data) {
                 //$data->loadMising('DictColCompetencyTypesScaleLvl');
@@ -74,11 +74,11 @@ class QuestionController extends Controller
                     } else {
                         return "";
                     }
-                    
+
                 } else {
                     return "";
                 }
-                
+
             })
             ->addColumn('grade_category',function($data) {
                 if(isset($data->dictBankSetsItemDictGradeCategory)) {
@@ -86,7 +86,7 @@ class QuestionController extends Controller
                 } else {
                     return "";
                 }
-                
+
             })
             ->addColumn('jurusan',function($data) {
                 if(isset($data->dictBankSetsItemJurusan)){
@@ -94,7 +94,7 @@ class QuestionController extends Controller
                 } else {
                     return "";
                 }
-                
+
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -123,7 +123,7 @@ class QuestionController extends Controller
                 return strtoupper($data->dictColSetsItemCompetencyTypeScaleLvl->dictColCompetencyTypeScaleBridgeCompetency->name);
             })
             ->addColumn('jurusan', function($data){
-                return strtoupper($data->dictColSetsItemJurusan->jurusan ?: 'Tiada Jurusan');
+                return strtoupper($data->dictColSetsItemJurusan ? $data->dictColSetsItemJurusan->jurusan : 'Tiada Jurusan');
             })
             ->addColumn('grade_category', function($data){
                 return strtoupper($data->dictColSetsItemDictGradeCategory->name);

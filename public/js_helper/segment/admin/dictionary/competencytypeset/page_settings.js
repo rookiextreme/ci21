@@ -15,3 +15,7 @@ $(document).on('click', '.show-competency-type-page', function (){
 $(document).on('click', '.show-scale-level-page', function (){
     window.location.href = getUrl() + '/admin/dictionary/collection/scale-level';
 })
+
+$(document).on('click', '#account-pill-general', function (){
+   alert(1);
+});

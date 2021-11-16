@@ -60,9 +60,7 @@
             <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Dictionary</span><i data-feather="more-horizontal"></i></li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">Collection</span></a>
                 <ul class="menu-content">
-                    <li ><a class="d-flex align-items-center" href="{{Request::root()}}/admin/dictionary/collection/listing"><i data-feather="list"></i><span class="menu-item text-truncate" data-i18n="List">Koleksi</span></a>
-                    </li>
-                    <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/dictionary/collection/score-card"><i data-feather="list"></i><span class="menu-item text-truncate" data-i18n="List">Score Card</span></a>
+                    <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/dictionary/collection/listing"><i data-feather="list"></i><span class="menu-item text-truncate" data-i18n="List">Koleksi</span></a>
                     </li>
                     <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/dictionary/collection/competency-type-set"><i data-feather="type"></i><span class="menu-item text-truncate" data-i18n="List">Competency Type Set</span></a>
                     </li>
@@ -84,7 +82,7 @@
             </li>
             <li class=" nav-item active"><a class="d-flex align-items-center" href="#"><i data-feather='book'></i></i><span class="menu-title text-truncate" data-i18n="Invoice">Penilaian</span></a>
                 <ul class="menu-content">
-                    <li class=""><a class="d-flex align-items-center" href="{{route('bank.index')}}"><i data-feather='archive'></i><span class="menu-item text-truncate" data-i18n="List">Bank</span></a>
+                    <li class=""><a class="d-flex align-items-center" href="{{route('bank.penilaian.index')}}"><i data-feather='archive'></i><span class="menu-item text-truncate" data-i18n="List">Bank</span></a>
                     </li>
                     {{-- <li class=""><a class="d-flex align-items-center" href="{{route('question.index')}}"><i data-feather='archive'></i><span class="menu-item text-truncate" data-i18n="List">Question</span></a>
                     </li> --}}

@@ -16,6 +16,7 @@ class CreateDictBankMeasuringLvlsTable extends Migration
         Schema::create('dict_bank_measuring_lvls', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('dict_col_measuring_lvls_id');
+            $table->integer('dict_bank_sets_id')->nullable();
             $table->string('name');
             $table->integer('flag');
             $table->integer('delete_id');
@@ -24,6 +25,7 @@ class CreateDictBankMeasuringLvlsTable extends Migration
 
         Schema::table('dict_bank_measuring_lvls', function(Blueprint $table){
             $table->foreign('dict_col_measuring_lvls_id')->references('id')->on('dict_col_measuring_lvls');
+            $table->foreign('dict_bank_sets_id')->references('id')->on('dict_bank_sets');
         });
     }
 

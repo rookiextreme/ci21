@@ -35,7 +35,7 @@ $(document).on('click', '.add-scale-skill-set, .update-scale-skill-set, .delete-
         let scale_skill_set = selectedClass.closest('tr').attr('data-scale-skill-set-id');
 
         let data = new FormData;
-        data.append('scale_skill_set', scale_skill_set);
+        data.append('scale_skill_set_id', scale_skill_set);
         data.append('_token', getToken());
 
         swalAjax({

@@ -16,6 +16,13 @@ use App\Http\Controllers\Segment\Admin\Dictionary\Collection\ColController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Collection\ColQuesController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\QuestionController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigGradeCategoryController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigMeasuringLvlController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigCompetencyTypeController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigSkillSetController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigScaleLvlController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigCompetencyTypeSetController;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
@@ -99,10 +106,6 @@ Route::prefix('/admin')->group(function () {
                 });
             });
 
-            Route::prefix('/score-card')->group(function () {
-
-            });
-
             Route::prefix('/setting')->group(function () {
                 //Skill Set For Scale Level
                 Route::prefix('/scale-skill-set')->group(function () {
@@ -124,33 +127,113 @@ Route::prefix('/admin')->group(function () {
                     Route::post('/delete', [ColCompetencyTypeController::class, 'competency_type_delete']);
                 });
             });
-
-            
         });
         //end collection
         /////////////////////////////////////////////////RUBMIN////////////////////////////////////////
         // start bank
-         Route::prefix('/bank')->group(function () {
-                Route::get('/', [BankController::class, 'index'])->name('bank.index');
-                Route::get('/bank-datalist', [BankController::class, 'dict_bank_datalist'])->name('bank.datalist');
-                Route::post('/load_grades',[BankController::class, 'load_grades_category']);
-                Route::post('/save_bank',[BankController::class,'save_dict_bank']);
-                Route::post('/delete_bank',[BankController::class,'delete_dict_bank']);
-                Route::post('/load_bank',[BankController::class,'load_saved_dict_bank']);
-                Route::post('/update_bank',[BankController::class,'update_dict_bank']);
+//         Route::prefix('/bank')->group(function () {
+//            Route::get('/', [BankController::class, 'index'])->name('bank.index');
+//            Route::get('/bank-datalist', [BankController::class, 'dict_bank_datalist'])->name('bank.datalist');
+//            Route::post('/load_grades',[BankController::class, 'load_grades_category']);
+//            Route::post('/save_bank',[BankController::class,'save_dict_bank']);
+//            Route::post('/delete_bank',[BankController::class,'delete_dict_bank']);
+//            Route::post('/load_bank',[BankController::class,'load_saved_dict_bank']);
+//            Route::post('/update_bank',[BankController::class,'update_dict_bank']);
+//
+//            Route::prefix('/item')->group(function () {
+//                Route::get('/{id}', [QuestionController::class, 'index']);
+//                Route::get('/item-datalist/{id}', [QuestionController::class, 'item_sets_datalist']);
+//                Route::get('/list/col-datalist',[QuestionController::class, 'load_col_items']);
+//                Route::post('/add/item',[QuestionController::class, 'save_item_set']);
+//                Route::post('/delete/item',[QuestionController::class, 'remove_item']);
+//            });
+//        });
 
-                Route::prefix('/item')->group(function () {
-                    Route::get('/{id}', [QuestionController::class, 'index']);
-                    Route::get('/item-datalist/{id}', [QuestionController::class, 'item_sets_datalist']);
-                    Route::get('/list/col-datalist',[QuestionController::class, 'load_col_items']);
-                    Route::post('/add/item',[QuestionController::class, 'save_item_set']);
-                    Route::post('/delete/item',[QuestionController::class, 'remove_item']);
+        Route::prefix('/bank')->group(function () {
+            Route::prefix('/penilaian')->group(function () {
+                Route::get('/', [BankController::class, 'index'])->name('bank.penilaian.index');
+                Route::get('/list', [BankController::class, 'penilaian_list']);
+                Route::post('/tambah-kemaskini', [BankController::class, 'penilaian_tambah']);
+                Route::post('/get-record', [BankController::class, 'penilaian_get_record']);
+                Route::post('/activate', [BankController::class, 'penilaian_activate']);
+                Route::post('/delete', [BankController::class, 'penilaian_delete']);
+
+                Route::get('/config/{penilaian_id}', [BankConfigController::class, 'index']);
+                Route::prefix('/config')->group(function () {
+                    //Grade Category
+                    Route::prefix('/grade-category')->group(function () {
+                        Route::get('/list/{penilaian_id}', [BankConfigGradeCategoryController::class, 'grade_category_list']);
+                        Route::post('/tambah-kemaskini', [BankConfigGradeCategoryController::class, 'grade_category_tambah']);
+                        Route::post('/get-record', [BankConfigGradeCategoryController::class, 'grade_category_get_record']);
+                        Route::post('/activate', [BankConfigGradeCategoryController::class, 'grade_category_activate']);
+                        Route::post('/delete', [BankConfigGradeCategoryController::class, 'grade_category_delete']);
+                    });
+
+                    Route::prefix('/measuring-level')->group(function () {
+                        Route::get('/', [BankConfigMeasuringLvlController::class, 'index']);
+                        Route::get('/list/{penilaian_id}', [BankConfigMeasuringLvlController::class, 'measuring_lvl_list']);
+                        Route::post('/tambah-kemaskini', [BankConfigMeasuringLvlController::class, 'measuring_lvl_tambah']);
+                        Route::post('/get-record', [BankConfigMeasuringLvlController::class, 'measuring_lvl_get_record']);
+                        Route::post('/activate', [BankConfigMeasuringLvlController::class, 'measuring_lvl_activate']);
+                        Route::post('/delete', [BankConfigMeasuringLvlController::class, 'measuring_lvl_delete']);
+                    });
+
+                    Route::prefix('/setting')->group(function () {
+                        //Skill Set For Scale Level
+                        Route::prefix('/scale-skill-set')->group(function () {
+                            Route::get('/list/{penilaian_id}', [BankConfigSkillSetController::class, 'skill_set_list']);
+                            Route::post('/tambah-kemaskini', [BankConfigSkillSetController::class, 'skill_set_tambah']);
+                            Route::post('/get-record', [BankConfigSkillSetController::class, 'skill_set_get_record']);
+                            Route::post('/activate', [BankConfigSkillSetController::class, 'skill_set_activate']);
+                            Route::post('/delete', [BankConfigSkillSetController::class, 'skill_set_delete']);
+                        });
+
+                        //Competency Type
+                        Route::prefix('/competency-type')->group(function () {
+                            Route::get('/list/{penilaian_id}', [BankConfigCompetencyTypeController::class, 'competency_type_list']);
+                            Route::post('/tambah-kemaskini', [BankConfigCompetencyTypeController::class, 'competency_type_tambah']);
+                            Route::post('/get-record', [BankConfigCompetencyTypeController::class, 'competency_type_get_record']);
+                            Route::post('/activate', [BankConfigCompetencyTypeController::class, 'competency_type_activate']);
+                            Route::post('/delete', [BankConfigCompetencyTypeController::class, 'competency_type_delete']);
+                        });
+                    });
+
+                    Route::prefix('/scale-level')->group(function () {
+                        Route::get('/', [BankConfigScaleLvlController::class, 'index']);
+                        Route::get('/list/{penilaian_id}', [BankConfigScaleLvlController::class, 'scale_level_list']);
+                        Route::post('/tambah-kemaskini', [BankConfigScaleLvlController::class, 'scale_level_tambah']);
+                        Route::post('/get-record', [BankConfigScaleLvlController::class, 'scale_level_get_record']);
+                        Route::post('/activate', [BankConfigScaleLvlController::class, 'scale_level_activate']);
+                        Route::post('/delete', [BankConfigScaleLvlController::class, 'scale_level_delete']);
+
+                        Route::prefix('/set')->group(function () {
+                            Route::post('/list', [BankConfigScaleLvlController::class, 'scale_level_set_list']);
+                            Route::post('/tambah-kemaskini', [BankConfigScaleLvlController::class, 'scale_level_set_tambah']);
+                            Route::post('/get-record', [BankConfigScaleLvlController::class, 'scale_level_set_get_record']);
+                            Route::post('/activate', [BankConfigScaleLvlController::class, 'scale_level_set_activate']);
+                            Route::post('/delete', [BankConfigScaleLvlController::class, 'scale_level_set_delete']);
+                        });
+                    });
+
+                    Route::prefix('/competency-type-set')->group(function () {
+                        Route::get('/', [BankConfigCompetencyTypeSetController::class, 'index']);
+                        Route::get('/list/{penilaian_id}', [BankConfigCompetencyTypeSetController::class, 'competency_type_set_list']);
+                        Route::post('/tambah-kemaskini', [BankConfigCompetencyTypeSetController::class, 'competency_type_set_tambah']);
+                        Route::post('/get-record', [BankConfigCompetencyTypeSetController::class, 'competency_type_set_get_record']);
+                        Route::post('/activate', [BankConfigCompetencyTypeSetController::class, 'competency_type_set_activate']);
+                        Route::post('/delete', [BankConfigCompetencyTypeSetController::class, 'competency_type_set_delete']);
+                    });
+
+                    Route::get('/config/items/{penilaian_id}', [BankConfigController::class, 'index']);
+                    Route::prefix('/items')->group(function () {
+
+                    });
                 });
             });
-
-        // end bank 
+        });
+        // end bank
     });
-    
+
     // Route::get('/admin/dictionary/bank/item/col-datalist', [QuestionController::class, 'load_col_items']);
 
 

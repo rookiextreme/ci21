@@ -17,9 +17,9 @@ class CreateDictBankCompetencyTypesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->integer('years_id')->nullable();
-            $table->integer('dict_col_competency_types_id')->nullable();;
-            $table->integer('dict_bank_sets_id')->nullable();;
-            $table->integer('flag')->nullable();;
+            $table->integer('dict_col_competency_types_id')->nullable();
+            $table->integer('dict_bank_sets_id')->nullable();
+            $table->integer('flag')->nullable();
             $table->integer('delete_id')->nullable();
             $table->timestamps();
         });

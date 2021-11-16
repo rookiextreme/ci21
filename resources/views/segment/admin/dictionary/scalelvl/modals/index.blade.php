@@ -28,7 +28,7 @@
 </div>
 
 <div class="modal fade text-left modal-primary scale-level-set-modal" id="primary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="scale-level-set-title modal-title" id="myModalLabel160">Primary Modal</h5>

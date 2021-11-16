@@ -457,6 +457,147 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
+        DB::table('dict_col_scale_lvls')->insert([
+            [
+                'name' => 'Scale Language',
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'name' => '1-6',
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'name' => 'Yes/No',
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'name' => 'Scale ICT',
+                'flag' => 1,
+                'delete_id' => 0,
+            ]
+        ]);
+
+        DB::table('dict_col_scale_lvls_sets')->insert([
+            //Scale Language
+            [
+                'dict_col_scale_lvls_id' => 1,
+                'dict_col_scale_lvls_skillsets_id' => 1,
+                'name' => 'Poor command of the language',
+                'score' => 0,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_scale_lvls_id' => 1,
+                'dict_col_scale_lvls_skillsets_id' => 2,
+                'name' => 'Able to read and write reasonably well and appreciate a wide variety of texts as well as those pretinent to professional needs',
+                'score' => 0,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_scale_lvls_id' => 1,
+                'dict_col_scale_lvls_skillsets_id' => 3,
+                'name' => 'Able to read and write fluently and accurately in all styles and forms of the language on any subject as well as those pertinent to professional needs',
+                'score' => 0,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_scale_lvls_id' => 1,
+                'dict_col_scale_lvls_skillsets_id' => 4,
+                'name' => 'Have mastery of the languagel; near native; ability to read, understand and write extremly difficult of abstract prose, a wide variety of vocabulary, idioms colloquialisms, and slang',
+                'score' => 0,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            //1-6
+            [
+                'dict_col_scale_lvls_id' => 2,
+                'dict_col_scale_lvls_skillsets_id' => 5,
+                'name' => 'You are not trained and have no experience',
+                'score' => 0,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_scale_lvls_id' => 2,
+                'dict_col_scale_lvls_skillsets_id' => 2,
+                'name' => 'You are still learning and have had some prior exposure or have basic knowledge or have had some practice. You are able to analyse and interpret information. Supervision is needed. You know where to obtain help',
+                'score' => 0,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_scale_lvls_id' => 2,
+                'dict_col_scale_lvls_skillsets_id' => 6,
+                'name' => 'You are able to directly apply techniques and use tools/equipment independently. Supervision is necessary from time to time. You are able to diagnose issues, anticipate problems and provide reasoning. You work with practisioners in a specific skill area',
+                'score' => 0,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_scale_lvls_id' => 2,
+                'dict_col_scale_lvls_skillsets_id' => 3,
+                'name' => 'You have substantial experience and are able to supervise others. You demonstrate this skill independently almost all the time. You are able to diagnose issues, anticipate problems and provide reasoning. You work with practicitoners in a specific skill area.',
+                'score' => 0,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_scale_lvls_id' => 2,
+                'dict_col_scale_lvls_skillsets_id' => 7,
+                'name' => 'You are a source or reference to others who seek advice in a particular area/field. You are able to develop and mentor others in technique, procedure or process. Able to create best practice in the organisation or in a broader context.',
+                'score' => 0,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_scale_lvls_id' => 2,
+                'dict_col_scale_lvls_skillsets_id' => 8,
+                'name' => 'You have the skills to set policies and provide overall direction. ',
+                'score' => 0,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            //Scale ICT
+            [
+                'dict_col_scale_lvls_id' => 4,
+                'dict_col_scale_lvls_skillsets_id' => 9,
+                'name' => 'No knowledge of the software applications',
+                'score' => 0,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_scale_lvls_id' => 4,
+                'dict_col_scale_lvls_skillsets_id' => 2,
+                'name' => 'Basic knowledge of software applications; may understand and/or apply some parts of the software applications.',
+                'score' => 0,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_scale_lvls_id' => 4,
+                'dict_col_scale_lvls_skillsets_id' => 3,
+                'name' => 'Can understand & apply software applications well',
+                'score' => 0,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_scale_lvls_id' => 4,
+                'dict_col_scale_lvls_skillsets_id' => 4,
+                'name' => 'High proficiency in understanding, applying & teaching of software applications',
+                'score' => 0,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+        ]);
+
         DB::table('dict_col_competency_types')->insert([
             [
                 'name' => 'Behavioural',
@@ -492,6 +633,51 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Technical (Generic)',
                 'flag' => 1,
                 'delete_id' => 0
+            ]
+        ]);
+
+        DB::table('dict_col_competency_types_scale_lvls')->insert([
+            [
+                'dict_col_competency_types_id' => 1,
+                'dict_col_scale_lvls_id' => 3,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_competency_types_id' => 2,
+                'dict_col_scale_lvls_id' => 2,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_competency_types_id' => 3,
+                'dict_col_scale_lvls_id' => 3,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_competency_types_id' => 4,
+                'dict_col_scale_lvls_id' => 4,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_competency_types_id' => 5,
+                'dict_col_scale_lvls_id' => 1,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_competency_types_id' => 6,
+                'dict_col_scale_lvls_id' => 2,
+                'flag' => 1,
+                'delete_id' => 0,
+            ],
+            [
+                'dict_col_competency_types_id' => 7,
+                'dict_col_scale_lvls_id' => 2,
+                'flag' => 1,
+                'delete_id' => 0,
             ]
         ]);
 

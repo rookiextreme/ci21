@@ -17,6 +17,7 @@ class CreateDictBankCompetencyTypesScaleLvlsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('dict_bank_competency_types_id');
             $table->integer('dict_bank_scale_lvls_id');
+            $table->integer('dict_bank_sets_id')->nullable();
             $table->integer('flag');
             $table->integer('delete_id');
             $table->timestamps();
@@ -25,6 +26,7 @@ class CreateDictBankCompetencyTypesScaleLvlsTable extends Migration
         Schema::table('dict_bank_competency_types_scale_lvls', function(Blueprint $table){
             $table->foreign('dict_bank_competency_types_id')->references('id')->on('dict_bank_competency_types');
             $table->foreign('dict_bank_scale_lvls_id')->references('id')->on('dict_bank_scale_lvls');
+            $table->foreign('dict_bank_sets_id')->references('id')->on('dict_bank_sets');
         });
     }
 

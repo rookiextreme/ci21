@@ -17,6 +17,7 @@ class CreateDictBankScaleLvlsSetsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('dict_bank_scale_lvls_id');
             $table->integer('dict_bank_scale_lvls_skillsets_id');
+            $table->integer('dict_bank_sets_id')->nullable();
             $table->string('name');
             $table->integer('score')->nullable();
             $table->integer('flag');
@@ -27,6 +28,7 @@ class CreateDictBankScaleLvlsSetsTable extends Migration
         Schema::table('dict_bank_scale_lvls_sets', function(Blueprint $table){
             $table->foreign('dict_bank_scale_lvls_id')->references('id')->on('dict_bank_scale_lvls');
             $table->foreign('dict_bank_scale_lvls_skillsets_id')->references('id')->on('dict_bank_scale_lvls_skillsets');
+            $table->foreign('dict_bank_sets_id')->references('id')->on('dict_bank_sets');
         });
     }
 

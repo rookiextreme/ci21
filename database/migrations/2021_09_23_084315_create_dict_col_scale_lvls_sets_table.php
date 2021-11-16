@@ -17,7 +17,7 @@ class CreateDictColScaleLvlsSetsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('dict_col_scale_lvls_id');
             $table->integer('dict_col_scale_lvls_skillsets_id');
-            $table->string('name');
+            $table->text('name');
             $table->integer('score');
             $table->integer('flag');
             $table->integer('delete_id');

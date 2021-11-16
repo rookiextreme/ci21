@@ -54,7 +54,7 @@ class ColController extends Controller{
                 return strtoupper($data->dictColSetsItemCompetencyTypeScaleLvl->dictColCompetencyTypeScaleBridgeCompetency->name);
             })
             ->addColumn('jurusan', function($data){
-                return strtoupper($data->dictColSetsItemJurusan->jurusan ?: 'Tiada Jurusan');
+                return strtoupper($data->dictColSetsItemJurusan ? $data->dictColSetsItemJurusan->jurusan : 'Tiada Jurusan');
             })
             ->addColumn('grade_category', function($data){
                 return strtoupper($data->dictColSetsItemDictGradeCategory->name);

@@ -15,7 +15,7 @@ class CreateDictBankSetsTable extends Migration
     {
         Schema::create('dict_bank_sets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('profiles_id');
+            $table->integer('profiles_id')->nullable();
             $table->integer('years_id');
             $table->string('title');
             $table->dateTime('tkh_mula', $precision = 0);
