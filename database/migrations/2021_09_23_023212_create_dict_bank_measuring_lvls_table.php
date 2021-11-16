@@ -15,7 +15,7 @@ class CreateDictBankMeasuringLvlsTable extends Migration
     {
         Schema::create('dict_bank_measuring_lvls', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('dict_col_measuring_lvls_id');
+            $table->integer('dict_col_measuring_lvls_id')->nullable();
             $table->integer('dict_bank_sets_id')->nullable();
             $table->string('name');
             $table->integer('flag');

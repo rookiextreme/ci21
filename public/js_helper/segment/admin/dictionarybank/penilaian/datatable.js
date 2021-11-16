@@ -37,7 +37,8 @@ $('.penilaian-table').DataTable({
                 return (
                     '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light penilaian-config">'+ feather.icons['edit-3'].toSvg() +'</button>' +
                     '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-penilaian">'+ feather.icons['edit-3'].toSvg() +'</button>' +
-                    '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-penilaian">'+ feather.icons['trash-2'].toSvg() +'</button>'
+                    '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-penilaian">'+ feather.icons['trash-2'].toSvg() +'</button>' +
+                    '<button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1 waves-effect waves-light config-item">'+ feather.icons['file-text'].toSvg() +'</button>'
                 );
             }
         }

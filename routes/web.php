@@ -23,6 +23,7 @@ use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigCompetencyTypeC
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigSkillSetController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigScaleLvlController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigCompetencyTypeSetController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Bank\Items\BankItemsController;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
@@ -225,8 +226,13 @@ Route::prefix('/admin')->group(function () {
                     });
 
                     Route::get('/config/items/{penilaian_id}', [BankConfigController::class, 'index']);
+                    
                     Route::prefix('/items')->group(function () {
-
+                        Route::get('/{id}', [BankItemsController::class, 'index']);
+                        Route::get('/datalist/item/{id}', [BankItemsController::class, 'bank_item_list']);
+                        Route::post('/save/item', [BankItemsController::class,'bank_item_save']);
+                        Route::post('/active/item',[BankItemsController::class,'bank_col_activate']);
+                        Route::post('/delete/item',[BankItemsController::class,'bank_col_delete']);
                     });
                 });
             });

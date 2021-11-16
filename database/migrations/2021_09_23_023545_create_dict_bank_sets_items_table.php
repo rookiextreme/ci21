@@ -18,7 +18,7 @@ class CreateDictBankSetsItemsTable extends Migration
             $table->integer('dict_bank_sets_id');
             $table->integer('dict_bank_measuring_lvls_id');
             $table->integer('dict_bank_competency_types_scale_lvls_id')->nullable();
-            $table->integer('jurusan_id')->nullable();
+            $table->text('jurusan_id')->nullable();
             $table->integer('dict_bank_grades_categories_id');
             $table->text('title_eng')->nullable();
             $table->text('title_mal')->nullable();

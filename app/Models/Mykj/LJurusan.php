@@ -8,5 +8,7 @@ class LJurusan extends Model
 {
     protected $connection = 'pgsqlmykj';
     protected $table = 'l_jurusan';
+    // protected $primaryKey = 'kod_jurusan';
+
 //    public $timestamps = false;
 }
