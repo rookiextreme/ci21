@@ -36,16 +36,12 @@ function ajax(url, data, postfunc){
             }else if(postfunc == 2){
                 if(success == 1) {
                     toggle_activate({
-                        rowClass: '.grade-row',
+                        rowClass: '.job-group-row',
                         rowId: parseData.id,
-                        activeClass: '.active-grade',
-                        rowDataClass: 'data-grade-id',
+                        activeClass: '.active-job-group',
+                        rowDataClass: 'data-job-group-id',
                         flag: parseData.flag
                     });
-                }
-            }else if(postfunc == 3){
-                if(success == 1){
-
                 }
             }
         }

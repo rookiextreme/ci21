@@ -32,10 +32,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <table class="grade-table table">
+                                <table class="job-group-table table">
                                     <thead>
                                     <tr>
-                                        <th>Nama</th>
+                                        <th>S. Category</th>
+                                        <th>Jurusan</th>
+                                        <th>TItle</th>
                                         <th>Aktif</th>
                                         <th>Aksi</th>
                                     </tr>

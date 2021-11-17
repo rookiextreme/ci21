@@ -47,31 +47,72 @@ $(document).on('click', '.add-job-group, .update-grade, .delete-grade, .active-g
     }
 });
 
-$(document).on('click', '.post-add-grade, .post-update-grade', function(){
+$(document).on('click', '.post-add-job-group, .post-update-job-group', function(){
     let selectedClass = $(this);
-    let grade_nama = $('.grade-nama').val();
-    let grade_id = $('.grade-id').val();
+    let job_group_set_name_eng = $('.job-group-set-name-eng').val();
+    let job_group_set_name_mal = $('.job-group-set-name-mal').val();
+    let job_group_set_desc_eng = $('.job-group-set-desc-eng').val();
+    let job_group_set_desc_mal = $('.job-group-set-desc-mal').val();
+    let job_group_set_grade_category = $('.job-group-set-grade-category').val();
+    let job_group_sets_id = $('.job_group_sets_id').val();
+    let job_group_set_jurusan = $('.job-group-set-jurusan').val();
+
+    let pass = 0;
 
     let check = checkEmptyFields([
-        ['.grade-nama', 'mix', 'Nama'],
+        ['.job-group-set-name-eng', 'mix', 'Name (English)'],
+        ['.job-group-set-grade-category', 'int', 'Service Category'],
+        ['.job-group-set-jurusan', 'string', 'Jurusan'],
     ]);
 
     if(check == false){
+        pass = 1;
+    }
+
+    let itemArr = [];
+    if($('.job-group-set-item').length > 0){
+        let checkedBoxes = 0;
+        $('.job-group-set-item').each(function(){
+            if($(this).prop('checked') == true){
+                checkedBoxes++;
+                itemArr.push($(this).closest('tr').attr('data-item-id'));
+            }
+        });
+
+        if(checkedBoxes == 0){
+            toasting('Please Select Items', 'error');
+            pass = 1;
+        }
+    }else{
+        toasting('Please Select Items', 'error');
+        pass = 1;
+    }
+
+    if(pass == 1){
         return false;
     }
+
     let data = new FormData;
 
-    if(selectedClass.hasClass('post-add-grade')){
+    if(selectedClass.hasClass('post-add-job-group')){
         data.append('trigger' , 0);
     }else{
-        data.append('grade_id', grade_id);
+        data.append('job_group_id', job_group_sets_id);
         data.append('trigger' , 1);
     }
 
-    data.append('grade_nama', grade_nama);
+    data.append('job_group_set_name_eng', job_group_set_name_eng);
+    data.append('job_group_set_name_mal', job_group_set_name_mal);
+    data.append('job_group_set_desc_eng', job_group_set_desc_eng);
+    data.append('job_group_set_desc_mal', job_group_set_desc_mal);
+    data.append('job_group_set_grade_category', job_group_set_grade_category);
+    data.append('job_group_set_items', JSON.stringify(itemArr));
+    data.append('job_group_set_jurusan', job_group_set_jurusan);
+    data.append('penilaian_id', $('.penilaian_id').val());
     data.append('_token', getToken());
 
-    ajax('/admin/setting/grade/tambah-kemaskini', data, 0);
+    console.log(itemArr);
+    ajax('/admin/dictionary/bank/penilaian/job-group/insert-update/tambah-kemaskini', data, 1);
 });
 
 //End Grade

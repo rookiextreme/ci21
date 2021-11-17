@@ -39,36 +39,49 @@
                                         <div class="col-xl-6 col-md-6 col-12 mb-1">
                                             <div class="form-group">
                                                 <label for="basicInput">Name(English)</label>
-                                                <input type="text" class="form-control" id="basicInput" />
+                                                <input type="text" class="form-control job-group-set-name-eng" id="basicInput" value="{{$groupData['main']['title_eng'] ?? ''}}"/>
+                                                <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
                                         <div class="col-xl-6 col-md-6 col-12 mb-1">
                                             <div class="form-group">
                                                 <label for="basicInput">Name(Malay, Optional)</label>
-                                                <input type="text" class="form-control" id="basicInput" />
+                                                <input type="text" class="form-control job-group-set-name-mal" id="basicInput" value="{{$groupData['main']['title_mal'] ?? ''}}"/>
+                                                <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
                                         <div class="col-xl-6 col-md-6 col-12 mb-1">
                                             <div class="form-group">
                                                 <label for="basicInput">Description(English)</label>
-                                                <textarea class="form-control"></textarea>
+                                                <textarea class="form-control job-group-set-desc-eng">{{$groupData['main']['desc_eng'] ?? ''}}</textarea>
+                                                <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
                                         <div class="col-xl-6 col-md-6 col-12 mb-1">
                                             <div class="form-group">
                                                 <label for="basicInput">Description(Malay, Optional)</label>
-                                                <textarea class="form-control"></textarea>
+                                                <textarea class="form-control job-group-set-desc-mal">{{$groupData['main']['desc_mal'] ?? ''}}</textarea>
+                                                <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-md-6 col-12 mb-1">
                                             <div class="form-group">
                                                 <label for="basicInput">Service Category</label>
-                                                <select class="form-control select2">
+                                                <select class="form-control select2 job-group-set-grade-category">
                                                     <option value="">Sila Pilih</option>
                                                     @foreach($grade_categories as $g)
-                                                        <option value="{{$g->id}}">{{$g->name}}</option>
+                                                        @if($groupData)
+                                                            @if($groupData['main']['grade_categories'] == $g->id)
+                                                                <option value="{{$g->id}}" selected>{{$g->name}}</option>
+                                                            @else
+                                                                <option value="{{$g->id}}">{{$g->name}}</option>
+                                                            @endif
+                                                        @else
+                                                            <option value="{{$g->id}}">{{$g->name}}</option>
+                                                        @endif
                                                     @endforeach
                                                 </select>
+                                                <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -86,12 +99,22 @@
                                         <div class="col-xl-6 col-md-6 col-12 mb-1">
                                             <div class="form-group">
                                                 <label for="basicInput">Jurusan</label>
-                                                <select class="form-control select2">
+                                                <select class="form-control select2 job-group-set-jurusan">
                                                     <option value="">Sila Pilih</option>
                                                     @foreach($jurusan as $j)
-                                                        <option value="{{$j->kod_jurusan}}">{{$j->jurusan}}</option>
+                                                        @if($groupData)
+                                                            @if($groupData['main']['jurusan'] == $j->kod_jurusan)
+                                                                <?php $selectJ = 'selected'; ?>
+                                                            @else
+                                                                <?php $selectJ = ''; ?>
+                                                            @endif
+                                                        @else
+                                                            <?php $selectJ = ''; ?>
+                                                        @endif
+                                                        <option value="{{$j->kod_jurusan}}" {{$selectJ}}>{{$j->jurusan}}</option>
                                                     @endforeach
                                                 </select>
+                                                <div class="invalid-feedback"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -105,15 +128,10 @@
                                                         <th>Pilih</th>
                                                     </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody class="item-checkbox">
                                                         <tr>
-                                                            <td>
-                                                                Environmental Protection Works
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="checked" checked />
-                                                                </div>
+                                                            <td colspan="2" style="text-align: center">
+                                                                Tiada Item Yang Wujud
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -128,9 +146,11 @@
                 </section>
                 <div class="row">
                     <div class="col-xl-12 col-md-6 col-12 mb-1">
-                        <button type="button" style="width: 100%" class="btn btn-success post-add-job-group">Simpan</button>
-                        @if($job_group_sets_id ?? ''){
-                        <button type="button" style="width: 100%" class="btn btn-success post-update-job-group">Kemaskini</button>
+
+                        @if($job_group_sets_id ?? '')
+                            <button type="button" style="width: 100%" class="btn btn-warning post-update-job-group">Kemaskini</button>
+                        @else
+                            <button type="button" style="width: 100%" class="btn btn-success post-add-job-group">Simpan</button>
                         @endif
                     </div>
                 </div>
@@ -138,7 +158,7 @@
         </div>
     </div>
     <input type="hidden" class="penilaian_id" value="{{$penilaian_id}}">
-    <input type="hidden" class="job_group_sets_id" value="{{$job_group_sets_id ?? '' ?? ''}}">
+    <input type="hidden" class="job_group_sets_id" value="{{$job_group_sets_id ?? ''}}">
 @endsection
 
 @section('customJS')
@@ -151,9 +171,9 @@
 
     {{--  Custom files  --}}
     <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupinsertupdate/swal.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupinsertupdate/ajax.js') }}"></script>
     <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupinsertupdate/page_settings.js') }}"></script>
     <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupinsertupdate/datatable.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupinsertupdate/ajax.js') }}"></script>
     <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupinsertupdate/index.js') }}"></script>
 @endsection
 

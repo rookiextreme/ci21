@@ -9,4 +9,8 @@ class DictBankGrade extends Model{
     public function dictBankGradeGetGradeCategory(){
         return $this->hasMany('App\Models\Penilaian\Grade\DictBankGrade', 'dict_bank_grades_categories_id', 'id');
     }
+
+    public function dictBankGradeGrade(){
+        return $this->hasOne('App\Models\Regular\Grade', 'id', 'grades_id');
+    }
 }

@@ -1,77 +1,33 @@
-//Grade
-$(document).on('click', '.add-job-group, .update-grade, .delete-grade, .active-grade, .delete-grade', function(){
+$(document).on('click', '.add-job-group, .update-job-group, .delete-grade, .active-job-group, .delete-job-group', function(){
     let selectedClass = $(this);
     if(selectedClass.hasClass('add-job-group')){
         window.location.href = getUrl() + '/admin/dictionary/bank/penilaian/job-group/insert-update/' + $('.penilaian_id').val();
-    }else if(selectedClass.hasClass('update-grade')){
-        $('.grade-id').val(selectedClass.closest('tr').attr('data-grade-id'));
-        postEmptyFields([
-            ['.grade-nama', 'text'],
-        ]);
-        $('.post-add-grade').attr('style', 'display:none');
-        $('.post-update-grade').attr('style', '');
+    }else if(selectedClass.hasClass('update-job-group')){
+        window.location.href = getUrl() + '/admin/dictionary/bank/penilaian/job-group/insert-update/' + $('.penilaian_id').val() + '/' +$(this).closest('tr').attr('data-job-group-id');
+    }else if(selectedClass.hasClass('active-job-group')){
+        let job_group_id = $(this).closest('tr').attr('data-job-group-id');
 
         let data = new FormData;
-        console.log($('.grade-id').val());
-        data.append('grade_id', $('.grade-id').val());
+        data.append('job_group_id', job_group_id);
         data.append('_token', getToken());
-
-        ajax('/admin/setting/grade/get-record', data, 1);
-        $('.grade-title').html('Kemaskini Gred');
-        $('.grade-modal').modal('show');
-    }else if(selectedClass.hasClass('active-grade')){
-        let grade_id = $(this).closest('tr').attr('data-grade-id');
+        ajax('/admin/dictionary/bank/penilaian/job-group/activate', data, 2);
+    }else if(selectedClass.hasClass('delete-job-group')){
+        let job_group_id = selectedClass.closest('tr').attr('data-job-group-id');
 
         let data = new FormData;
-        data.append('grade_id', grade_id);
-        data.append('_token', getToken());
-        ajax('/admin/setting/grade/activate', data, 2);
-    }else if(selectedClass.hasClass('delete-grade')){
-        let grade_id = selectedClass.closest('tr').attr('data-grade-id');
-
-        let data = new FormData;
-        data.append('grade_id', grade_id);
+        data.append('job_group_id', job_group_id);
         data.append('_token', getToken());
 
         swalAjax({
             titleText : 'Adakah Anda Pasti?',
-            mainText : 'Gred Akan Dipadam',
+            mainText : 'Job Group Akan Dipadam',
             icon: 'error',
             confirmButtonText: 'Padam',
             postData: {
-                url : '/admin/setting/grade/delete',
+                url : '/admin/dictionary/bank/penilaian/job-group/delete',
                 data: data,
                 postfunc: 0
             }
         });
     }
 });
-
-$(document).on('click', '.post-add-grade, .post-update-grade', function(){
-    let selectedClass = $(this);
-    let grade_nama = $('.grade-nama').val();
-    let grade_id = $('.grade-id').val();
-
-    let check = checkEmptyFields([
-        ['.grade-nama', 'mix', 'Nama'],
-    ]);
-
-    if(check == false){
-        return false;
-    }
-    let data = new FormData;
-
-    if(selectedClass.hasClass('post-add-grade')){
-        data.append('trigger' , 0);
-    }else{
-        data.append('grade_id', grade_id);
-        data.append('trigger' , 1);
-    }
-
-    data.append('grade_nama', grade_nama);
-    data.append('_token', getToken());
-
-    ajax('/admin/setting/grade/tambah-kemaskini', data, 0);
-});
-
-//End Grade

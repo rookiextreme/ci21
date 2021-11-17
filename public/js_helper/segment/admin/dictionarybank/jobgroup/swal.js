@@ -39,7 +39,7 @@ function swalAjaxFire(postData){
 
             if(postfunc == 0){
                 if(success == 1){
-                    $('.grade-table').DataTable().ajax.reload(null, false);
+                    $('.job-group-table').DataTable().ajax.reload(null, false);
                     swalPostFire('error', 'Berjaya Dipadam', 'Grade Sudah Dipadam');
                 }
                 $.unblockUI();

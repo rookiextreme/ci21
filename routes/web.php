@@ -25,6 +25,7 @@ use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigScaleLvlControl
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigCompetencyTypeSetController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\BankJobGroupController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\Items\BankItemsController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\Score\BankJobGroupScoreController;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
@@ -239,8 +240,17 @@ Route::prefix('/admin')->group(function () {
                 Route::prefix('/job-group')->group(function () {
                     Route::get('/list/{penilaian_id}', [BankJobGroupController::class, 'job_group_list']);
                     Route::get('/insert-update/{penilaian_id}', [BankJobGroupController::class, 'job_group_insert_update_page']);
-                });
+                    Route::post('/insert-update/get-jurusan-item', [BankJobGroupController::class, 'job_group_jurusan_items']);
+                    Route::post('/insert-update/tambah-kemaskini', [BankJobGroupController::class, 'job_group_insert_update_tambah']);
+                    Route::post('/activate', [BankJobGroupController::class, 'job_group_activate']);
+                    Route::post('/delete', [BankJobGroupController::class, 'job_group_delete']);
+                    Route::get('/insert-update/{penilaian_id}/{job_group_id}', [BankJobGroupController::class, 'job_group_insert_update_page']);
 
+                    Route::get('/score/{job_group_id}', [BankJobGroupScoreController::class, 'index']);
+                    Route::prefix('/score')->group(function () {
+
+                    });
+                });
             });
         });
         // end bank

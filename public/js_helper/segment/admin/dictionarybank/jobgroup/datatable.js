@@ -1,10 +1,12 @@
-$('.grade-table').DataTable({
+$('.job-group-table').DataTable({
     processing: true,
     serverSide: true,
     ajax: getUrl() + '/admin/dictionary/bank/penilaian/job-group/list/' + $('.penilaian_id').val(),
     lengthChange:true,
     columns: [
-        { data: 'name' },
+        { data: 'kumpulan' },
+        { data: 'jurusan' },
+        { data: 'title_eng' },
         { data: 'active' },
         { data: 'action' },
     ],
@@ -32,6 +34,7 @@ $('.grade-table').DataTable({
             orderable: false,
             render: function (data, type, full, meta) {
                 return (
+                    '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-score">'+ feather.icons['edit-3'].toSvg() +'</button>' +
                     '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-job-group">'+ feather.icons['edit-3'].toSvg() +'</button>' +
                     '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-job-group">'+ feather.icons['trash-2'].toSvg() +'</button>'
                 );
