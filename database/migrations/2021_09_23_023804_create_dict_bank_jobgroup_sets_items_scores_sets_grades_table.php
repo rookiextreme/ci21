@@ -17,6 +17,7 @@ class CreateDictBankJobgroupSetsItemsScoresSetsGradesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('dict_bank_jobgroup_sets_items_id');
             $table->integer('dict_bank_grades_id');
+            $table->integer('dict_bank_jobgroup_sets_id');
             $table->integer('score');
             $table->integer('flag');
             $table->integer('delete_id');
@@ -26,6 +27,7 @@ class CreateDictBankJobgroupSetsItemsScoresSetsGradesTable extends Migration
         Schema::table('dict_bank_jobgroup_sets_items_scores_sets_grades', function(Blueprint $table){
             $table->foreign('dict_bank_jobgroup_sets_items_id')->references('id')->on('dict_bank_jobgroup_sets_items');
             $table->foreign('dict_bank_grades_id')->references('id')->on('dict_bank_grades');
+            $table->foreign('dict_bank_jobgroup_sets_id', 'jg_set')->references('id')->on('dict_bank_jobgroup_sets');
         });
     }
 
