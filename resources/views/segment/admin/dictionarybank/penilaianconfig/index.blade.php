@@ -69,6 +69,12 @@
                                         <span class="font-weight-bold">Job Group</span>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ Request::root() }}/admin/dictionary/bank/penilaian/config/items/{{$penilaian_id}}">
+                                        <i data-feather="zap" class="font-medium-3 mr-1"></i>
+                                        <span class="font-weight-bold">Koleksi Soalan</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <!--/ left menu section -->

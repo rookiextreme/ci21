@@ -1,18 +1,15 @@
-$('.penilaian-table').DataTable({
+$('.grade-table').DataTable({
     processing: true,
     serverSide: true,
-    ajax: getUrl() + '/admin/dictionary/bank/penilaian/list',
+    ajax: getUrl() + '/admin/dictionary/bank/penilaian/job-group/list/' + $('.penilaian_id').val(),
     lengthChange:true,
     columns: [
         { data: 'name' },
-        { data: 'tkh_mula' },
-        { data: 'tkh_tamat' },
-        { data: 'flag_publish' },
         { data: 'active' },
         { data: 'action' },
     ],
     createdRow: function( row, data, dataIndex ) {
-        $(row).addClass('penilaian-row');
+        $(row).addClass('job-group-row');
     },
     columnDefs: [
         {
@@ -24,21 +21,19 @@ $('.penilaian-table').DataTable({
                 let row_flag = full.flag;
                 let outLine = row_flag == 1 ? 'btn-outline-success' : 'btn-outline-danger';
                 return (
-                    '<button type="button" class="btn btn-icon '+ outLine +' mr-1 mb-1 waves-effect waves-light active-penilaian">'+ feather.icons['power'].toSvg() +'</button>'
+                    '<button type="button" class="btn btn-icon '+ outLine +' mr-1 mb-1 waves-effect waves-light active-job-group">'+ feather.icons['power'].toSvg() +'</button>'
                 );
             }
         },
         {
             // Actions
             targets: -1,
-            title: 'Tindakan',
+            title: 'Aksi',
             orderable: false,
             render: function (data, type, full, meta) {
                 return (
-                    '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light penilaian-config">'+ feather.icons['settings'].toSvg() +'</button>' +
-                    '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-penilaian">'+ feather.icons['edit-3'].toSvg() +'</button>' +
-                    '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-penilaian">'+ feather.icons['trash-2'].toSvg() +'</button>' +
-                    '<button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1 waves-effect waves-light config-item">'+ feather.icons['file-text'].toSvg() +'</button>'
+                    '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-job-group">'+ feather.icons['edit-3'].toSvg() +'</button>' +
+                    '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-job-group">'+ feather.icons['trash-2'].toSvg() +'</button>'
                 );
             }
         }
@@ -48,8 +43,8 @@ $('.penilaian-table').DataTable({
     lengthMenu: [7, 10, 25, 50, 75, 100],
     buttons: [
         {
-            text: feather.icons['plus'].toSvg({ class: 'mr-50 font-small-4' }) + 'Tambah Penilaian',
-            className: 'create-new btn btn-warning add-penilaian',
+            text: feather.icons['plus'].toSvg({ class: 'mr-50 font-small-4' }) + 'Tambah Job Group',
+            className: 'create-new btn btn-warning add-job-group',
             attr: {
                 'data-toggle': 'modal',
                 'data-target': '#modals-slide-in'

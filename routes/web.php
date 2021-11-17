@@ -248,7 +248,7 @@ Route::prefix('/admin')->group(function () {
 
                     Route::get('/score/{job_group_id}', [BankJobGroupScoreController::class, 'index']);
                     Route::prefix('/score')->group(function () {
-
+                        Route::post('/tambah-kemaskini', [BankJobGroupScoreController::class, 'job_group_score_tambah']);
                     });
                 });
             });

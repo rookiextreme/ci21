@@ -4,6 +4,7 @@ namespace App\Models\Penilaian\Jobgroup\Score;
 use App\Models\Penilaian\Grade\DictBankGradeCategory;
 use App\Models\Penilaian\Jobgroup\Set\DictBankJobgroupSet;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class DictBankSetsItemsScoresSetsGrade extends Model{
     public $table = 'dict_bank_jobgroup_sets_items_scores_sets_grades';
@@ -25,24 +26,25 @@ class DictBankSetsItemsScoresSetsGrade extends Model{
                 $itemScore = $jItem->dictBankJobgroupSetItemsScore;
                 array_push($score_id_arr, $jItem->id);
                 if(count($itemScore) == 0){
-                    self::createGradeScore($jItem->id, $job_group->dict_bank_grades_categories_id);
+                    self::createGradeScore($jItem->id, $job_group->dict_bank_grades_categories_id, $job_group->id);
                 }else{
-                    self::updateGradeScore($jItem->id, $job_group->dict_bank_grades_categories_id);
+                    self::updateGradeScore($jItem->id, $job_group->dict_bank_grades_categories_id, $job_group->id);
                 }
             }
 
             if(!empty($score_id_arr)){
-                self::whereNotIn('dict_bank_jobgroup_sets_items_id', $score_id_arr)->delete();
+                self::whereNotIn('dict_bank_jobgroup_sets_items_id', $score_id_arr)->where('dict_bank_jobgroup_sets_id', $job_group->id)->delete();
             }
         }
     }
 
-    public static function createGradeScore($item_id, $grade_category_id){
+    public static function createGradeScore($item_id, $grade_category_id, $jobgroup_id){
         $dictCatGrade = DictBankGradeCategory::find($grade_category_id);
         $grades = $dictCatGrade->dictBankGradeCategoryGetGrade;
 
         foreach($grades as $g){
             $model = new self;
+            $model->dict_bank_jobgroup_sets_id = $jobgroup_id;
             $model->dict_bank_jobgroup_sets_items_id = $item_id;
             $model->dict_bank_grades_id = $g->id;
             $model->score = 0;
@@ -54,10 +56,10 @@ class DictBankSetsItemsScoresSetsGrade extends Model{
         return $item_id;
     }
 
-    public static function updateGradeScore($item_id, $grade_category_id){
+    public static function updateGradeScore($item_id, $grade_category_id, $jobgroup_id){
         $check = self::where('dict_bank_jobgroup_sets_items_id', $item_id)->where('flag', 1)->where('delete_id', 0)->first();
         if(!$check){
-            $process = self::createGradeScore($item_id, $grade_category_id);
+            $process = self::createGradeScore($item_id, $grade_category_id, $jobgroup_id);
         }
         return $item_id;
     }
@@ -115,5 +117,21 @@ class DictBankSetsItemsScoresSetsGrade extends Model{
         $mainList = array_column($data, 'id');
         array_multisort($mainList, SORT_ASC, $data);
         return $data;
+    }
+
+    public static function updateAllScore(Request $request){
+        $scoreArr = json_decode($request->input('scoreArr'));
+
+        foreach($scoreArr as $sa){
+            $set_item_id = $sa[0];
+            $score_id = $sa[1];
+            $score = $sa[2];
+
+            $model = self::find($score_id);
+            $model->score = $score;
+            $model->save();
+        }
+
+        return 1;
     }
 }

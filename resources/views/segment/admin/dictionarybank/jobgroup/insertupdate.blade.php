@@ -36,6 +36,12 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
+                                        <div class="col-md-8"></div>
+                                        <div class="col-md-4">
+                                            <a href="{{Request::root()}}/admin/dictionary/bank/penilaian/job-group/{{$penilaian_id}}" class="btn btn-warning" style="float: right"><i data-feather='settings' style="padding-right: 2px"></i>Senarai Job Jobgroup</a>
+                                        </div>
+                                        <br><br>
+                                        <br><br>
                                         <div class="col-xl-6 col-md-6 col-12 mb-1">
                                             <div class="form-group">
                                                 <label for="basicInput">Name(English)</label>

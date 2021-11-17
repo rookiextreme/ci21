@@ -36,6 +36,12 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
+                                        <div class="col-md-8"></div>
+                                        <div class="col-md-4">
+                                            <a href="{{Request::root()}}/admin/dictionary/bank/penilaian/job-group/{{$penilaian_id}}" class="btn btn-warning" style="float: right"><i data-feather='settings' style="padding-right: 2px"></i>Senarai Job Jobgroup</a>
+                                        </div>
+                                        <br><br>
+                                        <br><br>
                                         <div class="col-xl-12 col-md-6 col-12 mb-1">
                                             <div class="table-responsive">
                                                 <table class="table table-bordered">
@@ -52,13 +58,13 @@
                                                     </thead>
                                                     <tbody>
                                                     @foreach($data['item']['main']['list'] as $itemlist)
-                                                        <tr>
+                                                        <tr data-item-id="{{$itemlist['id']}}">
                                                             <td>
                                                                 {{$itemlist['name']}}
                                                             </td>
                                                             @foreach($itemlist['scoreset'] as $score)
                                                                 <td data-grade-id="{{$score['grade_id']}}" data-score-id="{{$score['id']}}">
-                                                                    <input style="width: 20%" type="text" class="test" value="{{$score['score']}}">
+                                                                    <input style="width: 20%" type="text" class="job-group-score" value="{{$score['score']}}">
                                                                 </td>
                                                             @endforeach
                                                         </tr>
@@ -75,7 +81,7 @@
                 </section>
                 <div class="row">
                     <div class="col-xl-12 col-md-6 col-12 mb-1">
-                        <button type="button" style="width: 100%" class="btn btn-warning post-update-job-group">Kemaskini</button>
+                        <button type="button" style="width: 100%" class="btn btn-success post-add-job-group-score">Simpan</button>
                     </div>
                 </div>
             </div>
@@ -93,10 +99,10 @@
     @include('segment.layouts.asset_include_links.date_time.js.datetime_js')
 
     {{--  Custom files  --}}
-    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupinsertupdate/swal.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupinsertupdate/ajax.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupinsertupdate/page_settings.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupinsertupdate/datatable.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupinsertupdate/index.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupscore/swal.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupscore/ajax.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupscore/page_settings.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupscore/datatable.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupscore/index.js') }}"></script>
 @endsection
 

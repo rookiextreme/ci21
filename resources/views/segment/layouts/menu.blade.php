@@ -80,7 +80,8 @@
                     </li>
                 </ul>
             </li>
-            <li class=" nav-item active"><a class="d-flex align-items-center" href="#"><i data-feather='book'></i></i><span class="menu-title text-truncate" data-i18n="Invoice">Penilaian</span></a>
+            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Penilaian</span><i data-feather="more-horizontal"></i></li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather='book'></i></i><span class="menu-title text-truncate" data-i18n="Invoice">Penilaian</span></a>
                 <ul class="menu-content">
                     <li class=""><a class="d-flex align-items-center" href="{{route('bank.penilaian.index')}}"><i data-feather='archive'></i><span class="menu-item text-truncate" data-i18n="List">Bank</span></a>
                     </li>
@@ -95,7 +96,6 @@
                     </li>
                 </ul>
             </li>
-            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Penilaian</span><i data-feather="more-horizontal"></i></li>
             @endrole
         </ul>
     </div>

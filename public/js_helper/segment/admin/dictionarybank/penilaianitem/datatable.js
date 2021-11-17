@@ -48,6 +48,28 @@ $('.bank-listing-table').DataTable({
     lengthMenu: [7, 10, 25, 50, 75, 100],
     buttons: [
         {
+            text: feather.icons['settings'].toSvg({ class: 'mr-50 font-small-4' }) + 'Konfigurasi',
+            className: 'create-new btn btn-info show-config-page',
+            attr: {
+                'data-toggle': 'modal',
+                'data-target': '#modals-slide-in'
+            },
+            init: function (api, node, config) {
+                $(node).removeClass('btn-secondary');
+            }
+        },
+        {
+            text: feather.icons['list'].toSvg({ class: 'mr-50 font-small-4' }) + 'Job Group',
+            className: 'create-new btn btn-primary show-job-group-page',
+            attr: {
+                'data-toggle': 'modal',
+                'data-target': '#modals-slide-in'
+            },
+            init: function (api, node, config) {
+                $(node).removeClass('btn-secondary');
+            }
+        },
+        {
             text: feather.icons['plus'].toSvg({ class: 'mr-50 font-small-4' }) + 'Tambah Set Soalan',
             className: 'create-new btn btn-warning add-bank-item',
             attr: {
