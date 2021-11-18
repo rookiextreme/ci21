@@ -3,6 +3,7 @@ namespace App\Models\Penilaian\Jobgroup\Set;
 
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\BankJobGroupController;
 use App\Models\Penilaian\DictBank\Set\DictBankSetsItem;
+use App\Models\Penilaian\Jobgroup\Score\DictBankSetsItemsScoresSetsGrade;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -93,7 +94,16 @@ class DictBankJobgroupSet extends Model{
                 $model->save();
             }
         }else{
-            DictBankJobgroupSetsItem::where('dict_bank_jobgroup_sets_id', $job_group_id)->whereNotIn('dict_bank_sets_items_id', $items)->delete();
+            //Deleting Score Set if available before updating anything
+            $checkDelete = DictBankJobgroupSetsItem::where('dict_bank_jobgroup_sets_id', $job_group_id)->whereNotIn('dict_bank_sets_items_id', $items)->get();
+
+            if(count($checkDelete) > 0){
+                foreach($checkDelete as $cd){
+                    DictBankSetsItemsScoresSetsGrade::where('dict_bank_jobgroup_sets_items_id', $cd->id)->delete();
+                    $cd->delete();
+                }
+            }
+
             foreach($items as $i){
                 $checkItem = DictBankJobgroupSetsItem::where('dict_bank_jobgroup_sets_id', $job_group_id)->where('dict_bank_sets_items_id', $i)->first();
 

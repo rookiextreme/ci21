@@ -80,15 +80,15 @@ class DictBankSetsItemsScoresSetsGrade extends Model{
                 $data['item']['main']['list'][] = [
                     'id' => $jItem->id,
                     'name' => $jItem->dictBankJobgroupSetsItemDictBankSetsItem->title_eng,
-                    'scoreset' => self::getLatestScore($jItem->dictBankJobgroupSetItemsScore)
+                    'scoreset' => self::getLatestScore($jItem->id)
                 ];
             }
         }
-
         return $data;
     }
 
-    public static function getLatestScore($items){
+    public static function getLatestScore($item_id){
+        $items = DictBankSetsItemsScoresSetsGrade::where('dict_bank_jobgroup_sets_items_id', $item_id)->get();
         $data = [];
         if(count($items) > 0){
             foreach($items as $score){
@@ -98,10 +98,10 @@ class DictBankSetsItemsScoresSetsGrade extends Model{
                     'score' => $score->score
                 ];
             }
+            $mainList = array_column($data, 'grade_id');
+            array_multisort($mainList, SORT_ASC, $data);
         }
 
-        $mainList = array_column($data, 'grade_id');
-        array_multisort($mainList, SORT_ASC, $data);
         return $data;
     }
 

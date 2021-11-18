@@ -27,6 +27,7 @@ use App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\BankJobGroupCont
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\Items\BankItemsController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\Score\BankJobGroupScoreController;
 
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware(['auth'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 //Admin
@@ -132,25 +133,6 @@ Route::prefix('/admin')->group(function () {
             });
         });
         //end collection
-        /////////////////////////////////////////////////RUBMIN////////////////////////////////////////
-        // start bank
-//         Route::prefix('/bank')->group(function () {
-//            Route::get('/', [BankController::class, 'index'])->name('bank.index');
-//            Route::get('/bank-datalist', [BankController::class, 'dict_bank_datalist'])->name('bank.datalist');
-//            Route::post('/load_grades',[BankController::class, 'load_grades_category']);
-//            Route::post('/save_bank',[BankController::class,'save_dict_bank']);
-//            Route::post('/delete_bank',[BankController::class,'delete_dict_bank']);
-//            Route::post('/load_bank',[BankController::class,'load_saved_dict_bank']);
-//            Route::post('/update_bank',[BankController::class,'update_dict_bank']);
-//
-//            Route::prefix('/item')->group(function () {
-//                Route::get('/{id}', [QuestionController::class, 'index']);
-//                Route::get('/item-datalist/{id}', [QuestionController::class, 'item_sets_datalist']);
-//                Route::get('/list/col-datalist',[QuestionController::class, 'load_col_items']);
-//                Route::post('/add/item',[QuestionController::class, 'save_item_set']);
-//                Route::post('/delete/item',[QuestionController::class, 'remove_item']);
-//            });
-//        });
 
         Route::prefix('/bank')->group(function () {
             Route::prefix('/penilaian')->group(function () {
@@ -227,6 +209,7 @@ Route::prefix('/admin')->group(function () {
                         Route::post('/delete', [BankConfigCompetencyTypeSetController::class, 'competency_type_set_delete']);
                     });
 
+                    //Bahagian Rubmin
                     Route::get('/config/items/{penilaian_id}', [BankConfigController::class, 'index']);
                     Route::prefix('/items')->group(function () {
                         Route::get('/{id}', [BankItemsController::class, 'index']);
@@ -235,6 +218,7 @@ Route::prefix('/admin')->group(function () {
                         Route::post('/active/item',[BankItemsController::class,'bank_col_activate']);
                         Route::post('/delete/item',[BankItemsController::class,'bank_col_delete']);
                     });
+                    //End Bahagian Rubmin
                 });
                 Route::get('/job-group/{penilaian_id}', [BankJobGroupController::class, 'index']);
                 Route::prefix('/job-group')->group(function () {
