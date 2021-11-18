@@ -16,8 +16,10 @@ class CreateDictBankSetsItemsScoresSetsGradesTable extends Migration
         Schema::create('dict_bank_sets_items_scores_sets_grades', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('dict_bank_sets_items_id');
+            // $table->integer('dict_bank_grades_id');
+            // $table->integer('tech_discipline_flag');
             $table->integer('dict_bank_grades_id');
-            $table->integer('tech_discipline_flag');
+            $table->integer('score');
             $table->integer('flag');
             $table->integer('delete_id');
             $table->timestamps();
@@ -26,6 +28,7 @@ class CreateDictBankSetsItemsScoresSetsGradesTable extends Migration
         Schema::table('dict_bank_sets_items_scores_sets_grades', function(Blueprint $table){
             $table->foreign('dict_bank_sets_items_id')->references('id')->on('dict_bank_sets_items');
             $table->foreign('dict_bank_grades_id')->references('id')->on('dict_bank_grades');
+            // $table->foreign('dict_bank_grades_id')->references('id')->on('dict_bank_grades');
         });
     }
 
