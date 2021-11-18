@@ -6,7 +6,7 @@ use App\Models\Penilaian\Jobgroup\Set\DictBankJobgroupSet;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class DictBankSetsItemsScoresSetsGrade extends Model{
+class DictBankJobgroupSetsItemsScoresSetsGrade extends Model{
     public $table = 'dict_bank_jobgroup_sets_items_scores_sets_grades';
 
     public function dictBankJobgroupScoreGradeDictBankItem(){
@@ -88,7 +88,7 @@ class DictBankSetsItemsScoresSetsGrade extends Model{
     }
 
     public static function getLatestScore($item_id){
-        $items = DictBankSetsItemsScoresSetsGrade::where('dict_bank_jobgroup_sets_items_id', $item_id)->get();
+        $items = DictBankJobgroupSetsItemsScoresSetsGrade::where('dict_bank_jobgroup_sets_items_id', $item_id)->get();
         $data = [];
         if(count($items) > 0){
             foreach($items as $score){
