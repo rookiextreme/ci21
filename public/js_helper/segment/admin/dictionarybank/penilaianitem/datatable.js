@@ -36,7 +36,7 @@ $('.bank-listing-table').DataTable({
             orderable: false,
             render: function (data, type, full, meta) {
                 return (
-                    '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light update-bank-col-questions-list">'+ feather.icons['list'].toSvg() +'</button>' +
+                    '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light show-bank-col-question-modal">'+ feather.icons['list'].toSvg() +'</button>' +
                     '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-bank-col">'+ feather.icons['edit-3'].toSvg() +'</button>' +
                     '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-bank-col">'+ feather.icons['trash-2'].toSvg() +'</button>'
                 );
@@ -122,18 +122,11 @@ $('.bank-listing-table').DataTable({
     }
 });
 
-function bank_col_ques_table({item_id}){
+function bank_col_ques_table(item_id){
     $('.bank-listing-ques-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: {
-            url: getUrl() + '',
-            type: 'POST',
-            data: {
-                item_id: item_id,
-                _token: getToken()
-            }
-        },
+        ajax: getUrl() + '/admin/dictionary/bank/penilaian/config/items/question/list/' + item_id,
         lengthChange:true,
         columns: [
             { data: 'name' },

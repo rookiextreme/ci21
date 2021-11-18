@@ -90,7 +90,7 @@
 <input type="hidden" class="bank-col-id" value="">
 
 <div class="modal fade text-left modal-primary bank-col-ques-modal" id="primary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="bank-col-ques-title modal-title" id="myModalLabel160">Primary Modal</h5>
