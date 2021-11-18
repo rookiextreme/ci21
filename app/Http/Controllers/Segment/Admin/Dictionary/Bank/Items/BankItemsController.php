@@ -72,6 +72,26 @@ class BankItemsController extends Controller{
         return response()->json($process);
     }
 
+    public function bank_item_get_record(Request $request){
+        $process = DictBankSetsItem::getRecord($request->input('dict_col_id'));
+
+        $data = [];
+        if($process){
+            $data = [
+                'success' => 1,
+                'data' => [
+                    'title_eng' => $process->title_eng,
+                    'title_mal' => $process->title_mal,
+                    'jurusan' => $process->jurusan_id,
+                    'measuring_lvl' => $process->dict_bank_measuring_lvls_id,
+                    'grade_category' => $process->dict_bank_grades_categories_id,
+
+                ]
+            ];
+        }
+        return response()->json($data);
+    }
+
     public function bank_col_activate(Request $request){
         $model = new DictBankSetsItem;
         $process = $model->rekodActivate($request->input('dict_col_id'));

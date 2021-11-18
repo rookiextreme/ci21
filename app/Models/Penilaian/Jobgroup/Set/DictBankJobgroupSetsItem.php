@@ -17,6 +17,6 @@ class DictBankJobgroupSetsItem extends Model{
     }
 
     public function dictBankJobgroupSetItemsScore(){
-        return $this->hasMany('App\Models\Penilaian\Jobgroup\Score\DictBankSetsItemsScoresSetsGrade', 'dict_bank_jobgroup_sets_items_id', 'id')->where('delete_id', 0)->where('flag', 1);
+        return $this->hasMany('App\Models\Penilaian\Jobgroup\Score\DictBankJobgroupSetsItemsScoresSetsGrade', 'dict_bank_jobgroup_sets_items_id', 'id')->where('delete_id', 0)->where('flag', 1);
     }
 }

@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\Score;
 
 use App\Http\Controllers\Controller;
-use App\Models\Penilaian\Jobgroup\Score\DictBankSetsItemsScoresSetsGrade;
+use App\Models\Penilaian\Jobgroup\Score\DictBankJobgroupSetsItemsScoresSetsGrade;
 use App\Models\Penilaian\Jobgroup\Set\DictBankJobgroupSet;
 use Illuminate\Http\Request;
 
@@ -13,12 +13,14 @@ class BankJobGroupScoreController extends Controller{
     }
 
     public function index($job_group_id){
+
         $job_group = DictBankJobgroupSet::find($job_group_id);
 
         //creating or updating the scoreset
-        DictBankSetsItemsScoresSetsGrade::createUpdateItemScoreList($job_group);
+        DictBankJobgroupSetsItemsScoresSetsGrade::createUpdateItemScoreList($job_group);
+//        die();
         //end creating or updating the scoreset
-        $getScoreSet = DictBankSetsItemsScoresSetsGrade::getLatestScoreSet($job_group);
+        $getScoreSet = DictBankJobgroupSetsItemsScoresSetsGrade::getLatestScoreSet($job_group);
 
         return view('segment.admin.dictionarybank.jobgroup.scoresetting', [
             'data' => $getScoreSet,
@@ -28,7 +30,7 @@ class BankJobGroupScoreController extends Controller{
     }
 
     public function job_group_score_tambah(Request $request){
-        $process = DictBankSetsItemsScoresSetsGrade::updateAllScore($request);
+        $process = DictBankJobgroupSetsItemsScoresSetsGrade::updateAllScore($request);
         return response()->json([
             'success' => 1
         ]);

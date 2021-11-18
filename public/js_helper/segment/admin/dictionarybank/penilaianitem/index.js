@@ -11,6 +11,26 @@ $(document).on('click', '.add-bank-item, .active-bank-col', function(){
         ]);
         $('.post-update-bank-col').hide();
         $('.bank-col-modal').modal('show');
+    } else if(selectedClass.hasClass('update-bank-col')){
+        $('.bank-col-id').val(selectedClass.closest('tr').attr('data-bank-col-id'));
+        postEmptyFields([
+            ['.bank-col-nama-eng', 'text'],
+            ['.bank-col-nama-melayu', 'text'],
+            ['.bank-col-measuring-level', 'dropdown'],
+            ['.bank-col-com-type', 'dropdown'],
+            ['.bank-col-jurusan', 'dropdown'],
+            ['.bank-col-grade-category', 'dropdown'],
+        ]);
+        $('.post-add-grade').attr('style', 'display:none');
+        $('.post-update-grade').attr('style', '');
+
+        let data = new FormData;
+        data.append('bank_col_id', $('.bank-col-id').val());
+        data.append('_token', getToken());
+
+        ajax('/admin/setting/grade/get-record', data, 1);
+        $('.grade-title').html('Kemaskini Gred');
+        $('.grade-modal').modal('show');
     } else if(selectedClass.hasClass('active-bank-col')){
         let dict_col_id = $(this).closest('tr').attr('data-bank-col-id');
 
@@ -39,7 +59,7 @@ $(document).on('click', '.add-bank-item, .active-bank-col', function(){
         });
     }
 });
-//end 
+//end
 $(document).on('click', '.post-add-bank-col, .post-update-bank-col', function(){
     let selectedClass = $(this);
 

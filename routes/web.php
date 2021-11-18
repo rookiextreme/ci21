@@ -215,6 +215,7 @@ Route::prefix('/admin')->group(function () {
                         Route::get('/{id}', [BankItemsController::class, 'index']);
                         Route::get('/datalist/item/{id}', [BankItemsController::class, 'bank_item_list']);
                         Route::post('/save/item', [BankItemsController::class,'bank_item_save']);
+                        Route::post('/get-record/item', [BankItemsController::class,'bank_item_get_record']);
                         Route::post('/active/item',[BankItemsController::class,'bank_col_activate']);
                         Route::post('/delete/item',[BankItemsController::class,'bank_col_delete']);
                     });
