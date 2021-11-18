@@ -39,7 +39,43 @@ function ajax(url, data, postfunc){
                     });
                 }
             } else if(postfunc == 2) {
-                
+                if(success == 1){
+                    $('.bank-col-nama-eng').val(parseData.title_eng);
+                    $('.bank-col-nama-melayu').val(parseData.title_mal);
+                    $('.bank-col-measuring-level').val(parseData.measuring_lvl).trigger('change');
+                    $('.bank-col-com-type').val(parseData.competency_type).trigger('change');
+                    $('.bank-col-jurusan').val(parseData.jurusan).trigger('change');
+                    $('.bank-col-grade-category').val(parseData.grade_category).trigger('change');
+                }
+            }else if(postfunc == 3){
+                if(success == 1) {
+                    if(parseData.trigger == 0){
+                        toasting('Soalan Ditambah', 'success');
+                    }else{
+                        toasting('Soalan Dikemaskini', 'warning');
+                    }
+                    $('.bank-listing-ques-table').DataTable().ajax.reload(null, false);
+
+                }else if(success == 2){
+                    toasting('Rekod Soalan Telah Wujud', 'error');
+                }else{
+                    toasting('Sesuatu Telah Berlaku', 'error');
+                }
+            }else if(postfunc == 4) {
+                if(success == 1){
+                    $('.bank-col-ques-nama-eng').val(parseData.title_eng);
+                    $('.bank-col-ques-nama-melayu').val(parseData.title_mal);
+                }
+            }else if(postfunc == 5) {
+                if(success == 1) {
+                    toggle_activate({
+                        rowClass: '.bank-col-ques-row',
+                        rowId: parseData.id,
+                        activeClass: '.active-bank-col-ques',
+                        rowDataClass: 'data-bank-col-ques-id',
+                        flag: parseData.flag
+                    });
+                }
             }
         }
     });

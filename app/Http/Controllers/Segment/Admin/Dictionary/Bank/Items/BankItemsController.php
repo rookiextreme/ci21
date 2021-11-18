@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Segment\Admin\Dictionary\Bank\Items;
 
 use App\Http\Controllers\Controller;
+use App\Models\Penilaian\DictBank\Question\DictBankSetsCompetenciesQuestion;
 use Illuminate\Http\Request;
 use App\Models\Penilaian\Grade\DictBankGradeCategory;
 use App\Models\Penilaian\Setting\Scalelvl\DictBankCompetencyTypesScaleLvl;
@@ -73,7 +74,7 @@ class BankItemsController extends Controller{
     }
 
     public function bank_item_get_record(Request $request){
-        $process = DictBankSetsItem::getRecord($request->input('dict_col_id'));
+        $process = DictBankSetsItem::getRecord($request->input('bank_col_id'));
 
         $data = [];
         if($process){
@@ -85,7 +86,7 @@ class BankItemsController extends Controller{
                     'jurusan' => $process->jurusan_id,
                     'measuring_lvl' => $process->dict_bank_measuring_lvls_id,
                     'grade_category' => $process->dict_bank_grades_categories_id,
-
+                    'competency_type' => $process->dict_bank_competency_types_scale_lvls_id
                 ]
             ];
         }
@@ -102,6 +103,72 @@ class BankItemsController extends Controller{
     public function bank_col_delete(Request $request){
         $dict_col_id = $request->input('dict_col_id');
         $model = DictBankSetsItem::find($dict_col_id);
+        $model->delete_id = 1;
+        if($model->save()){
+            return response()->json([
+                'success' => 1
+            ]);
+        }
+    }
+
+    //Soalan Crap
+    public function bank_item_question_list($item_id){
+        $model = DictBankSetsCompetenciesQuestion::where('delete_id', 0)->where('dict_bank_sets_items_id',$item_id)->get();
+
+        return DataTables::of($model)
+            ->setRowAttr([
+                'data-bank-col-ques-id' => function($data) {
+                    return $data->id;
+                },
+                'data-bank-col-ques-flag-id' => function($data) {
+                    return $data->flag;
+                },
+            ])
+            ->addColumn('name', function($data){
+                return strtoupper($data->title_eng);
+            })
+            ->addColumn('nameMal', function($data){
+                return strtoupper($data->title_mal);
+            })
+            ->addColumn('active', function($data){
+                return strtoupper($data->flag);
+            })
+            ->rawColumns(['active', 'action'])
+            ->make(true);
+    }
+
+    public function bank_item_question_tambah(Request $request){
+        $model = new DictBankSetsCompetenciesQuestion;
+        $process = $model->createAndUpdate($request);
+        return response()->json($process);
+    }
+
+    public function bank_item_question_get_record(Request $request){
+        $process = DictBankSetsCompetenciesQuestion::getRecord($request->input('bank_col_ques_id'));
+
+        $data = [];
+        if($process){
+            $data = [
+                'success' => 1,
+                'data' => [
+                    'title_eng' => $process->title_eng,
+                    'title_mal' => $process->title_mal,
+                ]
+            ];
+        }
+        return response()->json($data);
+    }
+
+    public function bank_item_question_activate(Request $request){
+        $model = new DictBankSetsCompetenciesQuestion;
+        $process = $model->rekodActivate($request->input('bank_col_ques_id'));
+
+        return response()->json($process);
+    }
+
+    public function bank_item_question_delete(Request $request){
+        $bank_col_ques_id = $request->input('bank_col_ques_id');
+        $model = DictBankSetsCompetenciesQuestion::find($bank_col_ques_id);
         $model->delete_id = 1;
         if($model->save()){
             return response()->json([
