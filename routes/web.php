@@ -26,9 +26,11 @@ use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigCompetencyTypeS
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\BankJobGroupController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\Items\BankItemsController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\Score\BankJobGroupScoreController;
+use App\Http\Controllers\Segment\Pengguna\Dashboard\PenggunaDashboardPenggunaController;
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware(['auth'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard/pengguna', [PenggunaDashboardPenggunaController::class, 'index']);
 
 //Admin
 Route::prefix('/admin')->group(function () {

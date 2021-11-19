@@ -87,6 +87,7 @@ class User extends Authenticatable
                     $cawanganLogs->unit_name = $peg_maklumat['waran_name']['unit'];
                     $cawanganLogs->penempatan_name = $peg_maklumat['waran_name']['waran_penuh'];
                     $cawanganLogs->tahun = date('Y');
+                    $cawanganLogs->gred = $peg_maklumat['gred'];
                     $cawanganLogs->flag = 1;
                     $cawanganLogs->delete_id = 0;
 
@@ -132,6 +133,7 @@ class User extends Authenticatable
                 'name' => $profile_user->name,
                 'nric' => $profile_user->nokp,
                 'penempatan' => $profile->profile_Profile_cawangan_log_active->penempatan_name ?? '',
+                'gred' => $profile->profile_Profile_cawangan_log_active->gred ?? '',
                 'telefon' => [
                     'pejabat' => $profile->profile_Profile_telefon->no_tel_pejabat ?? '',
                     'bimbit' => $profile->profile_Profile_telefon->no_tel_bimbit ?? '',

@@ -27,6 +27,10 @@ class DictBankSetsItem extends Model{
         return $this->hasOne('App\Models\Penilaian\Grade\DictBankGradeCategory', 'id', 'dict_bank_grades_categories_id');
     }
 
+    public function dictBankSetsItemDictBankComQuestion(){
+        return $this->hasMany('App\Models\Penilaian\DictBank\Question\DictBankSetsCompetenciesQuestion', 'dict_bank_sets_items_id', 'id');
+    }
+
     public function createAndUpdate(Request $request) : array{
 
         $bank_col_nama_eng = $request->input('bank_col_nama_eng');
