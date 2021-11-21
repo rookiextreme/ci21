@@ -1,4 +1,5 @@
-$(document).on('click', '.add-bank-item, .active-bank-col', function(){
+//Item List
+$(document).on('click', '.add-bank-item, .active-bank-col, .update-bank-col, .delete-bank-col', function(){
     let selectedClass = $(this);
     if(selectedClass.hasClass('add-bank-item')){
         postEmptyFields([
@@ -21,16 +22,16 @@ $(document).on('click', '.add-bank-item, .active-bank-col', function(){
             ['.bank-col-jurusan', 'dropdown'],
             ['.bank-col-grade-category', 'dropdown'],
         ]);
-        $('.post-add-grade').attr('style', 'display:none');
-        $('.post-update-grade').attr('style', '');
+        $('.post-add-bank-col').attr('style', 'display:none');
+        $('.post-update-bank-col').attr('style', '');
 
         let data = new FormData;
         data.append('bank_col_id', $('.bank-col-id').val());
         data.append('_token', getToken());
 
-        ajax('/admin/setting/grade/get-record', data, 1);
-        $('.grade-title').html('Kemaskini Gred');
-        $('.grade-modal').modal('show');
+        ajax('/admin/dictionary/bank/penilaian/config/items/get-record/item', data, 2);
+        $('.bank-col-title').html('Kemaskini Item');
+        $('.bank-col-modal').modal('show');
     } else if(selectedClass.hasClass('active-bank-col')){
         let dict_col_id = $(this).closest('tr').attr('data-bank-col-id');
 
@@ -48,7 +49,7 @@ $(document).on('click', '.add-bank-item, .active-bank-col', function(){
 
         swalAjax({
             titleText : 'Adakah Anda Pasti?',
-            mainText : 'Set Soalan Akan Dipadam',
+            mainText : 'Item Akan Dipadam',
             icon: 'error',
             confirmButtonText: 'Padam',
             postData: {
@@ -104,3 +105,101 @@ $(document).on('click', '.post-add-bank-col, .post-update-bank-col', function(){
 
     ajax('/admin/dictionary/bank/penilaian/config/items/save/item', data, 0);
 });
+
+//End Item List
+
+//Item Question
+$(document).on('click', '.show-bank-col-question-modal, .active-bank-col-ques, .update-bank-col-ques, .delete-bank-col-ques', function(){
+    let selectedClass = $(this);
+    if(selectedClass.hasClass('show-bank-col-question-modal')){
+        $('.bank-col-id').val(selectedClass.closest('tr').attr('data-bank-col-id'));
+        postEmptyFields([
+            ['.bank-col-ques-nama-eng', 'text'],
+            ['.bank-col-ques-nama-melayu', 'text'],
+        ]);
+
+        $('.post-add-bank-col-ques').attr('style', 'width:100%');
+        $('.post-update-bank-col-ques').attr('style', 'display:none;');
+        $('.post-reset-bank-col-ques').attr('style', 'display:none');
+
+        bank_col_ques_table($('.bank-col-id').val());
+        $('.bank-col-ques-title').html('Kemaskini Item Soalan');
+        $('.bank-col-ques-modal').modal('show');
+    } else if(selectedClass.hasClass('update-bank-col-ques')){
+        $('.bank-col-ques-id').val(selectedClass.closest('tr').attr('data-bank-col-ques-id'));
+        postEmptyFields([
+            ['.bank-col-ques-nama-eng', 'text'],
+            ['.bank-col-ques-nama-melayu', 'text'],
+        ]);
+        $('.post-add-bank-col-ques').attr('style', 'display:none');
+        $('.post-update-bank-col-ques').attr('style', 'width:100%');
+        $('.post-reset-bank-col-ques').attr('style', 'width:100%');
+
+        let data = new FormData;
+        data.append('bank_col_ques_id', $('.bank-col-ques-id').val());
+        data.append('_token', getToken());
+        ajax('/admin/dictionary/bank/penilaian/config/items/question/get-record', data, 4);
+    } else if(selectedClass.hasClass('active-bank-col-ques')){
+        let bank_col_ques_id = selectedClass.closest('tr').attr('data-bank-col-ques-id');
+
+        let data = new FormData;
+        data.append('bank_col_ques_id', bank_col_ques_id);
+        data.append('_token', getToken());
+
+        ajax('/admin/dictionary/bank/penilaian/config/items/question/activate',data,5);
+    }  else if(selectedClass.hasClass('delete-bank-col-ques')){
+        let bank_col_ques_id = $(this).closest('tr').attr('data-bank-col-ques-id');
+
+        let data = new FormData;
+        data.append('bank_col_ques_id', bank_col_ques_id);
+        data.append('_token', getToken());
+
+        swalAjax({
+            titleText : 'Adakah Anda Pasti?',
+            mainText : 'Soalan Akan Dipadam',
+            icon: 'error',
+            confirmButtonText: 'Padam',
+            postData: {
+                url : '/admin/dictionary/bank/penilaian/config/items/question/delete',
+                data: data,
+                postfunc: 1
+            }
+        });
+    }
+});
+
+$(document).on('click', '.post-add-bank-col-ques, .post-update-bank-col-ques', function(){
+    let selectedClass = $(this);
+
+    let bank_col_ques_nama_eng = $('.bank-col-ques-nama-eng').val();
+    let bank_col_ques_nama_melayu = $('.bank-col-ques-nama-melayu').val();
+    let bank_col_id = $('.bank-col-id').val();
+    let bank_col_ques_id = $('.bank-col-ques-id').val();
+
+    let check = checkEmptyFields([
+        ['.bank-col-ques-nama-eng', 'mix', 'Nama Bahasa Inggeris'],
+        ['.bank-col-ques-nama-melayu', 'mix', 'Nama Bahasa Melayu'],
+    ]);
+
+    if(check == false){
+        return false;
+    }
+
+    let data = new FormData;
+
+    data.append('bank_col_ques_nama_eng', bank_col_ques_nama_eng);
+    data.append('bank_col_ques_nama_melayu', bank_col_ques_nama_melayu);
+    data.append('_token', getToken());
+
+    if(selectedClass.hasClass('post-add-bank-col-ques')){
+        data.append('bank_col_id', bank_col_id);
+        data.append('trigger' , 0);
+    }else{
+        data.append('bank_col_id', bank_col_id);
+        data.append('bank_col_ques_id', bank_col_ques_id);
+        data.append('trigger' , 1);
+    }
+
+    ajax('/admin/dictionary/bank/penilaian/config/items/question/tambah-kemaskini', data, 3);
+});
+//End Item Question

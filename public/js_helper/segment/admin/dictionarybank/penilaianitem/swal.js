@@ -42,6 +42,12 @@ function swalAjaxFire(postData){
                     swalPostFire('error', 'Berjaya Dipadam', 'Set Soalan Sudah Dipadam');
                 }
                 $.unblockUI();
+            }else if(postfunc == 1){
+                if(success == 1){
+                    $('.bank-listing-ques-table').DataTable().ajax.reload(null, false);
+                    swalPostFire('error', 'Berjaya Dipadam', 'Soalan Sudah Dipadam');
+                }
+                $.unblockUI();
             }
         }
     });

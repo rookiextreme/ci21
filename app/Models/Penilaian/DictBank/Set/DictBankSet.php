@@ -3,6 +3,7 @@ namespace App\Models\Penilaian\DictBank\Set;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Auth;
 
 class DictBankSet extends Model{
 
@@ -12,6 +13,22 @@ class DictBankSet extends Model{
 
     public function dictBankSetYear(){
         return $this->hasOne('App\Models\Regular\Year', 'id', 'years_id');
+    }
+
+    public function dictBankSetGradeCategories(){
+        return $this->hasOne('App\Models\Penilaian\Grade\DictBankGradeCategory', 'dict_bank_sets_id', 'id');
+    }
+
+    public function dictBankSetPenilaianUser(){
+        return $this->hasOne('App\Models\Penilaian\Main\Penilaian', 'dict_bank_sets_id', 'id')->where('profiles_id', Auth::user()->user_profile->id);
+    }
+
+    public function dictBankSetDictBankSetsItem(){
+        return $this->hasMany('App\Models\Penilaian\DictBank\Set\DictBankSetsItem', 'dict_bank_sets_id', 'id');
+    }
+
+    public function dictBankSetCompetencyScaleLvl(){
+        return $this->hasMany('App\Models\Penilaian\Setting\Scalelvl\DictBankCompetencyTypesScaleLvl', 'dict_bank_sets_id', 'id');
     }
 
     public function createAndUpdate(Request $request) : array{

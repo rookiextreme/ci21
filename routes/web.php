@@ -26,9 +26,11 @@ use App\Http\Controllers\Segment\Admin\Dictionary\Bank\BankConfigCompetencyTypeS
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\BankJobGroupController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\Items\BankItemsController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\Score\BankJobGroupScoreController;
+use App\Http\Controllers\Segment\Pengguna\Dashboard\PenggunaDashboardPenggunaController;
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware(['auth'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard/pengguna', [PenggunaDashboardPenggunaController::class, 'index']);
 
 //Admin
 Route::prefix('/admin')->group(function () {
@@ -218,7 +220,17 @@ Route::prefix('/admin')->group(function () {
                         Route::post('/get-record/item', [BankItemsController::class,'bank_item_get_record']);
                         Route::post('/active/item',[BankItemsController::class,'bank_col_activate']);
                         Route::post('/delete/item',[BankItemsController::class,'bank_col_delete']);
+
+                        Route::prefix('/question')->group(function () {
+                            Route::get('/list/{item_id}', [BankItemsController::class, 'bank_item_question_list']);
+                            Route::post('/tambah-kemaskini', [BankItemsController::class, 'bank_item_question_tambah']);
+                            Route::post('/get-record', [BankItemsController::class,'bank_item_question_get_record']);
+                            Route::post('/activate', [BankItemsController::class, 'bank_item_question_activate']);
+                            Route::post('/delete',[BankItemsController::class,'bank_item_question_delete']);
+                        });
                     });
+
+                    Route::get('/config/items/question/{item_id}', [BankConfigController::class, 'index']);
                     //End Bahagian Rubmin
                 });
                 Route::get('/job-group/{penilaian_id}', [BankJobGroupController::class, 'index']);
