@@ -97,6 +97,9 @@ class BankConfigScaleLvlController extends Controller{
             ->addColumn('skillset', function($data){
                 return strtoupper($data->dictBankScaleLvlSetSkill->name);
             })
+            ->addColumn('score', function($data){
+                return strtoupper($data->score);
+            })
             ->addColumn('active', function($data){
                 return strtoupper($data->name);
             })
@@ -124,7 +127,8 @@ class BankConfigScaleLvlController extends Controller{
                 'success' => 1,
                 'data' => [
                     'name' => $process->name,
-                    'skillset' => $process->dict_bank_scale_lvls_skillsets_id
+                    'skillset' => $process->dict_bank_scale_lvls_skillsets_id,
+                    'score' => $process->score
                 ]
             ];
         }

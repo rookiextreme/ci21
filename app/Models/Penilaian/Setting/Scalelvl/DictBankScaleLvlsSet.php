@@ -20,6 +20,7 @@ class DictBankScaleLvlsSet extends Model{
         $scale_level_set_skill_set = $request->input('scale_level_set_skill_set');
         $scale_level_id = $request->input('scale_level_id');
         $scale_level_set_id = $request->input('scale_level_set_id');
+        $scale_level_set_score = $request->input('scale_level_set_score');
         $trigger = $request->input('trigger');
 
         if($trigger == 0){
@@ -41,7 +42,7 @@ class DictBankScaleLvlsSet extends Model{
 
         $model->name = $scale_level_set_nama;
         $model->dict_bank_scale_lvls_skillsets_id = $scale_level_set_skill_set;
-        $model->score = 0;
+        $model->score = $scale_level_set_score ? $scale_level_set_score : 0;
 
         if($model->save()){
             return [

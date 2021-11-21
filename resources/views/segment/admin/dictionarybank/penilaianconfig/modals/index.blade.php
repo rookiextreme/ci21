@@ -175,14 +175,14 @@
             </div>
             <div class="modal-body">
                 <div class="row mb-2">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="basicInput">Nama</label>
                             <input type="text" class="form-control scale-level-set-nama" id="basicInput" placeholder=""/>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="basicInput">Skill Set</label>
                             <select class="form-control select2 scale-level-set-skill-set" data-placeholder="Sila Pilih">
@@ -191,6 +191,13 @@
                                     <option value="{{$ss->id}}">{{$ss->name}}</option>
                                 @endforeach
                             </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="basicInput">Skor</label>
+                            <input type="text" class="form-control scale-level-set-score" id="basicInput" placeholder=""/>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
@@ -209,6 +216,7 @@
                                 <tr>
                                     <th>Nama</th>
                                     <th>Skill Set</th>
+                                    <th>Skor</th>
                                     <th>Aktif</th>
                                     <th>Aksi</th>
                                 </tr>

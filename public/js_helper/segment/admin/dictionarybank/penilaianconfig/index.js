@@ -441,6 +441,8 @@ $(document).on('click', '.update-scale-level-sets, .update-scale-level-set, .res
         postEmptyFields([
             ['.scale-level-set-nama', 'text'],
             ['.scale-level-set-skill-set', 'dropdown'],
+            ['.scale-level-set-score', 'text']
+            
         ]);
         scaleLvlSetTable({
             scale_lvl_id: scale_lvl_id
@@ -457,6 +459,7 @@ $(document).on('click', '.update-scale-level-sets, .update-scale-level-set, .res
         postEmptyFields([
             ['.scale-level-set-nama', 'text'],
             ['.scale-level-set-skill-set', 'dropdown'],
+            ['.scale-level-set-score', 'text']
         ]);
 
         $('.post-add-scale-level-set').attr('style', 'display:none');
@@ -472,6 +475,7 @@ $(document).on('click', '.update-scale-level-sets, .update-scale-level-set, .res
         postEmptyFields([
             ['.scale-level-set-nama', 'text'],
             ['.scale-level-set-skill-set', 'dropdown'],
+            ['.scale-level-set-score', 'text']
         ]);
         $('.post-add-scale-level-set').attr('style', 'width: 100%');
         $('.post-update-scale-level-set').attr('style', 'display:none');
@@ -510,10 +514,13 @@ $(document).on('click', '.post-add-scale-level-set, .post-update-scale-level-set
     let scale_level_set_skill_set = $('.scale-level-set-skill-set').val();
     let scale_level_id = $('.scale-level-id').val();
     let scale_level_set_id = $('.scale-level-set-id').val();
+    let scale_level_set_score = $('.scale-level-set-score').val();
+
 
     let check = checkEmptyFields([
         ['.scale-level-set-nama', 'mix', 'Nama'],
         ['.scale-level-set-skill-set', 'int', 'Skill Set'],
+        ['.scale-level-set-score', 'int', 'Skor'],
     ]);
 
     if(check == false){
@@ -531,6 +538,7 @@ $(document).on('click', '.post-add-scale-level-set, .post-update-scale-level-set
     data.append('scale_level_set_nama', scale_level_set_nama);
     data.append('scale_level_set_skill_set', scale_level_set_skill_set);
     data.append('scale_level_id', scale_level_id);
+    data.append('scale_level_set_score', scale_level_set_score);
     data.append('_token', getToken());
 
     ajax('/admin/dictionary/bank/penilaian/config/scale-level/set/tambah-kemaskini', data, 15);
