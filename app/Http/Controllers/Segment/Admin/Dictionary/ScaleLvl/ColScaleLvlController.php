@@ -107,6 +107,9 @@ class ColScaleLvlController extends Controller{
             ->addColumn('skillset', function($data){
                 return strtoupper($data->dictColScaleLvlSetSkill->name);
             })
+             ->addColumn('score', function($data){
+                return strtoupper($data->score);
+            })
             ->addColumn('active', function($data){
                 return strtoupper($data->name);
             })
@@ -130,7 +133,8 @@ class ColScaleLvlController extends Controller{
                 'success' => 1,
                 'data' => [
                     'name' => $process->name,
-                    'skillset' => $process->dict_col_scale_lvls_skillsets_id
+                    'skillset' => $process->dict_col_scale_lvls_skillsets_id,
+                    'score' => $process->score
                 ]
             ];
         }

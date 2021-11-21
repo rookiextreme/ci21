@@ -123,6 +123,7 @@ function scaleLvlSetTable({scale_lvl_id}){
         columns: [
             { data: 'name' },
             { data: 'skillset' },
+            { data: 'score' },
             { data: 'active' },
             { data: 'action' },
         ],

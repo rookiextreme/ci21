@@ -38,7 +38,8 @@
                                     <div class="row">
                                         <div class="col-md-8"></div>
                                         <div class="col-md-4">
-                                            <a href="{{Request::root()}}/admin/dictionary/bank/penilaian/job-group/{{$penilaian_id}}" class="btn btn-warning" style="float: right"><i data-feather='settings' style="padding-right: 2px"></i>Senarai Job Jobgroup</a>
+                                            <a href="{{Request::root()}}/admin/dictionary/bank/penilaian/job-group/{{$penilaian_id}}" class="btn btn-warning" style="float: right"><i data-feather='settings' style="padding-right: 2px"></i>Senarai 
+                                            Koleksi Soalan</a>
                                         </div>
                                         <br><br>
                                         <br><br>
@@ -48,11 +49,11 @@
                                                     <thead>
                                                     <tr style="text-align: center">
                                                         <th class="centerCell" rowspan="2">Items</th>
-                                                        <th colspan="{{count($data['grade_categories'])}}">Senarai Grade</th>
+                                                        <th colspan="{{$grades->count()}}">Senarai Grade</th>
                                                     </tr>
                                                     <tr>
-                                                        @foreach($data['grade_categories'] as $gc)
-                                                            <th style="bcolor:black">{{$gc['name']}}</th>
+                                                        @foreach($grades as $gc)
+                                                            <th style="bcolor:black">{{$gc->name}}</th>
                                                         @endforeach
                                                     </tr>
                                                     </thead>

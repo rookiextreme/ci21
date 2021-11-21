@@ -190,6 +190,7 @@ function ajax(url, data, postfunc){
                 if(success == 1){
                     $('.scale-level-set-nama').val(parseData.name);
                     $('.scale-level-set-skill-set').val(parseData.skillset).trigger('change');
+                    $('.scale-level-set-score').val(parseData.score);
                     $.unblockUI();
                 }
             }else if(postfunc == 17){
