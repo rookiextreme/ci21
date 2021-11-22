@@ -1,4 +1,4 @@
-$(document).on('click', '.add-penilaian, .update-penilaian, .delete-penilaian, .active-penilaian', function(){
+$(document).on('click', '.add-penilaian, .update-penilaian, .delete-penilaian, .active-penilaian, .publish-penilaian', function(){
     let selectedClass = $(this);
     if(selectedClass.hasClass('add-penilaian')){
         postEmptyFields([
@@ -52,6 +52,24 @@ $(document).on('click', '.add-penilaian, .update-penilaian, .delete-penilaian, .
                 url : '/admin/dictionary/bank/penilaian/delete',
                 data: data,
                 postfunc: 0
+            }
+        });
+    }else if(selectedClass.hasClass('publish-penilaian')){
+        let penilaian_id = selectedClass.closest('tr').attr('data-bank-set-id');
+
+        let data = new FormData;
+        data.append('penilaian_id', penilaian_id);
+        data.append('_token', getToken());
+
+        swalAjax({
+            titleText : 'Adakah Anda Pasti?',
+            mainText : 'Apabila Penilaian diterbitkan, bahagian tetapan akan tertutup.',
+            icon: 'info',
+            confirmButtonText: 'Terbit',
+            postData: {
+                url : '/admin/dictionary/bank/penilaian/publish',
+                data: data,
+                postfunc: 1
             }
         });
     }

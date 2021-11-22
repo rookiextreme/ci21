@@ -42,6 +42,12 @@ function swalAjaxFire(postData){
                     swalPostFire('error', 'Berjaya Dipadam', 'Penilaian Sudah Dipadam');
                 }
                 $.unblockUI();
+            } else if(postfunc == 1){
+                if(success == 1){
+                    $('.penilaian-table').DataTable().ajax.reload(null, false);
+                    swalPostFire('error', 'Berjaya Diterbitkan', 'Penilaian Sudah Diterbitkan');
+                }
+                 $.unblockUI();
             }
         }
     });

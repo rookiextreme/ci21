@@ -7,7 +7,7 @@ $('.penilaian-table').DataTable({
         { data: 'name' },
         { data: 'tkh_mula' },
         { data: 'tkh_tamat' },
-        { data: 'flag_publish' },
+        { data: 'publish' },
         { data: 'active' },
         { data: 'action' },
     ],
@@ -18,14 +18,19 @@ $('.penilaian-table').DataTable({
         {
             // Actions
             targets: -2,
-            title: 'Aktif',
+            title: 'Terbit',
             orderable: false,
             render: function (data, type, full, meta) {
-                let row_flag = full.flag;
+                let row_flag = full.flag_publish;
                 let outLine = row_flag == 1 ? 'btn-outline-success' : 'btn-outline-danger';
-                return (
-                    '<button type="button" class="btn btn-icon '+ outLine +' mr-1 mb-1 waves-effect waves-light active-penilaian">'+ feather.icons['power'].toSvg() +'</button>'
-                );
+                if(row_flag == 1) {
+                    return('Sudah Diterbitkan');
+                } else {
+                    return (
+                        '<button type="button" class="btn btn-icon '+ outLine +' mr-1 mb-1 waves-effect waves-light publish-penilaian">'+ feather.icons['power'].toSvg() +'</button>'
+                    );
+                }
+                
             }
         },
         {
@@ -34,12 +39,17 @@ $('.penilaian-table').DataTable({
             title: 'Tindakan',
             orderable: false,
             render: function (data, type, full, meta) {
-                return (
-                    '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light penilaian-config">'+ feather.icons['settings'].toSvg() +'</button>' +
-                    '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-penilaian">'+ feather.icons['edit-3'].toSvg() +'</button>' +
-                    '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-penilaian">'+ feather.icons['trash-2'].toSvg() +'</button>' +
-                    '<button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1 waves-effect waves-light config-item">'+ feather.icons['file-text'].toSvg() +'</button>'
-                );
+                let row_flag = full.flag_publish;
+                if(row_flag == 1) {
+                    return('<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-penilaian">'+ feather.icons['trash-2'].toSvg() +'</button>');
+                } else {
+                    return (
+                        '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light penilaian-config">'+ feather.icons['settings'].toSvg() +'</button>' +
+                        '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-penilaian">'+ feather.icons['edit-3'].toSvg() +'</button>' +
+                        '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-penilaian">'+ feather.icons['trash-2'].toSvg() +'</button>' +
+                        '<button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1 waves-effect waves-light config-item">'+ feather.icons['file-text'].toSvg() +'</button>'
+                    );
+                }
             }
         }
     ],

@@ -6,6 +6,7 @@ use App\Models\Penilaian\DictBank\Set\DictBankSet;
 use App\Models\Regular\Year;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use DateTime;
 
 class BankController extends Controller{
     public function __construct()
@@ -41,8 +42,21 @@ class BankController extends Controller{
             ->addColumn('tkh_tamat', function($data){
                 return strtoupper($data->tkh_tamat);
             })
-            ->addColumn('flag_publish', function($data){
-                return strtoupper($data->flag_publish == 0 ? 'Draf' : 'Dihantar');
+            ->addColumn('publish', function($data){
+                if($data->flag_publish == 1) {
+                    $now = new DateTime('NOW');
+                    $start = new DateTime($data->tkh_mula);
+                    $end = new DateTime($data->tkh_tamat);
+                    if($now->getTimestamp() > $start->getTimestamp() && $now->getTimestamp() < $end->getTimestamp()) {
+                        return strtoupper('AKTIF');
+                    } else if($now->getTimestamp() > $end->getTimestamp()){
+                        return strtoupper('TUTUP');
+                    } else {
+                        return strtoupper('TERBIT');
+                    }
+                } else {
+                    return strtoupper($data->flag_publish == 0 ? 'Draf' : 'Dihantar');
+                }
             })
             ->addColumn('active', function($data){
                 return strtoupper($data->flag);
@@ -87,6 +101,18 @@ class BankController extends Controller{
         $grade_id = $request->input('penilaian_id');
         $model = DictBankSet::find($grade_id);
         $model->delete_id = 1;
+        if($model->save()){
+            return response()->json([
+                'success' => 1
+            ]);
+        }
+    }
+
+    public function publish_penilaian(Request $request)
+    {
+        $grade_id = $request->input('penilaian_id');
+        $model = DictBankSet::find($grade_id);
+        $model->flag_publish = $model->flag_publish == 1 ? 0 : 1;
         if($model->save()){
             return response()->json([
                 'success' => 1

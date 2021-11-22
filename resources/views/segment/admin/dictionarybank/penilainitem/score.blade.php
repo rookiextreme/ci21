@@ -62,7 +62,7 @@
                                                             <td>{{$item_name}}</td>
                                                             @foreach($gradeScores as $gr)
                                                             <td data-grade-id="{{$gr->id}}">
-                                                                <input style="width: 20%" type="text" class="item-score" value="{{$gr->score ? $gr->score : ''}}">
+                                                                <input style="width: 20%" type="text" class="item-score" value="{{$gr->score}}">
                                                             </td>
                                                             @endforeach
                                                         </tr>

@@ -38,8 +38,8 @@
                                         <th>Nama</th>
                                         <th>Tarikh Mula</th>
                                         <th>Tarikh Akhir</th>
-                                        <th>Publish</th>
-                                        <th>Aktif</th>
+                                        <th>Status</th>
+                                        <th>Terbit</th>
                                         <th>Tindakan</th>
                                     </tr>
                                     </thead>
