@@ -1,5 +1,5 @@
 //Item List
-$(document).on('click', '.add-bank-item, .active-bank-col, .update-bank-col, .delete-bank-col', function(){
+$(document).on('click', '.add-bank-item, .active-bank-col, .update-bank-col, .delete-bank-col, .open-set-score', function(){
     let selectedClass = $(this);
     if(selectedClass.hasClass('add-bank-item')){
         postEmptyFields([
@@ -58,6 +58,9 @@ $(document).on('click', '.add-bank-item, .active-bank-col, .update-bank-col, .de
                 postfunc: 0
             }
         });
+    } else if(selectedClass.hasClass('open-set-score')){
+        let dict_col_id = $(this).closest('tr').attr('data-bank-col-id');
+        window.location.href = getUrl() + '/admin/dictionary/bank/penilaian/config/items/scores/' + dict_col_id;
     }
 });
 //end

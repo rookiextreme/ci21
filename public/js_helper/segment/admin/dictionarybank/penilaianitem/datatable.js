@@ -37,6 +37,7 @@ $('.bank-listing-table').DataTable({
             render: function (data, type, full, meta) {
                 return (
                     '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light show-bank-col-question-modal">'+ feather.icons['list'].toSvg() +'</button>' +
+                    '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-set-score">'+ feather.icons['percent'].toSvg() +'</button>' +
                     '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-bank-col">'+ feather.icons['edit-3'].toSvg() +'</button>' +
                     '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-bank-col">'+ feather.icons['trash-2'].toSvg() +'</button>'
                 );

@@ -37,8 +37,8 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-8"></div>
-                                        <div class="col-md-4">
-                                            <a href="{{Request::root()}}/admin/dictionary/bank/penilaian/job-group/{{$penilaian_id}}" class="btn btn-warning" style="float: right"><i data-feather='settings' style="padding-right: 2px"></i>Senarai 
+                                        <div class="col-md-4 mb-2">
+                                            <a href="{{Request::root()}}/admin/dictionary/bank/penilaian/config/items/{{$penilaian_id}}" class="btn btn-warning" style="float: right"><i data-feather='settings' style="padding-right: 2px"></i>Senarai 
                                             Koleksi Soalan</a>
                                         </div>
                                         <br><br>
@@ -49,16 +49,24 @@
                                                     <thead>
                                                     <tr style="text-align: center">
                                                         <th class="centerCell" rowspan="2">Items</th>
-                                                        <th colspan="{{$grades->count()}}">Senarai Grade</th>
+                                                        <th colspan="{{count($gradeScores)}}">Senarai Grade</th>
                                                     </tr>
                                                     <tr>
-                                                        @foreach($grades as $gc)
+                                                        @foreach($gradeScores as $gc)
                                                             <th style="bcolor:black">{{$gc->name}}</th>
                                                         @endforeach
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($data['item']['main']['list'] as $itemlist)
+                                                        <tr data-item-id="{{$item_id}}">
+                                                            <td>{{$item_name}}</td>
+                                                            @foreach($gradeScores as $gr)
+                                                            <td data-grade-id="{{$gr->id}}">
+                                                                <input style="width: 20%" type="text" class="item-score" value="{{$gr->score ? $gr->score : ''}}">
+                                                            </td>
+                                                            @endforeach
+                                                        </tr>
+                                                    {{-- @foreach($data['item']['main']['list'] as $itemlist)
                                                         <tr data-item-id="{{$itemlist['id']}}">
                                                             <td>
                                                                 {{$itemlist['name']}}
@@ -69,7 +77,7 @@
                                                                 </td>
                                                             @endforeach
                                                         </tr>
-                                                    @endforeach
+                                                    @endforeach --}}
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -82,13 +90,13 @@
                 </section>
                 <div class="row">
                     <div class="col-xl-12 col-md-6 col-12 mb-1">
-                        <button type="button" style="width: 100%" class="btn btn-success post-add-job-group-score">Simpan</button>
+                        <button type="button" style="width: 100%" class="btn btn-success post-submit-item-scores">Simpan</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <input type="hidden" class="job_group_sets_id" value="{{$job_group_sets_id ?? ''}}">
+    <input type="hidden" class="bank_sets_items_id" value="{{$item_id}}">
 @endsection
 
 @section('customJS')
@@ -100,9 +108,9 @@
     @include('segment.layouts.asset_include_links.date_time.js.datetime_js')
 
     {{--  Custom files  --}}
-    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupscore/swal.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupscore/ajax.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupscore/page_settings.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupscore/datatable.js') }}"></script>
-    <script src="{{ asset('js_helper/segment/admin/dictionarybank/jobgroupscore/index.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionarybank/itemscore/swal.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionarybank/itemscore/ajax.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionarybank/itemscore/page_settings.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionarybank/itemscore/datatable.js') }}"></script>
+    <script src="{{ asset('js_helper/segment/admin/dictionarybank/itemscore/index.js') }}"></script>
 @endsection

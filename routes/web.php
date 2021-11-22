@@ -27,6 +27,7 @@ use App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\BankJobGroupCont
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\Items\BankItemsController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\Score\BankJobGroupScoreController;
 use App\Http\Controllers\Segment\Pengguna\Dashboard\PenggunaDashboardPenggunaController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Bank\items\Score\BankItemsScoreController;
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware(['auth'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
@@ -228,9 +229,13 @@ Route::prefix('/admin')->group(function () {
                             Route::post('/activate', [BankItemsController::class, 'bank_item_question_activate']);
                             Route::post('/delete',[BankItemsController::class,'bank_item_question_delete']);
                         });
+
+                        Route::get('/scores/{item_id}',[BankItemsScoreController::class,'index']);
+                        Route::post('/scores/save/items',[BankItemsScoreController::class,'save_scores']);
                     });
 
-                    Route::get('/config/items/question/{item_id}', [BankConfigController::class, 'index']);
+                    Route::get('/items/question/{item_id}', [BankConfigController::class, 'index']);
+                    
                     //End Bahagian Rubmin
                 });
                 Route::get('/job-group/{penilaian_id}', [BankJobGroupController::class, 'index']);
