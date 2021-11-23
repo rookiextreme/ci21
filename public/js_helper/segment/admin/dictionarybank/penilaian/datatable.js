@@ -22,9 +22,10 @@ $('.penilaian-table').DataTable({
             orderable: false,
             render: function (data, type, full, meta) {
                 let row_flag = full.flag_publish;
-                let outLine = row_flag == 1 ? 'btn-outline-success' : 'btn-outline-danger';
+                // let outLine = row_flag == 1 ? 'btn-outline-success' : 'btn-outline-danger';
+                let outLine = 'btn-outline-success';
                 if(row_flag == 1) {
-                    return('Sudah Diterbitkan');
+                    return('TERBIT');
                 } else {
                     return (
                         '<button type="button" class="btn btn-icon '+ outLine +' mr-1 mb-1 waves-effect waves-light publish-penilaian">'+ feather.icons['power'].toSvg() +'</button>'

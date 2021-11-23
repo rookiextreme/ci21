@@ -16,11 +16,11 @@ class CreateDictBankSetsItemsScoresSetsGradesTable extends Migration
         Schema::create('dict_bank_sets_items_scores_sets_grades', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('dict_bank_sets_items_id');
-            // $table->integer('tech_discipline_flag');
+            $table->integer('tech_discipline_flag')->default(0);
             $table->integer('dict_bank_grades_id');
-            $table->integer('score');
-            $table->integer('flag');
-            $table->integer('delete_id');
+            $table->integer('score')->nullable();
+            $table->integer('flag')->nullable();
+            $table->integer('delete_id')->nullable();
             $table->timestamps();
         });
 

@@ -18,6 +18,7 @@ class DictColCompetencyType extends Model{
     public function createAndUpdate(Request $request) : array{
         $competency_type_nama = $request->input('competency_type_nama');
         $competency_type_id = $request->input('competency_type_id');
+        $tech_discipline_flag = $request->input('tech_discipline_flag');
         $trigger = $request->input('trigger');
 
         if($trigger == 0){
@@ -37,6 +38,7 @@ class DictColCompetencyType extends Model{
         }
 
         $model->name = $competency_type_nama;
+        $model->tech_discipline_flag = $tech_discipline_flag;
 
         if($model->save()){
             return [

@@ -45,9 +45,14 @@ function swalAjaxFire(postData){
             } else if(postfunc == 1){
                 if(success == 1){
                     $('.penilaian-table').DataTable().ajax.reload(null, false);
-                    swalPostFire('error', 'Berjaya Diterbitkan', 'Penilaian Sudah Diterbitkan');
+                    swalPostFire('success', 'Berjaya Diterbitkan', 'Penilaian Sudah Diterbitkan!');
+
+                } else if(success == 0) {
+                    swalPostFire('error', 'Gagal Diterbitkan', 'Penilaian Tidak Lengkap!');
+                } else {
+                    swalPostFire('error', 'Gagal Diterbitkan', 'Ralat Dalam Sistem!');
                 }
-                 $.unblockUI();
+                $.unblockUI();   
             }
         }
     });

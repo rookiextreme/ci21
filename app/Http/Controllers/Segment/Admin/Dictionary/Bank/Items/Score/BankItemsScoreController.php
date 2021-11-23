@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Penilaian\DictBank\Score\DictBankSetsItemsScoresSetsGrade;
 use App\Models\Penilaian\Grade\DictBankGradeCategory;
 use App\Models\Penilaian\DictBank\Set\DictBankSetsItem;
+use App\Models\Penilaian\Setting\Scalelvl\DictBankCompetencyTypesScaleLvl;
 use stdClass;
 
 class BankItemsScoreController extends Controller
@@ -20,6 +21,8 @@ class BankItemsScoreController extends Controller
         $dict_bank_sets_id = $id;
 
         $dictBankSetsItemModel = DictBankSetsItem::find($id);
+        $compTypeScaleLvlModel = DictBankCompetencyTypesScaleLvl::find($dictBankSetsItemModel->dict_bank_competency_types_scale_lvls_id);
+        $compTypeModel = $compTypeScaleLvlModel->dictBankCompetencyTypeScaleBridgeCompetency;
 
         $grade_cat_model = DictBankGradeCategory::find($dictBankSetsItemModel->dict_bank_grades_categories_id);
 
@@ -57,7 +60,8 @@ class BankItemsScoreController extends Controller
             'gradeScores' => $array_gradeScores,
             'item_name' => $dictBankSetsItemModel->title_eng,
             'item_id' => $dictBankSetsItemModel->id,
-            'penilaian_id' => $dictBankSetsItemModel->dict_bank_sets_id
+            'penilaian_id' => $dictBankSetsItemModel->dict_bank_sets_id,
+            'tech_discipline_flag' => $compTypeModel->tech_discipline_flag
         ]);
     }
 
@@ -68,9 +72,12 @@ class BankItemsScoreController extends Controller
             $set_item_id = $sa[0];
             $score_id = $sa[1];
             $score = $sa[2];
+            $tech_flag = $sa[3];
+
+
 
             $model = DictBankSetsItemsScoresSetsGrade::updateOrCreate(
-                ['score' =>  $score, 'flag' => 1, 'delete_id' => 0, 'dict_bank_sets_items_id' => $set_item_id, 'dict_bank_grades_id' => $score_id],
+                ['score' =>  $score, 'flag' => 1, 'delete_id' => 0, 'dict_bank_sets_items_id' => $set_item_id, 'dict_bank_grades_id' => $score_id, 'tech_discipline_flag' => $tech_flag],
                 ['dict_bank_sets_items_id' => $set_item_id, 'dict_bank_grades_id' => $score_id]
             );            
         }

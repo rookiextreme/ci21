@@ -238,6 +238,11 @@ $(document).on('click', '.post-add-competency-type, .post-update-competency-type
     let selectedClass = $(this);
     let competency_type_nama = $('.competency-type-nama').val();
     let competency_type_id = $('.competency-type-id').val();
+    let tech_discipline_flag = 0;
+
+    if($('.tech-chkbox').attr('checked') == 'checked') {
+        tech_discipline_flag = 1;
+    }
 
     let check = checkEmptyFields([
         ['.competency-type-nama', 'mix', 'Nama'],
@@ -257,6 +262,7 @@ $(document).on('click', '.post-add-competency-type, .post-update-competency-type
 
     data.append('penilaian_id', $('.penilaian_id').val());
     data.append('competency_type_nama', competency_type_nama);
+    data.append('tech_discipline_flag',tech_discipline_flag);
     data.append('_token', getToken());
 
     ajax('/admin/dictionary/bank/penilaian/config/setting/competency-type/tambah-kemaskini', data, 6);

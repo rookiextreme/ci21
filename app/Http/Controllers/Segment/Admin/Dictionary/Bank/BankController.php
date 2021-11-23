@@ -112,11 +112,42 @@ class BankController extends Controller{
     {
         $grade_id = $request->input('penilaian_id');
         $model = DictBankSet::find($grade_id);
-        $model->flag_publish = $model->flag_publish == 1 ? 0 : 1;
-        if($model->save()){
-            return response()->json([
-                'success' => 1
-            ]);
+        $itemSets = $model->dictBankSetDictBankSetsItem;
+        $canPublish = true;
+
+        if($itemSets->count() == 0) {
+           return response()->json([
+                'success' => 0
+            ]); 
+        } else {
+            foreach($itemSets as $item) {
+                if(isset($item->dictBankSetsItemCompetencyTypeScaleLvl)) {
+                    $canPublish = false;
+                    break;
+                } else if($item->dictBankSetsItemDictBankComQuestion->count() == 0) {
+                    $canPublish = false;
+                    break;
+                } else {
+                    $canPublish = true;
+                }
+            }
+
+            if($canPublish) {
+                $model->flag_publish = $model->flag_publish == 1 ? 0 : 1;
+                if($model->save()){
+                    return response()->json([
+                        'success' => 1
+                    ]);
+                } else {
+                    return response()->json([
+                        'success' => 2
+                    ]);
+                }
+            } else {
+               return response()->json([
+                    'success' => 0
+                ]); 
+            }
         }
     }
 }

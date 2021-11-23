@@ -8,6 +8,7 @@ use App\Models\Penilaian\Grade\DictBankGradeCategory;
 use App\Models\Penilaian\Setting\Scalelvl\DictBankCompetencyTypesScaleLvl;
 use App\Models\Penilaian\Setting\Measuringlvl\DictBankMeasuringlvl;
 use App\Models\Penilaian\DictBank\Set\DictBankSetsItem;
+use App\Models\Collection\DictCol\Set\DictColSetsItem;
 use App\Models\Mykj\LJurusan;
 use Yajra\DataTables\DataTables;
 
@@ -175,5 +176,37 @@ class BankItemsController extends Controller{
                 'success' => 1
             ]);
         }
+    }
+
+    //copy for collection crap 
+    public function item_cols_list() {
+        $model = DictColSetsItem::where('delete_id',0)->where('flag',1);
+
+         return DataTables::of($model)
+            ->setRowAttr([
+                'data-dict-col-id' => function($data) {
+                    return $data->id;
+                },
+                'data-dict-col-flag-id' => function($data) {
+                    return $data->flag;
+                },
+            ])
+            ->addColumn('name', function($data){
+                return strtoupper($data->title_eng);
+            })
+            ->addColumn('measure', function($data){
+                return strtoupper($data->dictColSetsItemMeasuringLvl->name);
+            })
+            ->addColumn('com_type', function($data){
+                return strtoupper($data->dictColSetsItemCompetencyTypeScaleLvl->dictColCompetencyTypeScaleBridgeCompetency->name);
+            })
+            ->addColumn('jurusan', function($data){
+                return strtoupper($data->dictColSetsItemJurusan ? $data->dictColSetsItemJurusan->jurusan : 'Tiada Jurusan');
+            })
+            ->addColumn('grade_category', function($data){
+                return strtoupper($data->dictColSetsItemDictGradeCategory->name);
+            })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 }

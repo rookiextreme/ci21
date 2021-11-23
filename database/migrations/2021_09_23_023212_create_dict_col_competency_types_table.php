@@ -17,6 +17,7 @@ class CreateDictColCompetencyTypesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->integer('flag');
+            $table->integer('tech_discipline_flag')->nullable()->default(0);
             $table->integer('delete_id');
             $table->timestamps();
         });

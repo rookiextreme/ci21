@@ -8,12 +8,13 @@ $(document).on('click', '.post-submit-item-scores', function(){
         let score = $(this).val();
         let itemId = $(this).closest('tr').attr('data-item-id');
         let scoreId = $(this).closest('td[data-grade-id]').attr('data-grade-id');
+        let tech_flag = $(this).closest('tr').attr('data-tech-flag');
 
         if(score != '' || typeof score != 'undefined'){
             if(!/^\d+$/.test(score)){
                 pass = 1;
             }else{
-                let scoreKeep = [itemId, scoreId, score];
+                let scoreKeep = [itemId, scoreId, score, tech_flag];
                 scoreArr.push(scoreKeep);
             }
         }

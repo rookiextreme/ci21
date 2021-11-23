@@ -23,6 +23,7 @@ class DictBankCompetencyType extends Model{
         $competency_type_nama = $request->input('competency_type_nama');
         $competency_type_id = $request->input('competency_type_id');
         $penilaian_id = $request->input('penilaian_id');
+        $tech_discipline_flag = $request->input('tech_discipline_flag');
         $trigger = $request->input('trigger');
 
         if($trigger == 0){
@@ -43,6 +44,7 @@ class DictBankCompetencyType extends Model{
         }
 
         $model->name = $competency_type_nama;
+        $model->tech_discipline_flag = $tech_discipline_flag;
 
         if($model->save()){
             return [

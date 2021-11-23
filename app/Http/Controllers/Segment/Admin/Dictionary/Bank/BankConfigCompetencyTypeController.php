@@ -49,7 +49,8 @@ class BankConfigCompetencyTypeController extends Controller{
             $data = [
                 'success' => 1,
                 'data' => [
-                    'name' => $process->name
+                    'name' => $process->name,
+                    'tech' => $process->tech_discipline_flag
                 ]
             ];
         }

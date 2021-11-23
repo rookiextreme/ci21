@@ -58,7 +58,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr data-item-id="{{$item_id}}">
+                                                        <tr data-item-id="{{$item_id}}" data-tech-flag="{{$tech_discipline_flag}}">
                                                             <td>{{$item_name}}</td>
                                                             @foreach($gradeScores as $gr)
                                                             <td data-grade-id="{{$gr->id}}">

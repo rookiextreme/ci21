@@ -222,6 +222,7 @@ Route::prefix('/admin')->group(function () {
                         Route::post('/get-record/item', [BankItemsController::class,'bank_item_get_record']);
                         Route::post('/active/item',[BankItemsController::class,'bank_col_activate']);
                         Route::post('/delete/item',[BankItemsController::class,'bank_col_delete']);
+                        Route::get('/datalist/colitems',[BankItemsController::class,'item_cols_list']);
 
                         Route::prefix('/question')->group(function () {
                             Route::get('/list/{item_id}', [BankItemsController::class, 'bank_item_question_list']);

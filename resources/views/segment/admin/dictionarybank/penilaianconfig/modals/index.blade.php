@@ -91,6 +91,10 @@
                             <input type="text" class="form-control competency-type-nama" id="basicInput" placeholder=""/>
                             <div class="invalid-feedback"></div>
                         </div>
+                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input tech-chkbox" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">Technical Discipline</label>
+                                        </div>
                     </div>
                 </div>
             </div>

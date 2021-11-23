@@ -97,6 +97,11 @@ function ajax(url, data, postfunc){
             }else if(postfunc == 7){
                 if(success == 1){
                     $('.competency-type-nama').val(parseData.name);
+                    if(parseData.tech == 1) {
+                        $('.tech-chkbox').attr('checked','checked');
+                    } else {
+                        $('.tech-chkbox').removeAttr('checked');
+                    }
                     $.unblockUI();
                 }
             }else if(postfunc == 8){
