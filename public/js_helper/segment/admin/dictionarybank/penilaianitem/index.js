@@ -178,7 +178,6 @@ $(document).on('click', '.post-add-bank-col-ques, .post-update-bank-col-ques', f
 
     let check = checkEmptyFields([
         ['.bank-col-ques-nama-eng', 'mix', 'Nama Bahasa Inggeris'],
-        ['.bank-col-ques-nama-melayu', 'mix', 'Nama Bahasa Melayu'],
     ]);
 
     if(check == false){

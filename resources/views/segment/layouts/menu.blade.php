@@ -38,24 +38,6 @@
             <li class=" nav-item"><a class="d-flex align-items-center" href="{{Request::root()}}/admin/user"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Pengguna</span></a>
             </li>
             @endrole
-            @role('Urussetia')
-            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Halaman Utama</span><i data-feather="more-horizontal"></i>
-            </li>
-            <li class=" nav-item"><a class="d-flex align-items-center" href="{{Request::root()}}/dashboard"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Papan Pemuka</span></a>
-            </li>
-            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Urus Setia</span><i data-feather="more-horizontal"></i>
-            </li>
-            <li class=" nav-item"><a class="d-flex align-items-center" href="{{Request::root()}}/urussetia/projek"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Projek</span></a>
-            </li>
-            <li class=" nav-item"><a class="d-flex align-items-center" href="{{Request::root()}}/urussetia/projek/laporan"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Laporan</span></a>
-            </li>
-            @endrole
-            @role('KPA')
-            <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">KPA</span><i data-feather="more-horizontal"></i>
-            </li>
-            <li class=" nav-item"><a class="d-flex align-items-center" href="{{Request::root()}}/kpa/penilaian"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Penilaian</span></a>
-            </li>
-            @endrole
             @role('Admin')
             <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Dictionary</span><i data-feather="more-horizontal"></i></li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Invoice">Collection</span></a>
@@ -96,6 +78,13 @@
                     </li>
                 </ul>
             </li>
+            @endrole
+            @role('Pengguna')
+                <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Penilaian</span><i data-feather="more-horizontal"></i></li>
+                <li>
+                    <a class="d-flex align-items-center" href="{{Request::root()}}/dashboard/pengguna"><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Dashboard Penilaian</span>
+                    </a>
+                </li>
             @endrole
         </ul>
     </div>

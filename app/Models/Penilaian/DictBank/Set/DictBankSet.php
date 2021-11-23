@@ -19,6 +19,10 @@ class DictBankSet extends Model{
         return $this->hasOne('App\Models\Penilaian\Grade\DictBankGradeCategory', 'dict_bank_sets_id', 'id');
     }
 
+    public function dictBankSetGradeCategoriesAll(){
+        return $this->hasMany('App\Models\Penilaian\Grade\DictBankGradeCategory', 'dict_bank_sets_id', 'id');
+    }
+
     public function dictBankSetPenilaianUser(){
         return $this->hasOne('App\Models\Penilaian\Main\Penilaian', 'dict_bank_sets_id', 'id')->where('profiles_id', Auth::user()->user_profile->id);
     }

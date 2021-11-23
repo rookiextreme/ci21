@@ -32,4 +32,8 @@ class Profile extends Model
     public function profileDictBankJobgroupSet(){
         return $this->hasMany('App\Models\Penilaian\Jobgroup\Set\DictColJobgroupSet', 'profiles_id', 'id');
     }
+
+    public function profilePenyeliaPenilaian(){
+        return $this->hasMany('App\Models\Penilaian\Main\Penilaian', 'id', 'penyelia_profiles_id');
+    }
 }

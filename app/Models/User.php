@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Penilaian\Main\Penilaian;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,6 +16,7 @@ use App\Models\Profiles\ProfilesAlamatPejabat;
 use App\Models\Profiles\ProfilesCawanganLog;
 use App\Models\Profiles\ProfilesTelefon;
 use App\Models\LaratrustModels\RoleUser;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -175,5 +177,50 @@ class User extends Authenticatable
         }
 
         return 1;
+    }
+
+    public static function penyeliaCheck($penilaian_id, $nokp, $getMaklumat){
+        $userModel = User::where('nokp', $nokp)->first();
+        if(!$userModel){
+            User::createOrUpdate($getMaklumat);
+            $newUser = User::where('nokp', $nokp)->first();
+            $role = new RoleUser;
+            $role->user_id = $newUser->id;
+            $role->role_id = 3;
+            $role->user_type = 'App\Models\User';
+            $role->save();
+            $penilaian = Penilaian::where('profiles_id', Auth::user()->user_profile->id)->where('dict_bank_sets_id', $penilaian_id)->first();
+            if($penilaian->penyelia_profiles_id != ''){
+                self::checkPenyeliaNeed($penilaian->penyelia_profiles_id);
+            }
+            $penilaian->penyelia_profiles_id = $newUser->user_profile->id;
+            $penilaian->save();
+            return $newUser->id;
+        }else{
+            $checkPenyelia = RoleUser::where('user_id', $userModel->id)->where('role_id', 3)->first();
+            if(!$checkPenyelia){
+                $role = new RoleUser;
+                $role->user_id = $userModel->id;
+                $role->role_id = 3;
+                $role->user_type = 'App\Models\User';
+                $role->save();
+            }
+
+            $penilaian = Penilaian::where('profiles_id', Auth::user()->user_profile->id)->where('dict_bank_sets_id', $penilaian_id)->first();
+            if($penilaian->penyelia_profiles_id != ''){
+                self::checkPenyeliaNeed($penilaian->penyelia_profiles_id);
+            }
+            $penilaian->penyelia_profiles_id = $userModel->user_profile->id;
+            $penilaian->save();
+            return $userModel->id;
+        }
+    }
+
+    public static function checkPenyeliaNeed($currentUserPenyelia){
+        $profile = Profile::find($currentUserPenyelia);
+        $penilaianC = $profile->profilePenyeliaPenilaian;
+        if(count($penilaianC) == 0){
+            Roleuser::where('user_id', $profile->profile_Users->id)->where('role_id', 3)->delete();
+        }
     }
 }

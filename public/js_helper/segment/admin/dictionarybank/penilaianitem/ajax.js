@@ -51,6 +51,8 @@ function ajax(url, data, postfunc){
                 if(success == 1) {
                     if(parseData.trigger == 0){
                         toasting('Soalan Ditambah', 'success');
+                        $('.bank-col-ques-nama-eng').val('');
+                        $('.bank-col-ques-nama-melayu').val('');
                     }else{
                         toasting('Soalan Dikemaskini', 'warning');
                     }

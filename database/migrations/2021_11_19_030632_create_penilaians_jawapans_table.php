@@ -24,7 +24,7 @@ class CreatePenilaiansJawapansTable extends Migration
 
         Schema::table('penilaians_jawapans', function(Blueprint $table){
             $table->foreign('penilaians_competencies_id')->references('id')->on('penilaians_competencies');
-            $table->foreign('dict_bank_competencies_questions_id')->references('id')->on('dict_bank_competencies_questions');
+            $table->foreign('dict_bank_competencies_questions_id')->references('id')->on('dict_bank_sets_competencies_questions');
             $table->foreign('dict_bank_sets_items_id')->references('id')->on('dict_bank_sets_items');
         });
     }
