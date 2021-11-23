@@ -64,7 +64,7 @@
                                                             </td>
                                                             @foreach($itemlist['scoreset'] as $score)
                                                                 <td data-grade-id="{{$score['grade_id']}}" data-score-id="{{$score['id']}}">
-                                                                    <input style="width: 20%" type="text" class="job-group-score" value="{{$score['score']}}">
+                                                                    <input style="width: 100%" type="text" class="job-group-score" value="{{$score['score']}}">
                                                                 </td>
                                                             @endforeach
                                                         </tr>

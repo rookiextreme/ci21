@@ -28,6 +28,7 @@ use App\Http\Controllers\Segment\Admin\Dictionary\Bank\Items\BankItemsController
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\Score\BankJobGroupScoreController;
 use App\Http\Controllers\Segment\Pengguna\Dashboard\PenggunaDashboardPenggunaController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\items\Score\BankItemsScoreController;
+use App\Http\Controllers\Segment\Pengguna\PenilaianScore\PenilaianScoreController;
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware(['auth'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
@@ -237,7 +238,7 @@ Route::prefix('/admin')->group(function () {
                     });
 
                     Route::get('/items/question/{item_id}', [BankConfigController::class, 'index']);
-                    
+
                     //End Bahagian Rubmin
                 });
                 Route::get('/job-group/{penilaian_id}', [BankJobGroupController::class, 'index']);
@@ -272,6 +273,28 @@ Route::prefix('/admin')->group(function () {
             Route::post('/get-record', [GradeController::class, 'grade_get_record']);
             Route::post('/activate', [GradeController::class, 'grade_activate']);
             Route::post('/delete', [GradeController::class, 'grade_delete']);
+        });
+    });
+});
+
+//Pengguna
+Route::prefix('/pengguna')->group(function () {
+    Route::prefix('/penyelia')->group(function () {
+        Route::post('/list', [PenggunaDashboardPenggunaController::class, 'getPenyelia']);
+        Route::post('/tambah-kemaskini', [PenggunaDashboardPenggunaController::class, 'tambah_kemaskini']);
+    });
+
+    Route::prefix('/job-group')->group(function () {
+        Route::post('/list', [PenggunaDashboardPenggunaController::class, 'getJobGroup']);
+        Route::post('/tambah-kemaskini', [PenggunaDashboardPenggunaController::class, 'tambah_kemaskini_job_group']);
+    });
+
+    Route::get('/penilaian/score/{penilaian_id}', [PenilaianScoreController::class, 'index']);
+    Route::prefix('/penilaian')->group(function () {
+        Route::prefix('/score')->group(function () {
+            Route::post('/update-score', [PenilaianScoreController::class, 'update_score']);
+            Route::post('/kemaskini-score', [PenilaianScoreController::class, 'kemaskini_score']);
+            Route::post('/hantar-score', [PenilaianScoreController::class, 'hantar_score']);
         });
     });
 });

@@ -28,6 +28,10 @@ class Penilaian extends Model{
         return $this->hasMany('App\Models\Penilaian\Main\PenilaiansCompetency', 'penilaians_id', 'id');
     }
 
+    public function penilaianPenilaianComCheckIfDone(){
+        return $this->hasMany('App\Models\Penilaian\Main\PenilaiansCompetency', 'penilaians_id', 'id')->where('status', '0');
+    }
+
     public static function checkPenilaian(){
         $dict_bank_set = DictBankSet::where('flag_publish', 1)->where('flag', 1)->where('delete_id', 0)->get();
         $getUserGrade = Auth::user()->user_profile->profile_Profile_cawangan_log_active->gred;
@@ -38,11 +42,18 @@ class Penilaian extends Model{
                 $penilaian_percentage = 0;
                 $penilaian_exist = $dbs->dictBankSetPenilaianUser;
                 if(!$penilaian_exist){
-                    $grade_cat = $dbs->dictBankSetGradeCategories;
+                    $grade_cat = $dbs->dictBankSetGradeCategoriesAll;
                     if($grade_cat){
-                        $grade_cat_id = $grade_cat->id;
-                        $checkGradeAvailable = DictBankGrade::where('dict_bank_grades_categories_id', $grade_cat_id)->where('grades_id', $grade_id)->first();
-                        if($checkGradeAvailable){
+                        $passGrade = 0;
+                        foreach($grade_cat as $gc){
+                            $checkGradeAvailable = DictBankGrade::where('dict_bank_grades_categories_id', $gc->id)->where('grades_id', $grade_id)->first();
+
+                            if(!$checkGradeAvailable){
+                                $passGrade += 1;
+                            }
+                        }
+
+                        if($passGrade > 0){
                             $createP = self::createNewPenilaian($dbs->id);
                             if($createP){
                                 $data['penilaian_list'][$createP->id] = self::penilaianCollection($createP);
@@ -95,6 +106,8 @@ class Penilaian extends Model{
                                     }
                                 }
                             }
+                        }else{
+                            $pcModel->delete();
                         }
                     }
                 }
@@ -109,8 +122,11 @@ class Penilaian extends Model{
         $date2 = $date1->diff(new DateTime('now'));
 
         $data['penilaian'] = [
+            'id' => $penilaianModel->penilaianDictBankSet->id,
             'name' => $penilaianModel->penilaianDictBankSet->title,
             'year' => $penilaianModel->penilaianDictBankSet->dictBankSetYear->year,
+            'current_tkh' => date('Y-m-d H:i:s'),
+            'tkh_mula' => $penilaianModel->penilaianDictBankSet->tkh_mula,
             'tkh_tutup' => $penilaianModel->penilaianDictBankSet->tkh_tamat,
             'tkh_remain' => $date2->days.' Hari '.$date2->h.' Jam '.$date2->i.' Minit ',
             'status' => $penilaianModel->status,
@@ -120,7 +136,7 @@ class Penilaian extends Model{
             ] : null,
             'jobgroup' => $penilaianModel->penilaianJobgroup ? [
                 'id' => $penilaianModel->penilaianJobgroup->id,
-                'name' => $penilaianModel->penilaianJobgroup->title
+                'name' => $penilaianModel->penilaianJobgroup->title_eng
             ] : null,
             'competencies' => self::penilaianCompetencyCollection($penilaianModel)
         ];
@@ -144,6 +160,7 @@ class Penilaian extends Model{
                     'total' => $total,
                     'notAns' => $notAns,
                     'ans' => $ans,
+                    'status' => $c->status,
                     'percentageLengkap' => $percentageLengkap,
                     'question' => self::penilanJawapanCollection($c)
                 ];

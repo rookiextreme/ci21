@@ -38,7 +38,7 @@
                                     <div class="row">
                                         <div class="col-md-8"></div>
                                         <div class="col-md-4 mb-2">
-                                            <a href="{{Request::root()}}/admin/dictionary/bank/penilaian/config/items/{{$penilaian_id}}" class="btn btn-warning" style="float: right"><i data-feather='settings' style="padding-right: 2px"></i>Senarai 
+                                            <a href="{{Request::root()}}/admin/dictionary/bank/penilaian/config/items/{{$penilaian_id}}" class="btn btn-warning" style="float: right"><i data-feather='settings' style="padding-right: 2px"></i>Senarai
                                             Koleksi Soalan</a>
                                         </div>
                                         <br><br>
