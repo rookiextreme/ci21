@@ -34,7 +34,7 @@ class DictBankSetsItem extends Model{
     public function createAndUpdate(Request $request) : array{
 
         $bank_col_nama_eng = $request->input('bank_col_nama_eng');
-        $bank_col_name_melayu = $request->input('bank_col_name_melayu');
+        $bank_col_name_melayu = $request->input('bank_col_nama_melayu');
         $bank_col_measuring_level = $request->input('bank_col_measuring_level');
         $bank_col_com_type = $request->input('bank_col_com_type');
         $bank_col_jurusan = $request->input('bank_col_jurusan');

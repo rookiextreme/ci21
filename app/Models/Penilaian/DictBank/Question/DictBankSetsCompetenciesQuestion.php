@@ -15,13 +15,13 @@ class DictBankSetsCompetenciesQuestion extends Model{
         $trigger = $request->input('trigger');
 
         if($trigger == 0){
-            $checkDup = self::getDuplicate($bank_col_ques_nama_eng);
+            $checkDup = self::getDuplicate($bank_col_ques_nama_eng, false, $bank_col_id);
             $model = self::getRecord();
             $model->flag = 1;
             $model->delete_id = 0;
             $model->dict_bank_sets_items_id = $bank_col_id;
         }else{
-            $checkDup = self::getDuplicate($bank_col_ques_nama_eng, $bank_col_ques_id);
+            $checkDup = self::getDuplicate($bank_col_ques_nama_eng, $bank_col_ques_id, $bank_col_id);
             $model = self::getRecord($bank_col_ques_id);
         }
 
@@ -58,11 +58,11 @@ class DictBankSetsCompetenciesQuestion extends Model{
         return $model;
     }
 
-    public static function getDuplicate($nama, $id = false): bool{
+    public static function getDuplicate($nama, $id = false, $set_item_id): bool{
         if(!$id){
-            $model = self::where('title_eng', 'ilike', '%'.$nama.'%')->where('delete_id', 0)->count();
+            $model = self::where('title_eng', 'ilike', '%'.$nama.'%')->where('delete_id', 0)->where('dict_bank_sets_items_id',$set_item_id)->count();
         }else{
-            $model = self::where('title_eng', 'ilike', '%'.$nama.'%')->where('id', '!=', $id)->where('delete_id', 0)->count();
+            $model = self::where('title_eng', 'ilike', '%'.$nama.'%')->where('id', '!=', $id)->where('delete_id', 0)->where('dict_bank_sets_items_id',$set_item_id)->count();
         }
 
 

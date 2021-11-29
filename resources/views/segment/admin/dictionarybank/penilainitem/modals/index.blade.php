@@ -144,4 +144,42 @@
         </div>
     </div>
 </div>
+
 <input type="hidden" class="bank-col-ques-id" value="">
+
+<div class="modal fade text-left modal-primary col-items-modal" id="primary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="bank-col-ques-title modal-title" id="myModalLabel160">Primary Modal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <table class="col-items-table table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Nama</th>
+                                        <th>M. Level</th>
+                                        <th>Com Type</th>
+                                        <th>Jurusan</th>
+                                        <th>G. Category</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success post-add-item-col">Tambah</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>

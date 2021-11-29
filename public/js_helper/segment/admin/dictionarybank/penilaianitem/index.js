@@ -206,3 +206,17 @@ $(document).on('click', '.post-add-bank-col-ques, .post-update-bank-col-ques', f
     ajax('/admin/dictionary/bank/penilaian/config/items/question/tambah-kemaskini', data, 3);
 });
 //End Item Question
+$(document).on('click', '.post-add-item-col', function(){
+    let selected_items = col_items_table.column(0).checkboxes.selected();
+    let penilaian_id = $('.penilaian_id').val();
+    if(selected_items.length === 0){
+        toasting('Tiada pilihan dari koleksi soalan', 'error');
+    } else {
+        // send to server
+        let data = new FormData;
+        data.append('selected_items_col',JSON.stringify(selected_items));
+        data.append('penilaian_id',penilaian_id);
+        data.append('_token', getToken());
+    }
+    //;
+});
