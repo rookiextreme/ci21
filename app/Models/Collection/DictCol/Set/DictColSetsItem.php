@@ -32,7 +32,7 @@ class DictColSetsItem extends Model{
     public function createAndUpdate(Request $request) : array{
 
         $dict_col_nama_eng = $request->input('dict_col_nama_eng');
-        $dict_col_name_melayu = $request->input('dict_col_name_melayu');
+        $dict_col_name_melayu = $request->input('dict_col_nama_melayu');
         $dict_col_measuring_level = $request->input('dict_col_measuring_level');
         $dict_col_com_type = $request->input('dict_col_com_type');
         $dict_col_jurusan = $request->input('dict_col_jurusan');

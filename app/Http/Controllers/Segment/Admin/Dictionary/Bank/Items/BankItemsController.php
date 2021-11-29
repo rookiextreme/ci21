@@ -206,7 +206,18 @@ class BankItemsController extends Controller{
             ->addColumn('grade_category', function($data){
                 return strtoupper($data->dictColSetsItemDictGradeCategory->name);
             })
-            ->rawColumns(['action'])
+            // ->rawColumns(['action'])
             ->make(true);
+    }
+
+    public function add_item_cols(Request $request) {
+        $selected_items_col = json_decode(request->input('selected_items_col'));
+        $penilaian_id = request->input('penilaian_id');
+
+        foreach($selected_items_col as $item_id) {
+            $col_item_model = DictColSetsItem::find($item_id);
+
+
+        }
     }
 }
