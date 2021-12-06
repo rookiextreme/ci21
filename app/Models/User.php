@@ -109,17 +109,19 @@ class User extends Authenticatable
                             $alamat->delete_id = 0;
 
                             if($alamat->save()){
-                                $role_user = new RoleUser;
-                                $role_user->user_id = $user->id;
-                                $role_user->role_id = 2;
-                                $role_user->user_type = 'App\Models\User';
-
-                                if($role_user->save()){
-                                    return 1;
-                                }
+                                
                             }
                         }
                     }
+                }
+
+                $role_user = new RoleUser;
+                $role_user->user_id = $user->id;
+                $role_user->role_id = 4;
+                $role_user->user_type = 'App\Models\User';
+
+                if($role_user->save()){
+                    return 1;
                 }
             }
         }
