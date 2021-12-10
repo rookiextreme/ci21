@@ -121,7 +121,7 @@ class BankController extends Controller{
             ]); 
         } else {
             foreach($itemSets as $item) {
-                if(isset($item->dictBankSetsItemCompetencyTypeScaleLvl)) {
+                if(empty($item->dictBankSetsItemCompetencyTypeScaleLvl)) {
                     $canPublish = false;
                     break;
                 } else if($item->dictBankSetsItemDictBankComQuestion->count() == 0) {

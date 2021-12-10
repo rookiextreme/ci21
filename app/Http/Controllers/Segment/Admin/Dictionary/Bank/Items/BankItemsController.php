@@ -211,8 +211,8 @@ class BankItemsController extends Controller{
     }
 
     public function add_item_cols(Request $request) {
-        $selected_items_col = json_decode(request->input('selected_items_col'));
-        $penilaian_id = request->input('penilaian_id');
+        $selected_items_col = json_decode($request->input('selected_items_col'));
+        $penilaian_id = $request->input('penilaian_id');
 
         foreach($selected_items_col as $item_id) {
             $col_item_model = DictColSetsItem::find($item_id);
