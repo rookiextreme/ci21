@@ -12,7 +12,7 @@ function dropdown_populate(selectorClass, inputClass, listType, model, queryStri
 function ajax_common(methods,url, data, postfunc, selectorClass, inputClass, listType){
     $.ajax({
         type:methods,
-        url:window.location.origin + url,
+        url:getUrl() + url,
         data:data,
         dataType: "json",
         processData: false,
@@ -71,7 +71,7 @@ function getToken(){
 }
 
 function getUrl(){
-    return window.location.origin;
+    return window.location.origin + "/ci";
 }
 
 function previewPhoto({className, previewClass}){

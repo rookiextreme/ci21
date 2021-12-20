@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use DB;
+use Exception;
 
 class UserController extends Controller{
     public function __construct()
@@ -29,7 +30,7 @@ class UserController extends Controller{
             From profiles p
                 join users u on p.users_id = u.id
                 join role_user ru on u.id = ru.user_id
-            where ru.role_id = 2 and p.delete_id != 1;
+            where /*ru.role_id = 2 and*/p.delete_id != 1;
         ');
 
         return DataTables::of($model)
