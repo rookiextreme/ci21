@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class LWaranPej extends Model
 {
     protected $connection = 'pgsqlmykj';
-    protected $table = 'l_waran_pej';
+    protected $table = 'public.l_waran_pej';
 //    public $timestamps = false;
 }

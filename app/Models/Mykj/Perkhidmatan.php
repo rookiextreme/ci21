@@ -5,5 +5,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Perkhidmatan extends Model{
     protected $connection = 'pgsqlmykj';
-    protected $table = 'perkhidmatan';
+    protected $table = 'public.perkhidmatan';
 }

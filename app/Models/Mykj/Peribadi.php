@@ -5,5 +5,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Peribadi extends Model{
     protected $connection = 'pgsqlmykj';
-    protected $table = 'peribadi';
+    protected $table = 'public.peribadi';
 }
