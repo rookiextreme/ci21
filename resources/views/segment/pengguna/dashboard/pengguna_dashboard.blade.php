@@ -5,6 +5,7 @@
     @include('segment.layouts.asset_include_links.select2.css.select2_css')
     @include('segment.layouts.asset_include_links.sweetAlert.css.sweet_alert_css')
     @include('segment.layouts.asset_include_links.date_time.css.datetime_css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/timeline_custom.css') }}">
 @endsection
 
 @section('content')
@@ -49,25 +50,64 @@
             <section class="basic-timeline">
                 @if(!empty($data))
                     @foreach($data['penilaian_list'] as $dk => $d)
-                        @if($d['penilaian']['current_tkh'] < $d['penilaian']['tkh_mula'])
-                            <div class="row">
-                                <div class="col-md-12 col-xl-12">
-                                    <div class="card bg-warning text-white">
-                                        <div class="card-body">
-                                            <h4 class="card-title text-white" style="text-align: center">Penilaian ({{$d['penilaian']['year']}}) : {{$d['penilaian']['name']}}</h4>
-                                            <p class="card-text" style="text-align: center;font-size: xx-large">Penilaian Belum Mula</p>
+                        {{-- <span>Tarikh Semasa : {{ $d['penilaian']['current_tkh'] }}</span><br/>
+                        <span>Tarikh Mula : {{ $d['penilaian']['tkh_mula'] }}</span><br/>
+                        <span>Tarikh Akhir : {{ $d['penilaian']['tkh_tutup'] }}</span><br/> --}}
+                        @if($d['penilaian']['current_tkh'] >= $d['penilaian']['tkh_mula'] && $d['penilaian']['current_tkh'] <= $d['penilaian']['tkh_tutup'])
+                            <div class="row main-penilaian-id" data-id="{{$d['penilaian']['id']}}">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        @if($d['penilaian']['status'] == 0)
+                                            <div class="col-md-6 col-xl-6">
+                                                <div class="card bg-info text-white">
+                                                    <div class="card-body" style="height: 141px">
+                                                        <h4 class="card-title text-white" style="text-align: center">Status Penilaian</h4>
+                                                        <p class="card-text" style="text-align: center;font-size: xx-large">DRAF</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @elseif($d['penilaian']['status'] == 1)
+                                            <div class="col-md-6 col-xl-6">
+                                                <div class="card bg-warning text-white">
+                                                    <div class="card-body" style="height: 141px">
+                                                        <h4 class="card-title text-white" style="text-align: center">Status Penilaian</h4>
+                                                        <p class="card-text" style="text-align: center;font-size: xx-large">MENUNGGU PENGHANTARAN</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @elseif($d['penilaian']['status'] == 2)
+                                            <div class="col-md-6 col-xl-6">
+                                                <div class="card bg-success text-white">
+                                                    <div class="card-body" style="height: 141px">
+                                                        <h4 class="card-title text-white" style="text-align: center">Status Penilaian</h4>
+                                                        <p class="card-text" style="text-align: center;font-size: xx-large">SELESAI</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <div class="col-md-6 col-xl-6">
+                                            <div class="card bg-warning text-white">
+                                                <div class="card-body">
+                                                    <h4 class="card-title text-white" style="text-align: center">Tarikh Tamat Penilaian</h4>
+                                                    <p class="card-text" style="text-align: center;font-size: xx-large">
+                                                        {{$d['penilaian']['tkh_tutup']}}<br>
+                                                    </p>
+                                                    <p class="card-text" style="text-align: center;font-size: xx-large">
+                                                        {{$d['penilaian']['tkh_remain']}}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @elseif($d['penilaian']['current_tkh'] >= $d['penilaian']['tkh_mula'] && $d['penilaian']['current_tkh'] <= $d['penilaian']['tkh_tutup'])
-                            <div class="row main-penilaian-id" data-id="{{$d['penilaian']['id']}}">
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="card">
                                         <div class="card-header">
                                             <h4 class="card-title">Penilaian ({{$d['penilaian']['year']}}) : {{$d['penilaian']['name']}}</h4>
                                         </div>
                                         <div class="card-body">
+                                            <!-- old timeline penilaian -->
+                                            {{--
                                             <ul class="timeline">
                                                 <li class="timeline-item">
                                                 <span class="timeline-point timeline-point-info">
@@ -224,50 +264,154 @@
                                                     </div>
                                                 </li>
                                             </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="row">
-                                        @if($d['penilaian']['status'] == 0)
-                                            <div class="col-md-12 col-xl-12">
-                                                <div class="card bg-info text-white">
-                                                    <div class="card-body">
-                                                        <h4 class="card-title text-white" style="text-align: center">Status Penilaian</h4>
-                                                        <p class="card-text" style="text-align: center;font-size: xx-large">DRAF</p>
+                                             --}}
+                                            <!-- new timeline penilaian -->
+                                            <div style="display:inline-block;width:100%;overflow-y:auto;">
+                                            <ul class="timeline-custom timeline-horizontal">
+                                                <li class="timeline-item">
+                                                    <div class="timeline-badge info"><i data-feather="user"></i></div>
+                                                    <div class="timeline-panel">
+                                                        <div class="timeline-heading">
+                                                            <h4 class="timeline-title">LANGKAH 1 : PENYELIA</h4>
+                                                        </div>
+                                                        <div class="timeline-body">
+                                                            @if(!empty($d['penilaian']['penyelia']))
+                                                                <p>Penyelia Anda Adalah: </p>
+                                                                <p><b>{{$d['penilaian']['penyelia']['name']}}</b></p>
+                                                            @else
+                                                                <p>Anda Belum Memilih Penyelia</p>
+                                                            @endif
+                                                            <p><a class="penyelia-choose" style="color:darkgreen;font-weight: bolder">Tukar Penyelia</a></p>
+                                                            @if(!empty($d['penilaian']['penyelia']))
+                                                            <div class="col-md-12">
+                                                                <img src="{{Request::root()}}/basicImg/tick.jpg" alt="" width="70px" height="70px" style="float: right">
+                                                            </div>
+                                                            @else
+                                                            <div class="col-md-12">
+                                                                <img src="{{Request::root()}}/basicImg/wrong.png" alt="" width="75px" height="75px" style="float: right">
+                                                            </div>
+                                                            @endif
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        @elseif($d['penilaian']['status'] == 1)
-                                            <div class="col-md-12 col-xl-12">
-                                                <div class="card bg-warning text-white">
-                                                    <div class="card-body">
-                                                        <h4 class="card-title text-white" style="text-align: center">Status Penilaian</h4>
-                                                        <p class="card-text" style="text-align: center;font-size: xx-large">MENUNGGU PENGHANTARAN</p>
+                                                </li>
+                                                <li class="timeline-item">
+                                                    <div class="timeline-badge primary"><i data-feather="layers"></i></div>
+                                                    <div class="timeline-panel">
+                                                        <div class="timeline-heading">
+                                                            <h4 class="timeline-title">LANGKAH 2 : JOB GROUP</h4>
+                                                        </div>
+                                                        <div class="timeline-body">
+                                                            @if(!empty($d['penilaian']['jobgroup']))
+                                                                <p>Job Group Anda Adalah: </p>
+                                                                <p><b>{{$d['penilaian']['jobgroup']['name']}}</b></p>
+                                                            @else
+                                                                <p>Anda Belum Memilih Job Group </p>
+                                                            @endif
+
+                                                            <p><a class="job-group-choose" style="color:darkgreen;font-weight: bolder">Tukar Job Group</a></p>
+
+                                                        @if(!empty($d['penilaian']['jobgroup']))
+                                                            <div class="col-md-12">
+                                                                <img src="{{Request::root()}}/basicImg/tick.jpg" alt="" width="70px" height="70px" style="float: right">
+                                                            </div>
+                                                        @else
+                                                            <div class="col-md-12">
+                                                                <img src="{{Request::root()}}/basicImg/wrong.png" alt="" width="75px" height="75px" style="float: right">
+                                                            </div>
+                                                        @endif
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        @elseif($d['penilaian']['status'] == 2)
-                                            <div class="col-md-12 col-xl-12">
-                                                <div class="card bg-success text-white">
-                                                    <div class="card-body">
-                                                        <h4 class="card-title text-white" style="text-align: center">Status Penilaian</h4>
-                                                        <p class="card-text" style="text-align: center;font-size: xx-large">SELESAI</p>
+                                                </li>
+                                                <li class="timeline-item">
+                                                    <div class="timeline-badge warning"><i data-feather="file-text"></i></div>
+                                                    <div class="timeline-panel">
+                                                        <div class="timeline-heading">
+                                                            <h4 class="timeline-title">LANGKAH 3: PENILAIAN</h4>
+                                                        </div>
+                                                        <div class="timeline-body">
+                                                            <?php
+                                                            $pass = 0;
+                                                            foreach($d['penilaian']['competencies'] as $c){
+                                                                if($c['status'] == 0){
+                                                                    $pass = 1;
+                                                                }
+                                                            }
+                                                            ?>
+                                                            @if(!empty($d['penilaian']['penyelia']) && !empty($d['penilaian']['jobgroup']) && $pass == 0)
+                                                                <p>Anda Telah Berjaya Melengkapkan Penilaian Kompetensi Ini</p>
+                                                            @elseif(!empty($d['penilaian']['penyelia']) && !empty($d['penilaian']['jobgroup']) && $pass == 1)
+                                                                <p>Anda Boleh Menjawab Penilaian Sekarang</p>
+                                                                <p><a class="penilaian-choose" style="color:darkgreen;font-weight: bolder">Jawab Penilaian</a></p>
+                                                            @else
+                                                                <p>Sila Pilih Penyelia Dan Job Group Anda</p>
+                                                            @endif
+                                                        @if(!empty($d['penilaian']['penyelia']) && !empty($d['penilaian']['jobgroup']) && $pass == 0)
+                                                            <div class="col-md-12">
+                                                                <img src="{{Request::root()}}/basicImg/tick.jpg" alt="" width="70px" height="70px" style="float: right">
+                                                            </div>
+                                                        @else
+                                                            <div class="col-md-12">
+                                                                <img src="{{Request::root()}}/basicImg/wrong.png" alt="" width="75px" height="75px" style="float: right">
+                                                            </div>
+                                                        @endif
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        @endif
-                                        <div class="col-md-12 col-xl-12">
-                                            <div class="card bg-warning text-white">
-                                                <div class="card-body">
-                                                    <h4 class="card-title text-white" style="text-align: center">Tarikh Tamat Penilaian</h4>
-                                                    <p class="card-text" style="text-align: center;font-size: xx-large">
-                                                        {{$d['penilaian']['tkh_tutup']}}<br>
-                                                    </p>
-                                                    <p class="card-text" style="text-align: center;font-size: xx-large">
-                                                        {{$d['penilaian']['tkh_remain']}}
-                                                    </p>
-                                                </div>
+                                                </li>
+                                                <li class="timeline-item">
+                                                    <div class="timeline-badge danger"><i data-feather="fast-forward"></i></div>
+                                                    <div class="timeline-panel">
+                                                        <div class="timeline-heading">
+                                                            <h4 class="timeline-title">LANGKAH 4: HANTAR</h4>
+                                                        </div>
+                                                        <div class="timeline-body">
+                                                            @if($d['penilaian']['status'] != 0 && ($d['penilaian']['status'] == 1))
+                                                                <p>Penilaian Selesai. Sila Hantar Kepada Penyelia Bagi Pengesahan</p>
+                                                                <p><a class="penilaian-hantar" style="color:darkgreen;font-weight: bolder">Hantar</a></p>
+                                                            @elseif($d['penilaian']['status'] != 0 && ($d['penilaian']['status'] == 2))
+                                                                <p>Penilaian Dihantar Ke Penyelia</p>
+                                                            @else
+                                                                <p>Sila Jawab Penilaian Anda Dahulu</p>
+                                                            @endif
+                                                        @if($d['penilaian']['status'] != 0 && $d['penilaian']['status'] == 1)
+                                                            <div class="col-md-12">
+                                                                <img src="{{Request::root()}}/basicImg/tick.jpg" alt="" width="70px" height="70px" style="float: right">
+                                                            </div>
+                                                        @elseif($d['penilaian']['status'] != 0 && ($d['penilaian']['status'] == 2))
+                                                            <div class="col-md-12">
+                                                                <img src="{{Request::root()}}/basicImg/tick.jpg" alt="" width="70px" height="70px" style="float: right">
+                                                            </div>
+                                                        @else
+                                                            <div class="col-md-12">
+                                                                <img src="{{Request::root()}}/basicImg/wrong.png" alt="" width="75px" height="75px" style="float: right">
+                                                            </div>
+                                                        @endif
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="timeline-item">
+                                                    <div class="timeline-badge success"><i data-feather="fast-forward"></i></div>
+                                                    <div class="timeline-panel">
+                                                        <div class="timeline-heading">
+                                                            @if($d['penilaian']['status'] == 2)
+                                                            <h4 class="timeline-title">PENILAIAN SELESAI SEPENUHNYA</4>
+                                                        @else
+                                                            <h4 class="timeline-title">BELUM SELESAI</h4>
+                                                        @endif
+                                                        </div>
+                                                        <div class="timeline-body">
+                                                            @if($d['penilaian']['status'] == 2)
+                                                            <div class="col-md-12">
+                                                                <img src="{{Request::root()}}/basicImg/tick.jpg" alt="" width="70px" height="70px" style="float: right">
+                                                            </div>
+                                                        @else
+                                                            <div class="col-md-12">
+                                                                <img src="{{Request::root()}}/basicImg/wrong.png" alt="" width="75px" height="75px" style="float: right">
+                                                            </div>
+                                                        @endif
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -311,6 +455,17 @@
                                                 @endif
                                                 </tbody>
                                             </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @elseif($d['penilaian']['current_tkh'] < $d['penilaian']['tkh_mula'])
+                            <div class="row">
+                                <div class="col-md-12 col-xl-12">
+                                    <div class="card bg-warning text-white">
+                                        <div class="card-body">
+                                            <h4 class="card-title text-white" style="text-align: center">Penilaian ({{$d['penilaian']['year']}}) : {{$d['penilaian']['name']}}</h4>
+                                            <p class="card-text" style="text-align: center;font-size: xx-large">Penilaian Belum Mula</p>
                                         </div>
                                     </div>
                                 </div>
