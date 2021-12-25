@@ -112,10 +112,6 @@
 <!-- END: Theme JS-->
 
 <script>
-    function getUrl(){
-        return window.location.origin + '/esposh';
-    }
-
     function getToken(){
         return $('._token').val();
     }

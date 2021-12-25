@@ -184,7 +184,10 @@
                                                             }
                                                             ?>
                                                             @if(!empty($d['penilaian']['penyelia']) && !empty($d['penilaian']['jobgroup']) && $pass == 0)
-                                                                <p>Anda Telah Berjaya Melengkapkan Penilaian Kompetensi Ini</p>
+                                                                <p>Anda Telah Berjaya Melengkapkan Penilaian Kompetensi Ini.
+                                                                    <br>
+                                                                    <a href="{{Request::root()}}/pengguna/penilaian/keputusan/{{$dk}}" style="color:darkgreen;font-weight: bolder">Lihat Keputusan</a>
+                                                                </p>
                                                             @elseif(!empty($d['penilaian']['penyelia']) && !empty($d['penilaian']['jobgroup']) && $pass == 1)
                                                                 <p>Anda Boleh Menjawab Penilaian Sekarang</p>
                                                                 <p><a class="penilaian-choose" style="color:darkgreen;font-weight: bolder">Jawab Penilaian</a></p>

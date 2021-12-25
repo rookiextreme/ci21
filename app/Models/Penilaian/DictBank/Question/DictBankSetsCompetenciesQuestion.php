@@ -5,6 +5,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class DictBankSetsCompetenciesQuestion extends Model{
+
+    public function dictBankQuestionItems(){
+        return $this->hasOne('App\Models\Penilaian\DictBank\Set\DictBankSetsItem', 'id', 'dict_bank_sets_items_id');
+    }
+
 	protected $table = 'dict_bank_sets_competencies_questions';
 
     public function createAndUpdate(Request $request) : array{

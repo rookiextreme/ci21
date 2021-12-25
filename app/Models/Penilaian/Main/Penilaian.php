@@ -1,6 +1,7 @@
 <?php
 namespace App\Models\Penilaian\Main;
 
+use App\Models\Mykj\Perkhidmatan;
 use App\Models\Penilaian\DictBank\Set\DictBankSet;
 use App\Models\Penilaian\DictBank\Set\DictBankSetsItem;
 use App\Models\Penilaian\Grade\DictBankGrade;
@@ -9,6 +10,8 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Auth;
 use DateTime;
+use App\Models\Penilaian\Main\PenilaiansCompetency;
+use DB;
 
 class Penilaian extends Model{
 
@@ -97,6 +100,14 @@ class Penilaian extends Model{
 
     public static function scoreSetting($model){
         $dict_bank_set = $model->penilaianDictBankSet;
+
+        $getStandardGred = Perkhidmatan::getStandardGred(Auth::user()->nokp);
+        $grade_id = Grade::where('name', 'like', '%'.$getStandardGred.'%')->first()->id;
+
+        $grade_cat = DB::connection('pgsql')->select("
+            Select * from dict_bank_grades_categories dbgc join dict_bank_grades dbg on dbgc.id = dbg.dict_bank_grades_categories_id where dbgc.id = '".$dict_bank_set->id."' and dbg.grades_id = '".$grade_id."' limit 1
+        ");
+
         if($dict_bank_set){
             $competencySet = $dict_bank_set->dictBankSetCompetencyScaleLvl;
             if($competencySet){
@@ -106,7 +117,7 @@ class Penilaian extends Model{
                     $pcModel->dict_bank_competency_types_scale_lvls_id = $cs->id;
                     $pcModel->status = 0;
                     if($pcModel->save()){
-                        $items = DictBankSetsItem::where('dict_bank_sets_id', $dict_bank_set->id)->where('dict_bank_competency_types_scale_lvls_id', $pcModel->dict_bank_competency_types_scale_lvls_id)->get();
+                        $items = DictBankSetsItem::where('dict_bank_sets_id', $dict_bank_set->id)->where('dict_bank_competency_types_scale_lvls_id', $pcModel->dict_bank_competency_types_scale_lvls_id)->where('dict_bank_grades_categories_id', $grade_cat[0]->dict_bank_grades_categories_id)->get();
                         if(count($items) > 0){
                             foreach($items as $i){
                                 $question = $i->dictBankSetsItemDictBankComQuestion;
@@ -198,5 +209,9 @@ class Penilaian extends Model{
         }
 
         return $data;
+    }
+
+    public static function penilaianCalculate(PenilaiansCompetency $data){
+
     }
 }
