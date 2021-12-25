@@ -71,7 +71,7 @@ function getToken(){
 }
 
 function getUrl(){
-    return window.location.origin + "/ci";
+    return window.location.origin;
 }
 
 function previewPhoto({className, previewClass}){

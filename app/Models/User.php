@@ -243,6 +243,7 @@ class User extends Authenticatable
 
     public static function penyeliaCheck($penilaian_id, $nokp, $getMaklumat){
         $userModel = User::where('nokp', $nokp)->first();
+        
         if(!$userModel){
             User::createOrUpdate($getMaklumat);
             $newUser = User::where('nokp', $nokp)->first();

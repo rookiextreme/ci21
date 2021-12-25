@@ -20,11 +20,6 @@ class PenggunaDashboardPenggunaController extends Controller{
 
     public function index(){
         $data = Penilaian::checkPenilaian();
-////
-//        echo '<pre>';
-//        print_r($data);
-//        echo '</pre>';
-//        die();
         $jurusan = LJurusan::all();
         return view('segment.pengguna.dashboard.pengguna_dashboard', [
             'data' => $data,
@@ -62,7 +57,7 @@ class PenggunaDashboardPenggunaController extends Controller{
             Select p.nama, p.nokp, pk.kod_gred, pk.kod_jurusan from peribadi p
                 join perkhidmatan pk on p.nokp = pk.nokp
             where
-                pk.flag = 1 and pk.kod_klasifikasi = 'J' and p.nama IS NOT NULL
+                pk.flag = 0 and pk.kod_klasifikasi = 'J' and p.nama IS NOT NULL
                 ".$extraQ."
                 LIMIT 3000
         ");
@@ -94,13 +89,16 @@ class PenggunaDashboardPenggunaController extends Controller{
         $penilaian_id = $request->input('penilaian_id');
 
         $getMaklumat = ListPegawai2::getMaklumatPegawai($nokp);
+
         if(!empty($getMaklumat)){
             try {
                 $addOrDeletePenyelia = User::penyeliaCheck($penilaian_id, $nokp, $getMaklumat);
+
                 return response()->json([
                     'success' => 1,
                 ]);
             }catch (Exception $e){
+
                 return response()->json([
                     'success' => 0,
                 ]);

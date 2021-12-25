@@ -13,4 +13,8 @@ class DictBankGrade extends Model{
     public function dictBankGradeGrade(){
         return $this->hasOne('App\Models\Regular\Grade', 'id', 'grades_id');
     }
+
+    public function dictBankGradeScore(){
+        return $this->hasOne('App\Models\Penilaian\DictBank\Score\DictBankSetsItemsScoresSetsGrade', 'id', 'grades_id');
+    }
 }
