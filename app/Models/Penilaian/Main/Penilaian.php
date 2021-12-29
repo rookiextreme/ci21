@@ -46,6 +46,7 @@ class Penilaian extends Model{
         } else  {
             $getUserGrade = Auth::user()->user_profile->profile_Profile_cawangan_log_active->gred;
             $grade_id = Grade::where('name', $getUserGrade)->first()->id;
+            $completed = 0;
             if(empty($grade_id)) {
                 return [];
             } else {
@@ -75,8 +76,12 @@ class Penilaian extends Model{
                             }
                         }else{
                             $data['penilaian_list'][$penilaian_exist->id] = self::penilaianCollection($penilaian_exist);
+                            if($penilaian_exist->status == 1) {
+                                $completed = $completed + 1;
+                            }
                         }
                     }
+                    $data['completed'] = $completed;
                     return $data;
                 }else{
                     return [];

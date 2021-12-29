@@ -42,7 +42,7 @@
                     <div class="card bg-primary text-white pt-75 pb-1" style="height: 86% !important;">
                         <div class="card-body">
                             <h4 class="card-title text-white" style="text-align: center">Jumlah Penilaian</h4>
-                            <p class="card-text" style="text-align: center;font-size: xx-large">{{count($data['penilaian_list'])}}</p>
+                            <p class="card-text" style="text-align: center;font-size: xx-large"> {{$data['completed']}} / {{count($data['penilaian_list'])}}</p>
                         </div>
                     </div>
                 </div>
@@ -269,8 +269,8 @@
                                             </ul>
                                              --}}
                                             <!-- new timeline penilaian -->
-                                            <div style="display:inline-block;width:100%;overflow-y:auto;">
-                                            <ul class="timeline-custom timeline-horizontal">
+                                            <div style="display:inline-block;width:100%;overflow-y:auto; height:600px;">
+                                            <ul class="timeline-custom timeline-horizontal" style="top:50px;">
                                                 <li class="timeline-item">
                                                     <div class="timeline-badge info"><i data-feather="user"></i></div>
                                                     <div class="timeline-panel">
