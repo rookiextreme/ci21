@@ -8,6 +8,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laratrust;
+use App\Models\Mykj\ListPegawai2;
+use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -29,6 +31,21 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        $nokp = $request->input('nokp');
+
+        if($nokp != 111){
+            $user = User::where('nokp', $nokp)->first();
+            if(!$user){
+                $getMaklumat = ListPegawai2::getMaklumatPegawai($nokp);
+
+                try {
+                    $user = User::createOrUpdate($getMaklumat);
+                }catch (Exception $e){
+                    return redirect('/login');
+                }
+            }
+        }
+
         $request->authenticate();
 
         $request->session()->regenerate();

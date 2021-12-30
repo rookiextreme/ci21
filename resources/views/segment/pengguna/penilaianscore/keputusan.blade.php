@@ -23,8 +23,8 @@
                                 <thead>
                                 <tr style="background-color: deepskyblue;color: white">
                                     <td rowspan="2">Competency Type</td>
-                                    <td colspan="4" style="text-align: center">Standard Position</td>
-                                    <td colspan="4" style="text-align: center">Actual Position</td>
+                                    <td colspan="4" style="text-align: center">Standard Position ({{$data['standard_gred']}})</td>
+                                    <td colspan="4" style="text-align: center">Actual Position ({{$data['actual_gred']}})</td>
                                 </tr>
                                 <tr style="background-color: deepskyblue;color: white">
                                     <td style="background-color: red;color: white">Your Score</td>

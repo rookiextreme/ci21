@@ -13,7 +13,7 @@
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper container-xxl p-0">
-            @if($data['pass'] == 1)
+            @if(!empty($data))
             <div class="row">
                 <div class="col-md-6 col-xl-6">
                     <div class="card plan-card border-primary">
@@ -42,7 +42,7 @@
                     <div class="card bg-primary text-white pt-75 pb-1" style="height: 86% !important;">
                         <div class="card-body">
                             <h4 class="card-title text-white" style="text-align: center">Jumlah Penilaian</h4>
-                            <p class="card-text" style="text-align: center;font-size: xx-large"> {{$data['completed']}} / {{count($data['penilaian_list'])}}</p>
+                            <p class="card-text" style="text-align: center;font-size: xx-large">{{count($data['penilaian_list'])}}</p>
                         </div>
                     </div>
                 </div>
@@ -184,10 +184,7 @@
                                                             }
                                                             ?>
                                                             @if(!empty($d['penilaian']['penyelia']) && !empty($d['penilaian']['jobgroup']) && $pass == 0)
-                                                                <p>Anda Telah Berjaya Melengkapkan Penilaian Kompetensi Ini.
-                                                                    <br>
-                                                                    <a href="{{Request::root()}}/pengguna/penilaian/keputusan/{{$dk}}" style="color:darkgreen;font-weight: bolder">Lihat Keputusan</a>
-                                                                </p>
+                                                                <p>Anda Telah Berjaya Melengkapkan Penilaian Kompetensi Ini</p>
                                                             @elseif(!empty($d['penilaian']['penyelia']) && !empty($d['penilaian']['jobgroup']) && $pass == 1)
                                                                 <p>Anda Boleh Menjawab Penilaian Sekarang</p>
                                                                 <p><a class="penilaian-choose" style="color:darkgreen;font-weight: bolder">Jawab Penilaian</a></p>
@@ -269,8 +266,8 @@
                                             </ul>
                                              --}}
                                             <!-- new timeline penilaian -->
-                                            <div style="display:inline-block;width:100%;overflow-y:auto; height:600px;">
-                                            <ul class="timeline-custom timeline-horizontal" style="top:50px;">
+                                            <div style="display:inline-block;width:100%;overflow-y:auto;">
+                                            <ul class="timeline-custom timeline-horizontal">
                                                 <li class="timeline-item">
                                                     <div class="timeline-badge info"><i data-feather="user"></i></div>
                                                     <div class="timeline-panel">
@@ -342,8 +339,6 @@
                                                             ?>
                                                             @if(!empty($d['penilaian']['penyelia']) && !empty($d['penilaian']['jobgroup']) && $pass == 0)
                                                                 <p>Anda Telah Berjaya Melengkapkan Penilaian Kompetensi Ini</p>
-                                                                <br>
-                                                                <a href="{{Request::root()}}/pengguna/penilaian/keputusan/{{$dk}}" style="color:darkgreen;font-weight: bolder">Lihat Keputusan</a>
                                                             @elseif(!empty($d['penilaian']['penyelia']) && !empty($d['penilaian']['jobgroup']) && $pass == 1)
                                                                 <p>Anda Boleh Menjawab Penilaian Sekarang</p>
                                                                 <p><a class="penilaian-choose" style="color:darkgreen;font-weight: bolder">Jawab Penilaian</a></p>
@@ -492,20 +487,7 @@
 
                 @endif
             </section>
-            @elseif($data['pass'] == 0)
-                <div class="row">
-                    <div class="col-md-12 col-xl-12">
-                        <div class="card plan-card border-primary">
-                            <div class="card-header d-flex justify-content-between align-items-center pt-75 pb-1">
-                                <h5 class="mb-0">Penilaian</h5>
-                            </div>
-                            <div class="card-body">
-                                <span>Hanya <b>SKIM J</b> sahaja yang boleh menjawab Competency Identification(CI)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @elseif($data['pass'] == 3)
+            @else
                 <div class="row">
                     <div class="col-md-12 col-xl-12">
                         <div class="card plan-card border-primary">

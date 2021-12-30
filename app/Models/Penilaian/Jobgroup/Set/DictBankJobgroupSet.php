@@ -45,13 +45,13 @@ class DictBankJobgroupSet extends Model{
         $job_group_id = $request->input('job_group_id');
 
         if($trigger == 0){
-            $checkDup = self::getDuplicate($job_group_set_name_eng);
+            $checkDup = self::getDuplicate($job_group_set_name_eng, $job_group_set_jurusan);
             $model = self::getRecord();
             $model->flag = 1;
             $model->delete_id = 0;
             $model->dict_bank_sets_id = $penilaian_id;
         }else{
-            $checkDup = self::getDuplicate($job_group_set_name_eng, $job_group_id);
+            $checkDup = self::getDuplicate($job_group_set_name_eng, $job_group_set_jurusan, $job_group_id);
             $model = self::getRecord($job_group_id);
         }
 
@@ -129,11 +129,13 @@ class DictBankJobgroupSet extends Model{
         return $model;
     }
 
-    public static function getDuplicate($nama, $id = false): bool{
+    public static function getDuplicate($nama, $jurusan = null, $id = false): bool{
+        $getJ = $jurusan == null ? null : $jurusan;
+
         if(!$id){
-            $model = self::where('title_eng', 'ilike', '%'.$nama.'%')->where('delete_id', 0)->count();
+            $model = self::whereRaw('LOWER(title_eng) = ?', [strtolower($nama)])->where('jurusan_id', $getJ)->where('delete_id', 0)->count();
         }else{
-            $model = self::where('title_eng', 'ilike', '%'.$nama.'%')->where('id', '!=', $id)->where('delete_id', 0)->count();
+            $model = self::whereRaw('LOWER(title_eng) = ?', [strtolower($nama)])->where('jurusan_id', $getJ)->where('id', '!=', $id)->where('delete_id', 0)->count();
         }
 
 
@@ -157,7 +159,9 @@ class DictBankJobgroupSet extends Model{
 
     public static function jurusanItem($penilaian_id, $jurusan, $job_group_id = ''){
         $data = [];
-        $item = DictBankSetsItem::where('dict_bank_sets_id', $penilaian_id)->where('jurusan_id', $jurusan)->where('flag', 1)->where('delete_id', 0)->get();
+        $item = DictBankSetsItem::where('dict_bank_sets_id', $penilaian_id)->where(function($query) use ($jurusan) {
+            $query->where('jurusan_id', $jurusan)->orWhere('jurusan_id', null);
+        })->where('flag', 1)->where('delete_id', 0)->get();
 
         if(count($item) > 0){
             $data['count'] = count($item);

@@ -37,7 +37,7 @@ class BankJobGroupController extends Controller{
                 return strtoupper($data->dictBankJobgroupSetDictGradeCategory->name);
             })
             ->addColumn('jurusan', function($data){
-                return strtoupper($data->dictBankJobgroupSetJurusan->jurusan);
+                return $data->dictBankJobgroupSetJurusan ? strtoupper($data->dictBankJobgroupSetJurusan->jurusan) : 'Tiada Jurusan';
             })
             ->addColumn('title_eng', function($data){
                 return strtoupper($data->title_eng);

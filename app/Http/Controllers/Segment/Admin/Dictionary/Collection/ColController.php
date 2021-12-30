@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Collection\DictCol\Question\DictColSetsCompetenciesQuestion;
 use App\Models\Collection\DictCol\Set\DictColSetsItem;
 use App\Models\Collection\Grade\DictColGradeCategory;
-use App\Models\Collection\Setting\Measuringlvl\DictColMeasuringlvl;
+use App\Models\Collection\Setting\MeasuringLvl\DictColMeasuringlvl;
 use App\Models\Collection\Setting\Scalelvl\DictColCompetencyTypesScaleLvl;
 use App\Models\Collection\Setting\Scalelvl\DictColScaleLvl;
 use App\Models\Mykj\LJurusan;

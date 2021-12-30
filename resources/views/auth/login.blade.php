@@ -93,14 +93,14 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="d-flex justify-content-between">
-                                        <label for="login-password">Kata Laluan</label>
-                                        <a href="page-auth-forgot-password-v1.html">
-                                            <small>Forgot Password?</small>
-                                        </a>
-                                    </div>
+{{--                                    <div class="d-flex justify-content-between">--}}
+{{--                                        <label for="login-password">Kata Laluan</label>--}}
+{{--                                        <a href="page-auth-forgot-password-v1.html">--}}
+{{--                                            <small>Forgot Password?</small>--}}
+{{--                                        </a>--}}
+{{--                                    </div>--}}
                                     <div class="input-group input-group-merge form-password-toggle">
-                                        <input type="password" class="form-control form-control-merge @error('password') is-invalid @enderror" id="login-password" name="password" tabindex="2" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" required aria-describedby="login-password"/>
+                                        <input type="password" class="form-control form-control-merge @error('password') is-invalid @enderror" id="login-password" name="password" tabindex="2" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" required aria-describedby="login-password" value="123123123" readonly/>
                                         <div class="input-group-append">
                                             <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                                         </div>

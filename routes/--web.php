@@ -290,18 +290,11 @@ Route::prefix('/pengguna')->group(function () {
     });
 
     Route::get('/penilaian/score/{penilaian_id}', [PenilaianScoreController::class, 'index']);
-    Route::get('/penilaian/keputusan/{penilaian_id}', [PenilaianScoreController::class, 'score_keputusan']);
     Route::prefix('/penilaian')->group(function () {
         Route::prefix('/score')->group(function () {
             Route::post('/update-score', [PenilaianScoreController::class, 'update_score']);
             Route::post('/kemaskini-score', [PenilaianScoreController::class, 'kemaskini_score']);
             Route::post('/hantar-score', [PenilaianScoreController::class, 'hantar_score']);
-        });
-
-        Route::prefix('/keputusan')->group(function(){
-            Route::prefix('/score')->group(function () {
-
-            });
         });
     });
 });

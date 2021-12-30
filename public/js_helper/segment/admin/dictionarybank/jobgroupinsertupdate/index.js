@@ -62,7 +62,7 @@ $(document).on('click', '.post-add-job-group, .post-update-job-group', function(
     let check = checkEmptyFields([
         ['.job-group-set-name-eng', 'mix', 'Name (English)'],
         ['.job-group-set-grade-category', 'int', 'Service Category'],
-        ['.job-group-set-jurusan', 'string', 'Jurusan'],
+        // ['.job-group-set-jurusan', 'string', 'Jurusan'],
     ]);
 
     if(check == false){

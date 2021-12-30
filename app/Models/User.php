@@ -54,7 +54,7 @@ class User extends Authenticatable
     ];
 
     public function user_profile(){
-        return $this->hasOne('App\Models\Profiles\Profile', 'users_id', 'id');
+        return $this->hasOne('App\Models\Profiles\Profile', 'users_id', 'id')->orderBy('id', 'desc')->limit(1);
     }
 
     public function users_roles(){
@@ -107,10 +107,7 @@ class User extends Authenticatable
                             $alamat->alamat = $peg_maklumat['alamat_pejabat'];
                             $alamat->flag = 1;
                             $alamat->delete_id = 0;
-
-                            if($alamat->save()){
-
-                            }
+                            $alamat->save();
                         }
                     }
                 }
@@ -167,10 +164,7 @@ class User extends Authenticatable
                             $alamat->alamat = $peg_maklumat['alamat_pejabat'];
                             $alamat->flag = 1;
                             $alamat->delete_id = 0;
-
-                            if($alamat->save()){
-
-                            }
+                            $alamat->save();
                         }
                     }
                 }
@@ -243,7 +237,6 @@ class User extends Authenticatable
 
     public static function penyeliaCheck($penilaian_id, $nokp, $getMaklumat){
         $userModel = User::where('nokp', $nokp)->first();
-        
         if(!$userModel){
             User::createOrUpdate($getMaklumat);
             $newUser = User::where('nokp', $nokp)->first();

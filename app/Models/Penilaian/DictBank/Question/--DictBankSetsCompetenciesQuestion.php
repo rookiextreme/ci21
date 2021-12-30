@@ -1,25 +1,28 @@
 <?php
-namespace App\Models\Collection\Setting\MeasuringLvl;
+namespace App\Models\Penilaian\DictBank\Question;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class DictColMeasuringlvl extends Model{
-    public $table = 'dict_col_measuring_lvls';
+class DictBankSetsCompetenciesQuestion extends Model{
+	protected $table = 'dict_bank_sets_competencies_questions';
 
     public function createAndUpdate(Request $request) : array{
-        $measuring_lvl_nama = $request->input('measuring_lvl_nama');
-        $measuring_lvl_id = $request->input('measuring_lvl_id');
+        $bank_col_ques_nama_eng = $request->input('bank_col_ques_nama_eng');
+        $bank_col_ques_nama_melayu = $request->input('bank_col_ques_nama_melayu');
+        $bank_col_id = $request->input('bank_col_id');
+        $bank_col_ques_id = $request->input('bank_col_ques_id');
         $trigger = $request->input('trigger');
 
         if($trigger == 0){
-            $checkDup = self::getDuplicate($measuring_lvl_nama);
+            $checkDup = self::getDuplicate($bank_col_ques_nama_eng, false, $bank_col_id);
             $model = self::getRecord();
             $model->flag = 1;
             $model->delete_id = 0;
+            $model->dict_bank_sets_items_id = $bank_col_id;
         }else{
-            $checkDup = self::getDuplicate($measuring_lvl_nama, $measuring_lvl_id);
-            $model = self::getRecord($measuring_lvl_id);
+            $checkDup = self::getDuplicate($bank_col_ques_nama_eng, $bank_col_ques_id, $bank_col_id);
+            $model = self::getRecord($bank_col_ques_id);
         }
 
         if($checkDup){
@@ -28,7 +31,8 @@ class DictColMeasuringlvl extends Model{
             ];
         }
 
-        $model->name = $measuring_lvl_nama;
+        $model->title_eng = $bank_col_ques_nama_eng;
+        $model->title_mal = $bank_col_ques_nama_melayu;
 
         if($model->save()){
             return [
@@ -54,11 +58,11 @@ class DictColMeasuringlvl extends Model{
         return $model;
     }
 
-    public static function getDuplicate($nama, $id = false): bool{
+    public static function getDuplicate($nama, $id = false, $set_item_id): bool{
         if(!$id){
-            $model = self::where('name', 'ilike', '%'.$nama.'%')->where('delete_id', 0)->count();
+            $model = self::where('title_eng', 'ilike', '%'.$nama.'%')->where('delete_id', 0)->where('dict_bank_sets_items_id',$set_item_id)->count();
         }else{
-            $model = self::where('name', 'ilike', '%'.$nama.'%')->where('id', '!=', $id)->where('delete_id', 0)->count();
+            $model = self::where('title_eng', 'ilike', '%'.$nama.'%')->where('id', '!=', $id)->where('delete_id', 0)->where('dict_bank_sets_items_id',$set_item_id)->count();
         }
 
 

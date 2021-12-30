@@ -99,6 +99,8 @@ class PenilaianScoreController extends Controller{
         $penilaian = Penilaian::where('id', $penilaian_id)->first();
         $data['id'] = $penilaian_id;
         $data['penilaian'] = [];
+        $data['standard_gred'] = $penilaian->standard_gred;
+        $data['actual_gred'] = $penilaian->actual_gred;
 
         $pc = $penilaian->penilaianPenilaianCom;
 
@@ -115,6 +117,7 @@ class PenilaianScoreController extends Controller{
 
             foreach($pc as $pcList){
                 $avg = $pcList->penilaianCompetencyAvg;
+                $totalQues = count($avg);
                 $scoreTotal = 0;
                 $totalItem = 0;
                 $expectedTotal = 0;
@@ -143,7 +146,8 @@ class PenilaianScoreController extends Controller{
 
                         $totalItemAll++;
                         $totalItem++;
-                        $scoreTotal = $scoreTotal + $av->score;
+                        $scoreTotal += $av->score;
+
                         $expectedTotal = $expectedTotal + ($av->expected);
                         $gapTotal = $gapTotal + ($av->dev_gap);
 
@@ -153,15 +157,16 @@ class PenilaianScoreController extends Controller{
                         $gapActualTotal = $gapActualTotal + ($av->actual_dev_gap);
 
                         $data['penilaian'][$pcList->id]['competencies'][$av->penilaianAvgItem->title_eng] = [
-                            'score' => $av->score,
+                            'score' => $scoreTotal ,
                             'expected' => $av->expected,
                             'gap' => $av->dev_gap,
                             'training' => $av->training,
                             'actual_expected' => $av->actual_expected,
                             'actual_gap' => $av->actual_dev_gap,
-                            'actual_training' => $av->actual_training
+                            'actual_training' => $av->actual_training,
                         ];
                     }
+
                     $data['penilaian'][$pcList->id]['total_score'] = $scoreTotal;
                     $data['penilaian'][$pcList->id]['total_item'] = $totalItem;
                     $data['penilaian'][$pcList->id]['avg_com_score'] = round($scoreTotal / $totalItem, 2);
@@ -181,10 +186,6 @@ class PenilaianScoreController extends Controller{
             }
         }
 
-//        echo '<pre>';
-//        print_r($data);
-//        echo '</pre>';
-//        die();
         return view('segment.pengguna.penilaianscore.keputusan', [
             'name' => $penilaian->penilaianDictBankSet->title,
             'data' => $data

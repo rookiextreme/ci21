@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Segment\Admin\Dictionary\MeasuringLvl;
 
 use App\Http\Controllers\Controller;
-use App\Models\Collection\Setting\Measuringlvl\DictColMeasuringlvl;
+use App\Models\Collection\Setting\MeasuringLvl\DictColMeasuringlvl;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;

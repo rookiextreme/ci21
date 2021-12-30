@@ -13,7 +13,7 @@ class Perkhidmatan extends Model{
         if($model->status_perkhidmatan == 'H'){
             return $model->kod_gred;
         }else{
-            $model = self::where('nokp', $nokp)->where('status_perkhidmata', 'H')->orderBy('kod_gred', 'desc')->first();
+            $model = self::where('nokp', $nokp)->where('status_perkhidmatan', 'H')->orderBy('kod_gred', 'desc')->first();
             return $model->kod_gred;
         }
     }
