@@ -10,7 +10,7 @@ $('.agency-table').DataTable({
             className: 'treegrid-control',
             data: function (item) {
                 if (item.children) {
-                    return '<span>'+feather.icons['plus'].toSvg()+'</span>';
+                    return '<span style="color:black;">'+feather.icons['plus'].toSvg()+'</span>';
                 }
                 return '';
             }
@@ -57,8 +57,8 @@ $('.agency-table').DataTable({
     },
     'treeGrid': {
         'left': 10,
-        'expandIcon': '<span>'+feather.icons['plus'].toSvg()+'</span>',
-        'collapseIcon': '<span>'+feather.icons['minus'].toSvg()+'</span>'
+        'expandIcon': '<span style="color:black;">'+feather.icons['plus'].toSvg()+'</span>',
+        'collapseIcon': '<span style="color:black;">'+feather.icons['minus'].toSvg()+'</span>'
     },
     searching: false,
     responsive: {
