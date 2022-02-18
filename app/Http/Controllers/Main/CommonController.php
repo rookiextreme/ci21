@@ -110,7 +110,7 @@ class CommonController extends Controller{
                 foreach($agencies as $p){
                     $data[] = array(
                         'id' => $p->kod_waran_pej.'-'.strtoupper($p->waran_pej),
-                        'text' => strtoupper($p->waran_pej)
+                        'text' => strtoupper($p->waran_pej)." - ".$p->kod_waran_pej
                     );
                 }
             }

@@ -41,7 +41,7 @@ function ajax(url, data, postfunc){
                 }
             } else if(postfunc == 2){
                 if(success == 1){
-                    $('.agensi-carian').append('<option value="'+parseData.waran_code+'-'+parseData.name+'">'+parseData.name+'</option>');
+                    $('.agensi-carian').append('<option value="'+parseData.waran_code+'-'+parseData.name+'">'+parseData.name+' - '+parseData.waran_code+'</option>');
                     $('.parent-agency').val(parseData.parent_id).trigger('cahnge');
                     $.unblockUI();
                 }
