@@ -67,7 +67,6 @@ class Penilaian extends Model{
                         $penilaian_exist = $dbs->dictBankSetPenilaianUser;
 
                         if(!$penilaian_exist){
-
                             $grade_cat = $dbs->dictBankSetGradeCategoriesAll;
                             if($grade_cat){
                                 $passGrade = 0;
@@ -75,6 +74,9 @@ class Penilaian extends Model{
                                     $checkGradeAvailable = DictBankGrade::where('dict_bank_grades_categories_id', $gc->id)->where('grades_id', $grade_id)->first();
                                     if(!$checkGradeAvailable){
                                         $passGrade += 1;
+                                    }else{
+                                        $passGrade = 0;
+                                        break;
                                     }
                                 }
 
@@ -83,6 +85,8 @@ class Penilaian extends Model{
                                     if($createP){
                                         $data['penilaian_list'][$createP->id] = self::penilaianCollection($createP);
                                     }
+                                }else{
+                                    $data['penilaian_list'] = [];
                                 }
                             }
                         }else{
@@ -91,7 +95,6 @@ class Penilaian extends Model{
                                 $completed = $completed + 1;
                             }
                         }
-
                     }
                     $data['completed'] = $completed;
                     return $data;

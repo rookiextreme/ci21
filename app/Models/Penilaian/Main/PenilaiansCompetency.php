@@ -184,7 +184,8 @@ class PenilaiansCompetency extends Model{
                     $question = $mainA->penilaianJawapanQuestion;
                     $grade_category = $mainA->penilaianJawapanQuestion->dictBankQuestionItems->dict_bank_grades_categories_id;
                     $mainAItemId = $mainA->penilaianJawapanQuestion->dictBankQuestionItems->id;
-
+                    // echo $mainA->penilaianJawapanQuestion->dictBankQuestionItems->title_eng;
+                    // echo '<br>';
                     //Standard Position
                     $dictBankGrade = DictBankGrade::where('dict_bank_grades_categories_id', $grade_category)->where('grades_id', $grade_id)->first();
 
@@ -202,10 +203,6 @@ class PenilaiansCompetency extends Model{
                         $expectedScore = 0;
                     }
 
-                    // echo '<pre>';
-                    // print_r($mainAItemId);
-                    // echo '</pre>';
-                    // die();
                     $gap = $score - $expectedScore;
                     if($gap == 0){
                         $gapResult = 0;
@@ -228,7 +225,17 @@ class PenilaiansCompetency extends Model{
 
                     $actualDictBankGrade = DictBankGrade::where('dict_bank_grades_categories_id', $actualGrade_cat[0]->dict_bank_grades_categories_id)->where('grades_id', $actualGrade_id)->first();
 
-                    if(stripos('Technical (Generic)', $getCompetency->dictBankCompetencyTypeScaleBridgeCompetency->name) != '' || stripos('Technical (Discipline)', $getCompetency->dictBankCompetencyTypeScaleBridgeCompetency->name) != ''){
+
+                    if(strtolower('Technical (Generic)') == strtolower($getCompetency->dictBankCompetencyTypeScaleBridgeCompetency->name)){
+                        $actualExpectedScoreGet = DictBankSetsItemsScoresSetsGrade::where('dict_bank_grades_id', $actualDictBankGrade->id)->where('dict_bank_sets_items_id', $mainAItemId)->first();
+
+                        if($actualExpectedScoreGet){
+                            $actualExpectedScore = $actualExpectedScoreGet->score;
+                        }else{
+                            $actualExpectedScore = 0;
+                        }
+
+                    }else if(strtolower('Technical (Discipline)') == strtolower($getCompetency->dictBankCompetencyTypeScaleBridgeCompetency->name)){
                         $actualExpectedScoreGet = DictBankSetsItemsScoresSetsGrade::where('dict_bank_grades_id', $actualDictBankGrade->id)->where('dict_bank_sets_items_id', $mainAItemId)->first();
 
                         if($actualExpectedScoreGet){
@@ -240,8 +247,12 @@ class PenilaiansCompetency extends Model{
                         $actual_item_id = $mainAItemId;
                         $getJgItemId = DictBankJobgroupSetsItem::where('dict_bank_jobgroup_sets_id', $getJobgroupId)->where('dict_bank_sets_items_id', $actual_item_id)->first();
 
+                        // echo $actual_item_id;
+                        // echo ' shit ';
+                        // echo $getJobgroupId;
                         if($getJgItemId){
                             $actualExpectedScoreGet = DictBankJobgroupSetsItemsScoresSetsGrade::where('dict_bank_grades_id', $actualDictBankGrade->id)->where('dict_bank_jobgroup_sets_items_id', $getJgItemId->id)->first();
+
 
                             if($actualExpectedScoreGet){
                                 $actualExpectedScore = $actualExpectedScoreGet->score;
@@ -251,7 +262,13 @@ class PenilaiansCompetency extends Model{
                         }else{
                             $actualExpectedScore = null;
                         }
+                        echo $actualExpectedScore;
                     }
+
+                    // echo '<pre>';
+                    // print_r('hey');
+                    // echo '</pre>';
+                    // die();
 
                     $actualGap = $score - $actualExpectedScore;
 
@@ -350,6 +367,7 @@ class PenilaiansCompetency extends Model{
                     if($score == 1){
                         $question = $mainA->penilaianJawapanQuestion;
                         $grade_category = $mainA->penilaianJawapanQuestion->dictBankQuestionItems->dict_bank_grades_categories_id;
+
                         $mainAItemId = $mainA->penilaianJawapanQuestion->dictBankQuestionItems->id;
 
                         //Standard Position
@@ -394,7 +412,15 @@ class PenilaiansCompetency extends Model{
 
                         $actualDictBankGrade = DictBankGrade::where('dict_bank_grades_categories_id', $actualGrade_cat[0]->dict_bank_grades_categories_id)->where('grades_id', $actualGrade_id)->first();
 
-                        if(stripos('Technical (Generic)', $getCompetency->dictBankCompetencyTypeScaleBridgeCompetency->name) != '' || stripos('Technical (Discipline)', $getCompetency->dictBankCompetencyTypeScaleBridgeCompetency->name) != ''){
+                        if(strtolower('Technical (Generic)') == strtolower($getCompetency->dictBankCompetencyTypeScaleBridgeCompetency->name)){
+                            $actualExpectedScoreGet = DictBankSetsItemsScoresSetsGrade::where('dict_bank_grades_id', $actualDictBankGrade->id)->where('dict_bank_sets_items_id', $mainAItemId)->first();
+
+                            if($actualExpectedScoreGet){
+                                $actualExpectedScore = $actualExpectedScoreGet->score;
+                            }else{
+                                $actualExpectedScore = 0;
+                            }
+                        }else if(strtolower('Technical (Discipline)') == strtolower($getCompetency->dictBankCompetencyTypeScaleBridgeCompetency->name)){
                             $actualExpectedScoreGet = DictBankSetsItemsScoresSetsGrade::where('dict_bank_grades_id', $actualDictBankGrade->id)->where('dict_bank_sets_items_id', $mainAItemId)->first();
 
                             if($actualExpectedScoreGet){
@@ -403,9 +429,15 @@ class PenilaiansCompetency extends Model{
                                 $actualExpectedScore = 0;
                             }
                         }else{
-
                             $actual_item_id = $mainA->penilaianJawapanQuestion->dictBankQuestionItems->id;
                             $getJgItemId = DictBankJobgroupSetsItem::where('dict_bank_jobgroup_sets_id', $getJobgroupId)->where('dict_bank_sets_items_id', $actual_item_id)->first();
+                            // echo $mainA->penilaianJawapanQuestion->dictBankQuestionItems->id;
+                            // echo $mainA->penilaianJawapanQuestion->dictBankQuestionItems->title_eng;
+                            // echo '<br>';
+                            // if($getJobgroupId == 2364){
+                            //     echo 1;
+                            //     die();
+                            // }
 
                             if($getJgItemId){
                                 $actualExpectedScoreGet = DictBankJobgroupSetsItemsScoresSetsGrade::where('dict_bank_grades_id', $actualDictBankGrade->id)->where('dict_bank_jobgroup_sets_items_id', $getJgItemId->id)->first();
@@ -418,7 +450,9 @@ class PenilaiansCompetency extends Model{
                             }else{
                                 $actualExpectedScore = null;
                             }
+
                         }
+
 
                         $gap = $itemVal['self_score'] - $itemVal['expected_score'];
 
@@ -482,12 +516,15 @@ class PenilaiansCompetency extends Model{
                         $penyeliaAvg->actual_training = $data[$getCompetency->id]['question'][$item_id]['actual_training'];
                         $penyeliaAvg->save();
                     }
+
+                    // die();
                 }
                 // echo '<pre>';
                 // // print_r($data);
                 // echo '</pre>';
-                // die();
+
             }
+            // die();
         }
     }
 }
