@@ -43,7 +43,7 @@ class BankItemsScoreController extends Controller
         }
 
         // print_r($array_gradeScores);
-        
+
         // die();
 
         $itemsScoreSets = DictBankSetsItemsScoresSetsGrade::where('dict_bank_sets_items_id',$dictBankSetsItemModel->id)->get();
@@ -68,18 +68,28 @@ class BankItemsScoreController extends Controller
     public function save_scores(Request $request){
         $scoreArr = json_decode($request->input('scoreArr'));
 
+
         foreach($scoreArr as $sa){
             $set_item_id = $sa[0];
             $score_id = $sa[1];
             $score = $sa[2];
             $tech_flag = $sa[3];
 
+            $model = DictBankSetsItemsScoresSetsGrade::where('dict_bank_sets_items_id', $set_item_id)->where('dict_bank_grades_id', $score_id)->first();
 
-
-            $model = DictBankSetsItemsScoresSetsGrade::updateOrCreate(
-                ['score' =>  $score, 'flag' => 1, 'delete_id' => 0, 'dict_bank_sets_items_id' => $set_item_id, 'dict_bank_grades_id' => $score_id, 'tech_discipline_flag' => $tech_flag],
-                ['dict_bank_sets_items_id' => $set_item_id, 'dict_bank_grades_id' => $score_id]
-            );            
+            if($model){
+                $model->score = $score;
+                $model->save();
+            }else{
+                $model = new DictBankSetsItemsScoresSetsGrade;
+                $model->score = $score;
+                $model->flag = 1;
+                $model->delete_id = 0;
+                $model->dict_bank_sets_items_id = $set_item_id;
+                $model->dict_bank_grades_id = $score_id;
+                $model->tech_discipline_flag = $tech_flag;
+                $model->save();
+            }
         }
 
         return response()->json([
@@ -90,7 +100,7 @@ class BankItemsScoreController extends Controller
     // private function my_array_unique($array, $keep_key_assoc = false)
     // {
     //     $duplicate_keys = array();
-    //     $tmp         = array();       
+    //     $tmp         = array();
 
     //     foreach ($array as $key=>$val)
     //     {

@@ -20,7 +20,7 @@ class BankConfigController extends Controller{
         $scale_level = DictBankScaleLvl::where('flag', 1)->where('delete_id', 0)->where('dict_bank_sets_id', $penilaian_id)->get();
         $competency_type = DictBankCompetencyType::where('flag', 1)->where('delete_id', 0)->where('dict_bank_sets_id', $penilaian_id)->get();
         $grade = Grade::where('delete_id', 0)->where('flag', 1)->get();
-        $skill_set = DictBankScaleLvlsSkillset::where('flag', 1)->where('delete_id', 0)->get();
+        $skill_set = DictBankScaleLvlsSkillset::where('flag', 1)->where('delete_id', 0)->where('dict_bank_sets_id', $penilaian_id)->get();
 
         return view('segment.admin.dictionarybank.penilaianconfig.index', [
             'scale_level' => $scale_level,

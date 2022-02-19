@@ -34,6 +34,7 @@ class Penilaian extends Model{
 
     public static function checkPenilaian(){
         $dict_bank_set = DictBankSet::where('flag_publish', 1)->where('flag', 1)->where('delete_id', 0)->get();
+
         if(empty(Auth::user()->user_profile)) {
             return [];
         } else if(empty(Auth::user()->user_profile->profile_Profile_cawangan_log_active)) {

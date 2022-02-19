@@ -41,6 +41,7 @@ class Penilaian extends Model{
 
     public static function checkPenilaian(){
         $dict_bank_set = DictBankSet::where('flag_publish', 1)->where('flag', 1)->where('delete_id', 0)->get();
+
         if(empty(Auth::user()->user_profile)) {
             return [];
         } else if(empty(Auth::user()->user_profile->profile_Profile_cawangan_log_active)) {
@@ -64,19 +65,20 @@ class Penilaian extends Model{
                     foreach($dict_bank_set as $dbs){
                         $penilaian_percentage = 0;
                         $penilaian_exist = $dbs->dictBankSetPenilaianUser;
+
                         if(!$penilaian_exist){
+
                             $grade_cat = $dbs->dictBankSetGradeCategoriesAll;
                             if($grade_cat){
                                 $passGrade = 0;
                                 foreach($grade_cat as $gc){
                                     $checkGradeAvailable = DictBankGrade::where('dict_bank_grades_categories_id', $gc->id)->where('grades_id', $grade_id)->first();
-
                                     if(!$checkGradeAvailable){
                                         $passGrade += 1;
                                     }
                                 }
 
-                                if($passGrade > 0){
+                                if($passGrade == 0){
                                     $createP = self::createNewPenilaian($dbs->id);
                                     if($createP){
                                         $data['penilaian_list'][$createP->id] = self::penilaianCollection($createP);
@@ -89,6 +91,7 @@ class Penilaian extends Model{
                                 $completed = $completed + 1;
                             }
                         }
+
                     }
                     $data['completed'] = $completed;
                     return $data;
@@ -123,11 +126,11 @@ class Penilaian extends Model{
         $grade_id = Grade::where('name', 'like', '%'.$getStandardGred.'%')->first()->id;
 
         $grade_cat = DB::connection('pgsql')->select("
-            Select * from dict_bank_grades_categories 
-                dbgc join dict_bank_grades dbg on dbgc.id = dbg.dict_bank_grades_categories_id 
+            Select * from dict_bank_grades_categories
+                dbgc join dict_bank_grades dbg on dbgc.id = dbg.dict_bank_grades_categories_id
                 join dict_bank_sets dbs on dbgc.dict_bank_sets_id = dbs.id
             where dbs.id = $dict_bank_set->id
-                    and dbg.grades_id = '".$grade_id."'  
+                    and dbg.grades_id = '".$grade_id."'
             limit 1
         ");
 

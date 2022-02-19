@@ -16,13 +16,13 @@ class DictBankScaleLvlsSkillset extends Model{
         $trigger = $request->input('trigger');
 
         if($trigger == 0){
-            $checkDup = self::getDuplicate($scale_skill_set_nama);
+            $checkDup = self::getDuplicate($scale_skill_set_nama, $penilaian_id);
             $model = self::getRecord();
             $model->flag = 1;
             $model->delete_id = 0;
             $model->dict_bank_sets_id = $penilaian_id;
         }else{
-            $checkDup = self::getDuplicate($scale_skill_set_nama, $scale_skill_set_id);
+            $checkDup = self::getDuplicate($scale_skill_set_nama, $scale_skill_set_id, $penilaian_id);
             $model = self::getRecord($scale_skill_set_id);
         }
 
@@ -58,11 +58,11 @@ class DictBankScaleLvlsSkillset extends Model{
         return $model;
     }
 
-    public static function getDuplicate($nama, $id = false): bool{
+    public static function getDuplicate($nama, $id = false, $penilaian_id = false): bool{
         if(!$id){
-            $model = self::where('name', 'ilike', '%'.$nama.'%')->where('delete_id', 0)->count();
+            $model = self::where('name', 'ilike', '%'.$nama.'%')->where('dict_bank_sets_id', $penilaian_id)->where('delete_id', 0)->count();
         }else{
-            $model = self::where('name', 'ilike', '%'.$nama.'%')->where('id', '!=', $id)->where('delete_id', 0)->count();
+            $model = self::where('name', 'ilike', '%'.$nama.'%')->where('dict_bank_sets_id', $penilaian_id)->where('id', '!=', $id)->where('delete_id', 0)->count();
         }
 
 
