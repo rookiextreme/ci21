@@ -11,6 +11,7 @@ use App\Models\Penilaian\Jobgroup\Set\DictBankJobgroupSetsItem;
 use App\Models\Regular\Grade;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Penilaian\Main\PenilaiansCompetenciesAvg;
+use App\Models\Penilaian\Main\PenilaiansCompetenciesPenyeliaAvg;
 use Auth;
 use DB;
 
@@ -41,6 +42,10 @@ class PenilaiansCompetency extends Model{
 
     public function penilaianCompetencyAvg(){
         return $this->hasMany('App\Models\Penilaian\Main\PenilaiansCompetenciesAvg', 'penilaians_competencies_id', 'id');
+    }
+
+    public function penilaianCompetencyPenyeliaAvg(){
+        return $this->hasMany('App\Models\Penilaian\Main\PenilaiansCompetenciesPenyeliaAvg', 'penilaians_competencies_id', 'id');
     }
 
     public static function getScoreCompetencyQuestion($penilaian_id){
@@ -293,6 +298,18 @@ class PenilaiansCompetency extends Model{
                      $avg->actual_dev_gap = $qList[0]['actual_gap'];
                      $avg->actual_training = $qList[0]['actual_training'];
                      $avg->save();
+
+                     $penyeliaAvg = new PenilaiansCompetenciesPenyeliaAvg();
+                     $penyeliaAvg->dict_bank_sets_items_id = $item_id;
+                     $penyeliaAvg->penilaians_competencies_id = $pc->id;
+                     $penyeliaAvg->score = $qList[0]['self_score'];
+                     $penyeliaAvg->expected = $qList[0]['expected_score'];
+                     $penyeliaAvg->dev_gap = $qList[0]['gap'];
+                     $penyeliaAvg->training = $qList[0]['training'];
+                     $penyeliaAvg->actual_expected = $qList[0]['actual_expected_score'];
+                     $penyeliaAvg->actual_dev_gap = $qList[0]['actual_gap'];
+                     $penyeliaAvg->actual_training = $qList[0]['actual_training'];
+                     $penyeliaAvg->save();
                 }else{
                     foreach($qList as $qPerItem){
                         $avg = new PenilaiansCompetenciesAvg;
@@ -306,9 +323,22 @@ class PenilaiansCompetency extends Model{
                         $avg->actual_dev_gap = $qPerItem['actual_gap'];
                         $avg->actual_training = $qPerItem['actual_training'];
                         $avg->save();
+
+                        $penyeliaAvg = new PenilaiansCompetenciesPenyeliaAvg;
+                        $penyeliaAvg->dict_bank_sets_items_id = $item_id;
+                        $penyeliaAvg->penilaians_competencies_id = $pc->id;
+                        $penyeliaAvg->score = $qPerItem['self_score'];
+                        $penyeliaAvg->expected = $qPerItem['expected_score'];
+                        $penyeliaAvg->dev_gap = $qPerItem['gap'];
+                        $penyeliaAvg->training = $qPerItem['training'];
+                        $penyeliaAvg->actual_expected = $qPerItem['actual_expected_score'];
+                        $penyeliaAvg->actual_dev_gap = $qPerItem['actual_gap'];
+                        $penyeliaAvg->actual_training = $qPerItem['actual_training'];
+                        $penyeliaAvg->save();
                     }
                 }
             }
+            //end here
         }else{
             if($ans){
                 foreach($ans as $mainA){
@@ -434,6 +464,18 @@ class PenilaiansCompetency extends Model{
                         $avg->actual_dev_gap = $data[$getCompetency->id]['question'][$item_id]['actual_gap'];
                         $avg->actual_training = $data[$getCompetency->id]['question'][$item_id]['actual_training'];
                         $avg->save();
+
+                        $penyeliaAvg = new PenilaiansCompetenciesPenyeliaAvg;
+                        $penyeliaAvg->dict_bank_sets_items_id = $item_id;
+                        $penyeliaAvg->penilaians_competencies_id = $pc->id;
+                        $penyeliaAvg->score = $data[$getCompetency->id]['question'][$item_id]['self_score'];
+                        $penyeliaAvg->expected = $data[$getCompetency->id]['question'][$item_id]['expected_score'];
+                        $penyeliaAvg->dev_gap = $data[$getCompetency->id]['question'][$item_id]['gap'];
+                        $penyeliaAvg->training = $data[$getCompetency->id]['question'][$item_id]['training'];
+                        $penyeliaAvg->actual_expected = $data[$getCompetency->id]['question'][$item_id]['actual_expected_score'];
+                        $penyeliaAvg->actual_dev_gap = $data[$getCompetency->id]['question'][$item_id]['actual_gap'];
+                        $penyeliaAvg->actual_training = $data[$getCompetency->id]['question'][$item_id]['actual_training'];
+                        $penyeliaAvg->save();
                     }
                 }
             }

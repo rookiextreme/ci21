@@ -29,6 +29,7 @@ use App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\Score\BankJobGro
 use App\Http\Controllers\Segment\Pengguna\Dashboard\PenggunaDashboardPenggunaController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\Items\Score\BankItemsScoreController;
 use App\Http\Controllers\Segment\Pengguna\PenilaianScore\PenilaianScoreController;
+use App\Http\Controllers\Segment\Penyelia\PenyeliaController;
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware(['auth'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
@@ -303,6 +304,18 @@ Route::prefix('/pengguna')->group(function () {
 
             });
         });
+    });
+});
+
+//Penyelia
+Route::get('/penyelia/pengesahan/result/{user_id}/{penilaian_id}', [PenyeliaController::class, 'pengesahan_result']);
+
+Route::prefix('/penyelia')->group(function () {
+    Route::prefix('/pengesahan')->group(function () {
+        Route::get('/new', [PenyeliaController::class, 'index']);
+        Route::get('/new/with-penyelia/{penilaian_id}', [PenyeliaController::class, 'result_keputusan_with_penyelia']);
+        Route::post('/new/with-penyelia-send', [PenyeliaController::class, 'simpan_keputusan_penyelia']);
+
     });
 });
 

@@ -86,6 +86,17 @@
                     </a>
                 </li>
             @endrole
+            @role('Penyelia')
+                <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Penyelia</span><i data-feather="more-horizontal"></i></li>
+                <li>
+                    <a class="d-flex align-items-center" href="{{Request::root()}}/penyelia/pengesahan/new"><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Pengesahan Baru</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="d-flex align-items-center" href="{{Request::root()}}/dashboard/pengguna"><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Rekod Pengesahan</span>
+                    </a>
+                </li>
+            @endrole
         </ul>
     </div>
 </div>

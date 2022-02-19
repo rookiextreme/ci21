@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Segment\Pengguna\PenilaianScore;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Segment\Pengguna\PenilaianScore\PenilaianScoreController as PenilaianScorePenilaianScoreController;
 use App\Models\Penilaian\Main\Penilaian;
 use App\Models\Penilaian\Main\PenilaiansCompetency;
 use App\Models\Penilaian\Main\PenilaiansJawapan;
@@ -97,6 +98,17 @@ class PenilaianScoreController extends Controller{
 
     public function score_keputusan($penilaian_id){
         $penilaian = Penilaian::where('id', $penilaian_id)->first();
+        $data = new PenilaianScoreController;
+        $data = $data->computeResult($penilaian_id, $penilaian->penyelia_update == 1 ? true : false);
+
+        return view('segment.pengguna.penilaianscore.keputusan', [
+            'name' => $penilaian->penilaianDictBankSet->title,
+            'data' => $data
+        ]);
+    }
+
+    public function computeResult($penilaian_id, $withPenyelia = false){
+        $penilaian = Penilaian::where('id', $penilaian_id)->first();
         $data['id'] = $penilaian_id;
         $data['penilaian'] = [];
         $data['standard_gred'] = $penilaian->standard_gred;
@@ -116,7 +128,12 @@ class PenilaianScoreController extends Controller{
             $totalActualDevGapAll = 0;
 
             foreach($pc as $pcList){
-                $avg = $pcList->penilaianCompetencyAvg;
+                if($withPenyelia){
+                    $avg = $pcList->penilaianCompetencyPenyeliaAvg;
+                }else{
+                    $avg = $pcList->penilaianCompetencyAvg;
+                }
+
                 $totalQues = count($avg);
                 $scoreTotal = 0;
                 $totalItem = 0;
@@ -157,7 +174,8 @@ class PenilaianScoreController extends Controller{
                         $gapActualTotal = $gapActualTotal + ($av->actual_dev_gap);
 
                         $data['penilaian'][$pcList->id]['competencies'][$av->penilaianAvgItem->title_eng] = [
-                            'score' => $scoreTotal ,
+                            'id' => $av->id,
+                            'score' => $av->score,
                             'expected' => $av->expected,
                             'gap' => $av->dev_gap,
                             'training' => $av->training,
@@ -186,9 +204,6 @@ class PenilaianScoreController extends Controller{
             }
         }
 
-        return view('segment.pengguna.penilaianscore.keputusan', [
-            'name' => $penilaian->penilaianDictBankSet->title,
-            'data' => $data
-        ]);
+        return $data;
     }
 }

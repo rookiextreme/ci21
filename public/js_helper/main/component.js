@@ -9,7 +9,6 @@ function checkEmptyFields(fieldArray){
 
         if(type !== 'picture'){
             if(classValue === '' || typeof classValue === 'undefined'){
-                console.log(className);
                 addInvalid(className, label + ' Cannot Be Empty');
                 passed = 1;
             }else{
