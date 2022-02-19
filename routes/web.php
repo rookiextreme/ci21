@@ -30,6 +30,7 @@ use App\Http\Controllers\Segment\Pengguna\Dashboard\PenggunaDashboardPenggunaCon
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\Items\Score\BankItemsScoreController;
 use App\Http\Controllers\Segment\Pengguna\PenilaianScore\PenilaianScoreController;
 use App\Http\Controllers\Segment\Penyelia\PenyeliaController;
+use App\Http\Controllers\Segment\Admin\Setting\Agency\AgencyController;
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware(['auth'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
@@ -275,6 +276,16 @@ Route::prefix('/admin')->group(function () {
             Route::post('/activate', [GradeController::class, 'grade_activate']);
             Route::post('/delete', [GradeController::class, 'grade_delete']);
         });
+        //Agency
+        Route::prefix('/agency')->group(function () {
+            Route::get('/', [AgencyController::class, 'index']);
+            Route::get('/list', [AgencyController::class, 'load_agencies_tree']);
+            Route::post('/save', [AgencyController::class, 'save_agency']);
+            Route::post('/active', [AgencyController::class, 'active_agency']);
+            Route::post('/delete', [AgencyController::class, 'delete_agency']);
+            Route::post('/get', [AgencyController::class, 'get_agency']);
+            Route::get('/reload_lookup', [AgencyController::class, 'load_agencies_lookup']);
+        });
     });
 });
 
@@ -326,6 +337,10 @@ Route::prefix('/common')->group(function () {
         Route::post('/maklumat', [CommonController::class, 'pengguna_maklumat']);
     });
     Route::post('/get-listing', [CommonController::class, 'listing']);
+    // Agency common search -Rubmin
+    Route::prefix('/agency')->group(function() {
+        Route::get('/search',[CommonController::class, 'search_agency']);
+    });
 });
 
 require __DIR__.'/auth.php';

@@ -76,6 +76,8 @@
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/setting/grade"><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Grade</span></a>
                     </li>
+                    <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/setting/agency"><i data-feather='hexagon'></i><span class="menu-item text-truncate" data-i18n="List">Agency</span></a>
+                    </li>
                 </ul>
             </li>
             @endrole

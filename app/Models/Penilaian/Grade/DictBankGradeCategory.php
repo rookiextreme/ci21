@@ -19,13 +19,13 @@ class DictBankGradeCategory extends Model{
         $trigger = $request->input('trigger');
 
         if($trigger == 0){
-            $checkDup = self::getDuplicate($grade_category_nama);
+            $checkDup = self::getDuplicate($grade_category_nama,$penilaian_id);
             $model = self::getRecord();
             $model->flag = 1;
             $model->delete_id = 0;
             $model->dict_bank_sets_id = $penilaian_id;
         }else{
-            $checkDup = self::getDuplicate($grade_category_nama, $grade_category_id);
+            $checkDup = self::getDuplicate($grade_category_nama, $penilaian_id, $grade_category_id);
             $model = self::getRecord($grade_category_id);
         }
 
@@ -64,11 +64,11 @@ class DictBankGradeCategory extends Model{
         return $model;
     }
 
-    public static function getDuplicate($nama, $id = false): bool{
+    public static function getDuplicate($nama, $bank_id, $id = false): bool{
         if(!$id){
-            $model = self::where('name', 'ilike', '%'.$nama.'%')->where('delete_id', 0)->count();
+            $model = self::where('name', 'ilike', '%'.$nama.'%')->where('dict_bank_sets_id',$bank_id)->where('delete_id', 0)->count();
         }else{
-            $model = self::where('name', 'ilike', '%'.$nama.'%')->where('id', '!=', $id)->where('delete_id', 0)->count();
+            $model = self::where('name', 'ilike', '%'.$nama.'%')->where('dict_bank_sets_id',$bank_id)->where('id', '!=', $id)->where('delete_id', 0)->count();
         }
 
 

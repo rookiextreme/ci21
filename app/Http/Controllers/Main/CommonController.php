@@ -5,8 +5,10 @@ use App\Http\Controllers\Controller;
 use App\Models\LaratrustModels\Role;
 use App\Models\Mykj\ListPegawai2;
 use App\Models\Mykj\Peribadi;
+use App\Models\Mykj\LWaranPej;
 use App\Models\Regular\Year;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CommonController extends Controller{
 
@@ -96,5 +98,25 @@ class CommonController extends Controller{
         $photo->move($folder, $imagename);
 
         return $imagename;
+    }
+
+    public function search_agency(Request $request) {
+        $data = [];
+        $search_term = $request->input('q');
+        $agencies = LWaranPej::where(DB::raw('UPPER(waran_pej)'),'like','%'.strtoupper($search_term).'%')
+            ->limit(20)->get();
+
+            if(count($agencies) != 0){
+                foreach($agencies as $p){
+                    $data[] = array(
+                        'id' => $p->kod_waran_pej.'-'.strtoupper($p->waran_pej),
+                        'text' => strtoupper($p->waran_pej)." - ".$p->kod_waran_pej
+                    );
+                }
+            }
+
+            return response()->json([
+                'data' => $data
+            ]);
     }
 }

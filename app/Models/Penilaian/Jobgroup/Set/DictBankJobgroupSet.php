@@ -45,13 +45,13 @@ class DictBankJobgroupSet extends Model{
         $job_group_id = $request->input('job_group_id');
 
         if($trigger == 0){
-            $checkDup = self::getDuplicate($job_group_set_name_eng, $job_group_set_jurusan);
+            $checkDup = self::getDuplicate($job_group_set_name_eng, $penilaian_id,$job_group_set_jurusan);
             $model = self::getRecord();
             $model->flag = 1;
             $model->delete_id = 0;
             $model->dict_bank_sets_id = $penilaian_id;
         }else{
-            $checkDup = self::getDuplicate($job_group_set_name_eng, $job_group_set_jurusan, $job_group_id);
+            $checkDup = self::getDuplicate($job_group_set_name_eng, $penilaian_id,$job_group_set_jurusan, $job_group_id);
             $model = self::getRecord($job_group_id);
         }
 
@@ -129,13 +129,13 @@ class DictBankJobgroupSet extends Model{
         return $model;
     }
 
-    public static function getDuplicate($nama, $jurusan = null, $id = false): bool{
+    public static function getDuplicate($nama, $bank_id, $jurusan = null, $id = false): bool{
         $getJ = $jurusan == null ? null : $jurusan;
 
         if(!$id){
-            $model = self::whereRaw('LOWER(title_eng) = ?', [strtolower($nama)])->where('jurusan_id', $getJ)->where('delete_id', 0)->count();
+            $model = self::whereRaw('LOWER(title_eng) = ?', [strtolower($nama)])->where('jurusan_id', $getJ)->where('dict_bank_sets_id',$bank_id)->where('delete_id', 0)->count();
         }else{
-            $model = self::whereRaw('LOWER(title_eng) = ?', [strtolower($nama)])->where('jurusan_id', $getJ)->where('id', '!=', $id)->where('delete_id', 0)->count();
+            $model = self::whereRaw('LOWER(title_eng) = ?', [strtolower($nama)])->where('jurusan_id', $getJ)->where('dict_bank_sets_id',$bank_id)->where('id', '!=', $id)->where('delete_id', 0)->count();
         }
 
 
