@@ -319,14 +319,14 @@ Route::prefix('/pengguna')->group(function () {
 });
 
 //Penyelia
-Route::get('/penyelia/pengesahan/result/{user_id}/{penilaian_id}', [PenyeliaController::class, 'pengesahan_result']);
+Route::get('/penyelia/pengesahan/result/{user_id}/{penilaian_id}/{trigger}', [PenyeliaController::class, 'pengesahan_result']);
 
 Route::prefix('/penyelia')->group(function () {
     Route::prefix('/pengesahan')->group(function () {
         Route::get('/new', [PenyeliaController::class, 'index']);
         Route::get('/new/with-penyelia/{penilaian_id}', [PenyeliaController::class, 'result_keputusan_with_penyelia']);
         Route::post('/new/with-penyelia-send', [PenyeliaController::class, 'simpan_keputusan_penyelia']);
-
+        Route::get('/accept-all', [PenyeliaController::class, 'penyelia_accept_all']);
     });
 });
 

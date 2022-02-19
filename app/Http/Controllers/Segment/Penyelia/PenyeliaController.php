@@ -23,7 +23,7 @@ class PenyeliaController extends Controller{
         ]);
     }
 
-    public function pengesahan_result($profiles_id, $penilaian_id){
+    public function pengesahan_result($profiles_id, $penilaian_id, $trigger){
         $penilaian = Penilaian::where('id', $penilaian_id)->first();
 
         $penilaian_class = new PenilaianScoreController;
@@ -48,6 +48,7 @@ class PenyeliaController extends Controller{
             'user' => $penilaian_user,
             'penilaian_id' => $penilaian_id,
             'penyelia_update' => $penilaian->penyelia_update,
+            'trigger' => $trigger
         ]);
     }
 
@@ -57,11 +58,6 @@ class PenyeliaController extends Controller{
         $penilaianScore = new PenilaianScoreController;
         $main_keputusan = $penilaianScore->computeResult($penilaian_id);
         $penyelia_keputusan = $penilaianScore->computeResult($penilaian_id, true);
-
-        // echo '<pre>';
-        // print_r($penyelia_keputusan);
-        // echo '</pre>';
-        // die();
 
         return view('segment.penyelia.pengesahan.new.keputusan_penyelia', [
             'name' => $penilaian->penilaianDictBankSet->title,
@@ -125,6 +121,16 @@ class PenyeliaController extends Controller{
                 'penilaian_id' => $penilaian_id,
                 'profiles_id' => $penilaian->profiles_id,
             ]
+        ]);
+    }
+
+    public function penyelia_accept_all(){
+        $penyelia_id = Auth::user()->user_profile->id;
+
+        $getPenilaian = Penilaian::where('penyelia_profiles_id', $penyelia_id)->where('penyelia_update', 1)->get();
+
+        return view('segment.penyelia.pengesahan.history.index', [
+            'penilaian' => $getPenilaian
         ]);
     }
 }

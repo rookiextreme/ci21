@@ -19,7 +19,7 @@
                             <h2 class="content-header-title float-left mb-0">Penyelia</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Pengesahan Baru</a>
+                                    <li class="breadcrumb-item"><a href="#">Rekod Pengesahan</a>
                                     </li>
                                 </ol>
                             </div>
@@ -32,7 +32,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Pengesahan Baru Dihantar</h4>
+                                <h4 class="card-title">Rekod Pengesahan</h4>
                             </div>
 
                             <div class="table-responsive">
@@ -55,7 +55,7 @@
                                                     <td>{{$p->standard_gred}} / {{$p->actual_gred}}</td>
                                                     <td>{{$p->updated_at}}</td>
                                                     <td>
-                                                        <a href="{{ url('/penyelia/pengesahan/result/'.$p->profiles_id.'/'.$p->id.'/0')}}" style="text-decoration: underline">Pengesahan</a>
+                                                        <a href="{{ url('/penyelia/pengesahan/result/'.$p->profiles_id.'/'.$p->id.'/1')}}" style="text-decoration: underline">Terperinci</a>
                                                     </td>
                                                 </tr>
                                             @endforeach

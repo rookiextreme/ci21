@@ -18,13 +18,19 @@
                         <div class="card-header">
                             <h4 class="card-title" style="text-decoration: underline">Keputusan Penilaian {{$name}}</h4>
                             <div class="row">
-                                @if($penyelia_update == 0)
-                                    <div class="col-md-6">
-                                        <a href="#" class="btn btn-success">Pengesahan</a>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a href="{{url('/penyelia/pengesahan/new/with-penyelia/'.$penilaian_id)}}" class="btn btn-warning">Kemaskini</a>
-                                    </div>
+                                @if($trigger == 0)
+                                    @if($penyelia_update == 0)
+                                        <div class="col-md-6">
+                                            <a href="#" class="btn btn-success">Pengesahan</a>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <a href="{{url('/penyelia/pengesahan/new/with-penyelia/'.$penilaian_id)}}" class="btn btn-warning">Kemaskini</a>
+                                        </div>
+                                    @else
+                                        <div class="col-md-12" style="color:green;font-weight:bold">
+                                            PENILAIAN SUDAH DISAHKAN
+                                        </div>
+                                    @endif
                                 @else
                                     <div class="col-md-12" style="color:green;font-weight:bold">
                                         PENILAIAN SUDAH DISAHKAN
