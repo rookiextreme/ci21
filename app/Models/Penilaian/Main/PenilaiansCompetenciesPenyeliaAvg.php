@@ -13,6 +13,6 @@ use App\Models\Penilaian\Main\PenilaiansCompetency;
 
 class PenilaiansCompetenciesPenyeliaAvg extends Model{
     public function penilaianAvgItem(){
-        return $this->hasOne('App\Models\Penilaian\DictBank\Set\DictBankSetsItem', 'id', 'dict_bank_sets_items_id');
+        return $this->hasOne('App\Models\Penilaian\DictBank\Set\DictBankSetsItem', 'id', 'dict_bank_sets_items_id')->where('flag', 1)->where('delete_id', 0);
     }
 }

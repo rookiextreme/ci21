@@ -202,11 +202,17 @@ class Penilaian extends Model{
         $data = [];
         $competency = $penilaianModel->penilaianPenilaianCom;
 
+        // echo '<pre>';
+        // print_r($competency);
+        // echo '</pre>';
+        // die();
         if($competency){
             foreach($competency as $c){
                 $total = count($c->penilaianCompetencyJawapanTotal);
                 $notAns = count($c->penilaianCompetencyJawapanNotAns);
                 $ans = count($c->penilaianCompetencyJawapanAns);
+
+                echo $ans;
                 $percentageLengkap = number_format((float)($ans/$total) * 100, 2, '.', '');
                 $data[] = [
                     'id' => $c->id,

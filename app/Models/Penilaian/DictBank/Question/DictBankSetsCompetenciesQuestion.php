@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class DictBankSetsCompetenciesQuestion extends Model{
 
     public function dictBankQuestionItems(){
-        return $this->hasOne('App\Models\Penilaian\DictBank\Set\DictBankSetsItem', 'id', 'dict_bank_sets_items_id')->orderBy('id', 'desc');
+        return $this->hasOne('App\Models\Penilaian\DictBank\Set\DictBankSetsItem', 'id', 'dict_bank_sets_items_id')->where('delete_id', 0)->where('flag', 1);
     }
 
 	protected $table = 'dict_bank_sets_competencies_questions';

@@ -16,11 +16,11 @@ class DictBankSet extends Model{
     }
 
     public function dictBankSetGradeCategories(){
-        return $this->hasOne('App\Models\Penilaian\Grade\DictBankGradeCategory', 'dict_bank_sets_id', 'id');
+        return $this->hasOne('App\Models\Penilaian\Grade\DictBankGradeCategory', 'dict_bank_sets_id', 'id')->where('flag', 1)->where('delete_id', 0);
     }
 
     public function dictBankSetGradeCategoriesAll(){
-        return $this->hasMany('App\Models\Penilaian\Grade\DictBankGradeCategory', 'dict_bank_sets_id', 'id');
+        return $this->hasMany('App\Models\Penilaian\Grade\DictBankGradeCategory', 'dict_bank_sets_id', 'id')->where('flag', 1)->where('delete_id', 0);
     }
 
     public function dictBankSetPenilaianUser(){
@@ -28,11 +28,11 @@ class DictBankSet extends Model{
     }
 
     public function dictBankSetDictBankSetsItem(){
-        return $this->hasMany('App\Models\Penilaian\DictBank\Set\DictBankSetsItem', 'dict_bank_sets_id', 'id');
+        return $this->hasMany('App\Models\Penilaian\DictBank\Set\DictBankSetsItem', 'dict_bank_sets_id', 'id')->where('flag', 1)->where('delete_id', 0);
     }
 
     public function dictBankSetCompetencyScaleLvl(){
-        return $this->hasMany('App\Models\Penilaian\Setting\Scalelvl\DictBankCompetencyTypesScaleLvl', 'dict_bank_sets_id', 'id');
+        return $this->hasMany('App\Models\Penilaian\Setting\Scalelvl\DictBankCompetencyTypesScaleLvl', 'dict_bank_sets_id', 'id')->where('flag', 1)->where('delete_id', 0);
     }
 
     public function createAndUpdate(Request $request) : array{

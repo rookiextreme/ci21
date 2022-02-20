@@ -8,15 +8,15 @@ class DictBankSetsItem extends Model{
     protected $table = 'dict_bank_sets_items';
 
     public function dictBankSetsItemDictBankSet(){
-        return $this->hasOne('App\Models\Penilaian\DictBank\Set\DictBankSet', 'id', 'dict_bank_sets_id');
+        return $this->hasOne('App\Models\Penilaian\DictBank\Set\DictBankSet', 'id', 'dict_bank_sets_id')->where('flag', 1)->where('delete_id', 0);
     }
 
     public function dictBankSetsItemMeasuringLvl(){
-        return $this->hasOne('App\Models\Penilaian\Setting\MeasuringLvl\DictBankMeasuringlvl', 'id', 'dict_bank_measuring_lvls_id');
+        return $this->hasOne('App\Models\Penilaian\Setting\MeasuringLvl\DictBankMeasuringlvl', 'id', 'dict_bank_measuring_lvls_id')->where('flag', 1)->where('delete_id', 0);
     }
 
     public function dictBankSetsItemCompetencyTypeScaleLvl(){
-        return $this->hasOne('App\Models\Penilaian\Setting\Scalelvl\DictBankCompetencyTypesScaleLvl', 'id', 'dict_bank_competency_types_scale_lvls_id');
+        return $this->hasOne('App\Models\Penilaian\Setting\Scalelvl\DictBankCompetencyTypesScaleLvl', 'id', 'dict_bank_competency_types_scale_lvls_id')->where('flag', 1)->where('delete_id', 0);
     }
 
     public function dictBankSetsItemJurusan(){
@@ -24,7 +24,7 @@ class DictBankSetsItem extends Model{
     }
 
     public function dictBankSetsItemDictGradeCategory(){
-        return $this->hasOne('App\Models\Penilaian\Grade\DictBankGradeCategory', 'id', 'dict_bank_grades_categories_id');
+        return $this->hasOne('App\Models\Penilaian\Grade\DictBankGradeCategory', 'id', 'dict_bank_grades_categories_id')->where('flag', 1)->where('delete_id', 0);
     }
 
     public function dictBankSetsItemDictBankComQuestion(){

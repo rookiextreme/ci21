@@ -17,7 +17,7 @@ use DB;
 
 class PenilaiansCompetency extends Model{
     public function penilaianCompetencyActualCom(){
-        return $this->hasOne('App\Models\Penilaian\Setting\Scalelvl\DictBankCompetencyTypesScaleLvl', 'id', 'dict_bank_competency_types_scale_lvls_id');
+        return $this->hasOne('App\Models\Penilaian\Setting\Scalelvl\DictBankCompetencyTypesScaleLvl', 'id', 'dict_bank_competency_types_scale_lvls_id')->where('flag', 1)->where('delete_id', 0);
     }
 
     public function penilaianCompetencyPenilaian(){
