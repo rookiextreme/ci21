@@ -31,6 +31,7 @@ use App\Http\Controllers\Segment\Admin\Dictionary\Bank\Items\Score\BankItemsScor
 use App\Http\Controllers\Segment\Pengguna\PenilaianScore\PenilaianScoreController;
 use App\Http\Controllers\Segment\Penyelia\PenyeliaController;
 use App\Http\Controllers\Segment\Admin\Setting\Agency\AgencyController;
+use App\Http\Controllers\Penyelaras\PenyelarasController;
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware(['auth'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
@@ -310,11 +311,15 @@ Route::prefix('/pengguna')->group(function () {
             Route::post('/hantar-score', [PenilaianScoreController::class, 'hantar_score']);
         });
 
-        Route::prefix('/keputusan')->group(function(){
+        Route::prefix('/keputusan')->group(function () {
             Route::prefix('/score')->group(function () {
 
             });
         });
+    });
+
+    Route::prefix('/penyelaras')->group(function() {
+        Route::get('/list',[PenyelarasController::class, 'load_all_penilaians']);
     });
 });
 
