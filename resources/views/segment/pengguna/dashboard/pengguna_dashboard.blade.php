@@ -6,6 +6,14 @@
     @include('segment.layouts.asset_include_links.sweetAlert.css.sweet_alert_css')
     @include('segment.layouts.asset_include_links.date_time.css.datetime_css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/timeline_custom.css') }}">
+    <style>
+    .centered-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+    </style>
 @endsection
 
 @section('content')
@@ -273,7 +281,7 @@
                                                 <div style="display:inline-block;width:100%;overflow-y:auto; height:600px;">
                                                 <ul class="timeline-custom timeline-horizontal" style="top:50px;">
                                                     <li class="timeline-item">
-                                                        <div class="timeline-badge info"><i data-feather="user"></i></div>
+                                                        <div class="timeline-badge info"><i class="centered-icon" data-feather="user"></i></div>
                                                         <div class="timeline-panel">
                                                             <div class="timeline-heading">
                                                                 <h4 class="timeline-title">LANGKAH 1 : PENYELIA</h4>
@@ -299,7 +307,7 @@
                                                         </div>
                                                     </li>
                                                     <li class="timeline-item">
-                                                        <div class="timeline-badge primary"><i data-feather="layers"></i></div>
+                                                        <div class="timeline-badge primary"><i class="centered-icon" data-feather="layers"></i></div>
                                                         <div class="timeline-panel">
                                                             <div class="timeline-heading">
                                                                 <h4 class="timeline-title">LANGKAH 2 : JOB GROUP</h4>
@@ -327,7 +335,7 @@
                                                         </div>
                                                     </li>
                                                     <li class="timeline-item">
-                                                        <div class="timeline-badge warning"><i data-feather="file-text"></i></div>
+                                                        <div class="timeline-badge warning"><i class="centered-icon" data-feather="file-text"></i></div>
                                                         <div class="timeline-panel">
                                                             <div class="timeline-heading">
                                                                 <h4 class="timeline-title">LANGKAH 3: PENILAIAN</h4>
@@ -364,7 +372,7 @@
                                                         </div>
                                                     </li>
                                                     <li class="timeline-item">
-                                                        <div class="timeline-badge danger"><i data-feather="fast-forward"></i></div>
+                                                        <div class="timeline-badge danger"><i class="centered-icon" data-feather="fast-forward"></i></div>
                                                         <div class="timeline-panel">
                                                             <div class="timeline-heading">
                                                                 <h4 class="timeline-title">LANGKAH 4: HANTAR</h4>
@@ -395,7 +403,7 @@
                                                         </div>
                                                     </li>
                                                     <li class="timeline-item">
-                                                        <div class="timeline-badge success"><i data-feather="fast-forward"></i></div>
+                                                        <div class="timeline-badge success"><i class="centered-icon" data-feather="fast-forward"></i></div>
                                                         <div class="timeline-panel">
                                                             <div class="timeline-heading">
                                                                 @if($d['penilaian']['status'] == 2)
