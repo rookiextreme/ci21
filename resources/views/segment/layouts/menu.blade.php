@@ -99,6 +99,13 @@
                     </a>
                 </li>
             @endrole
+            @role('Penyelaras')
+                <li class="navigation-header"><span data-i18n="Apps &amp; Pages">Penyelaras</span><i data-feather="more-horizontal"></i></li>
+                <li>
+                    <a class="d-flex align-items-center" href="{{Request::root()}}/pengguna/penyelaras/"><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Senarai Penilaian</span>
+                    </a>
+                </li>
+            @endrole
         </ul>
     </div>
 </div>

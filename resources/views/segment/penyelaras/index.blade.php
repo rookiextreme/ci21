@@ -60,4 +60,5 @@
     @include('segment.layouts.asset_include_links.sweetAlert.js.sweet_alert_js')
 
     {{--  Custom files  --}}
+    <script src="{{ asset('/js_helper/segment/penyelaras/datatable.js') }}"></script>
 @endsection

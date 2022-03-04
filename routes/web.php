@@ -319,6 +319,7 @@ Route::prefix('/pengguna')->group(function () {
     });
 
     Route::prefix('/penyelaras')->group(function() {
+        Route::get('/',[PenyelarasController::class, 'load_main_page']);
         Route::get('/list',[PenyelarasController::class, 'load_all_penilaians']);
     });
 });

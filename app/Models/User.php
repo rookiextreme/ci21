@@ -54,7 +54,10 @@ class User extends Authenticatable
     ];
 
     public function user_profile(){
-        return $this->hasOne('App\Models\Profiles\Profile', 'users_id', 'id')->orderBy('id', 'desc')->limit(1);
+        return $this->hasOne('App\Models\Profiles\Profile', 'users_id', 'id')
+            ->where('flag',1)
+            ->where('delete_id',0)
+            ->orderBy('id', 'desc')->limit(1);
     }
 
     public function users_roles(){
