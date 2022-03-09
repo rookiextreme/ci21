@@ -8,7 +8,7 @@ class DictBankGradeCategory extends Model{
     protected $table = 'dict_bank_grades_categories';
 
     public function dictBankGradeCategoryGetGrade(){
-        return $this->hasMany('App\Models\Penilaian\Grade\DictBankGrade', 'dict_bank_grades_categories_id', 'id');
+        return $this->hasMany('App\Models\Penilaian\Grade\DictBankGrade', 'dict_bank_grades_categories_id', 'id')->where('flag', 1)->where('delete_id', 0);
     }
 
     public function createAndUpdate(Request $request) : array{
