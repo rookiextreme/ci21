@@ -31,6 +31,10 @@ class DictBankSet extends Model{
         return $this->hasMany('App\Models\Penilaian\DictBank\Set\DictBankSetsItem', 'dict_bank_sets_id', 'id')->where('flag', 1)->where('delete_id', 0);
     }
 
+    public function dictBankSetDictJobgroupSet(){
+        return $this->hasMany('App\Models\Penilaian\Jobgroup\Set\DictBankJobgroupSet', 'dict_bank_sets_id', 'id')->where('flag', 1)->where('delete_id', 0);
+    }
+
     public function dictBankSetCompetencyScaleLvl(){
         return $this->hasMany('App\Models\Penilaian\Setting\Scalelvl\DictBankCompetencyTypesScaleLvl', 'dict_bank_sets_id', 'id')->where('flag', 1)->where('delete_id', 0);
     }

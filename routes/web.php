@@ -31,6 +31,7 @@ use App\Http\Controllers\Segment\Admin\Dictionary\Bank\Items\Score\BankItemsScor
 use App\Http\Controllers\Segment\Pengguna\PenilaianScore\PenilaianScoreController;
 use App\Http\Controllers\Segment\Penyelia\PenyeliaController;
 use App\Http\Controllers\Segment\Admin\Setting\Agency\AgencyController;
+use App\Http\Controllers\Segment\Pelaporan\PelaporanController;
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware(['auth'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
@@ -330,6 +331,13 @@ Route::prefix('/penyelia')->group(function () {
     });
 });
 
+//Pelaporan
+Route::prefix('/pelaporan')->group(function () {
+    Route::get('/', [PelaporanController::class, 'index']);
+    Route::get('/analisis-jurang-standard/{trigger}', [PelaporanController::class, 'analisis_jurang_standard']);
+    Route::post('/analisis-jurang-standard/{trigger}', [PelaporanController::class, 'analisis_jurang_standard']);
+    Route::post('/analisis-jurang-standard-search', [PelaporanController::class, 'analisis_jurang_standard_search']);
+});
 //Common Controller
 Route::prefix('/common')->group(function () {
     Route::prefix('/user')->group(function () {

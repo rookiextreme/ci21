@@ -5,6 +5,7 @@ use App\Models\Mykj\Perkhidmatan;
 use App\Models\Penilaian\DictBank\Set\DictBankSet;
 use App\Models\Penilaian\DictBank\Set\DictBankSetsItem;
 use App\Models\Penilaian\Grade\DictBankGrade;
+use App\Models\Penilaian\Grade\DictBankGradeCategory;
 use App\Models\Regular\Grade;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -33,6 +34,10 @@ class Penilaian extends Model{
 
     public function penilaianPenilaianCom(){
         return $this->hasMany('App\Models\Penilaian\Main\PenilaiansCompetency', 'penilaians_id', 'id');
+    }
+
+    public function penilaianPenilaianComWithAnswers(){
+        return $this->hasMany('App\Models\Penilaian\Main\PenilaiansCompetency', 'penilaians_id', 'id')->with(['penilaianCompetencyAvg', 'penilaianCompetencyPenyeliaAvg']);
     }
 
     public function penilaianPenilaianComCheckIfDone(){
@@ -108,12 +113,34 @@ class Penilaian extends Model{
     }
 
     public static function createNewPenilaian($penilaian_id){
+        $user_gred = Auth::user()->user_profile->profile_Profile_cawangan_log_active->gred;
         $model = new Penilaian;
         $model->profiles_id = Auth::user()->user_profile->id;
         $model->dict_bank_sets_id = $penilaian_id;
         $model->status = 0;
-        $model->standard_gred = Auth::user()->user_profile->profile_Profile_cawangan_log_active->gred;
+        $model->standard_gred = $user_gred;
         $model->actual_gred = Perkhidmatan::getActualGred(Auth::user()->nokp);
+
+        $model->profiles_cawangans_logs_id = Auth::user()->user_profile->profile_Profile_cawangan_log_active->id;
+        $model->jurusan_id = Perkhidmatan::where('nokp', Auth::user()->nokp)->where('flag', 1)->first()->kod_jurusan;
+
+        $grade_id = Grade::where('name', $user_gred)->first()->id;
+        $grade_c = DictBankGradeCategory::where('dict_bank_sets_id', $penilaian_id)->get();
+
+        $gc_id = '';
+        $g_id = '';
+
+        foreach($grade_c as $gc){
+            $dbg = DictBankGrade::where('dict_bank_grades_categories_id', $gc->id)->where('grades_id', $grade_id)->first();
+            if($dbg){
+                $gc_id = $gc->id;
+                $g_id = $dbg->id;
+                break;
+            }
+        }
+        $model->dict_bank_grades_categories_id = $gc_id;
+        $model->dict_bank_grades_id = $g_id;
+
         if($model->save()){
             self::scoreSetting($model);
             return $model;
