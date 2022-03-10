@@ -340,9 +340,15 @@ Route::prefix('/penyelia')->group(function () {
 //Pelaporan
 Route::prefix('/pelaporan')->group(function () {
     Route::get('/', [PelaporanController::class, 'index']);
+
+    //basic tablecount
     Route::get('/analisis-jurang-standard/{trigger}', [PelaporanController::class, 'analisis_jurang_standard']);
     Route::post('/analisis-jurang-standard/{trigger}', [PelaporanController::class, 'analisis_jurang_standard']);
     Route::post('/analisis-jurang-standard-search', [PelaporanController::class, 'analisis_jurang_standard_search']);
+
+    //graph tablecount
+    Route::get('/analisis-jurang-standard-graph/{trigger}', [PelaporanController::class, 'analisis_jurang_standard_graph']);
+    Route::post('/analisis-jurang-standard-graph/{trigger}', [PelaporanController::class, 'analisis_jurang_standard_graph']);
 });
 //Common Controller
 Route::prefix('/common')->group(function () {

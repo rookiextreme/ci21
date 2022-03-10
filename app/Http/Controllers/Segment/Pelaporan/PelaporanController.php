@@ -153,12 +153,17 @@ class PelaporanController extends Controller{
         $data = [];
 
         $labelDefault = $this->getDictBankItemsLabel($dict_bank_sets_id);
+
         $data['title'] = $labelDefault['penilaian_title'];
         $data['labelcount'] = count($labelDefault['label']);
         $data['label'] = $labelDefault['label'];
         $data['results'] = $labelDefault['results'];
         $data['totalP'] = 0;
 
+        // echo '<pre>';
+        // print_r($data);
+        // echo '</pre>';
+        // die();
         $penilaian = Penilaian::where('dict_bank_sets_id', $dict_bank_sets_id);
 
         if($dict_bank_grades_categories_id != ''){
@@ -227,12 +232,16 @@ class PelaporanController extends Controller{
                                     }else{
                                         $dev_gap = $a->actual_dev_gap == null ? 0 : $a->actual_dev_gap;
                                     }
-
+                                    // echo '<pre>';
+                                    // print_r($data);
+                                    // echo '</pre>';
                                     if(array_key_exists($items_id, $data['label'])){
                                         if($dev_gap > 0){
                                             $data['results'][$items_id]['pos'] += 1;
+                                            $data['results'][$items_id]['totalP'] += 1;
                                         }else if($dev_gap < 0){
                                             $data['results'][$items_id]['neg'] += 1;
+                                            $data['results'][$items_id]['totalN'] += 1;
                                         }
                                     }
                                 }
@@ -242,7 +251,10 @@ class PelaporanController extends Controller{
                 }
             }
         }
-
+        // echo '<pre>';
+        // print_r($data);
+        // echo '</pre>';
+        // die();
         return $data;
     }
 
@@ -259,10 +271,67 @@ class PelaporanController extends Controller{
                 $data['results'][$i->id] = [
                     'pos' => 0,
                     'neg' => 0,
+                    'totalP' => 0,
+                    'totalN' => 0
                 ];
             }
         }
+        ksort($data['label']);
+        ksort($data['results']);
 
         return $data;
+    }
+
+    //For analisis graph
+    public function analisis_jurang_standard_graph(Request $request, $trigger){
+        $year = Year::all();
+        $jurusan = LJurusan::all();
+        $gred = Grade::all();
+
+        $search_tahun = '';
+        $search_penilaian = '';
+        $search_kumpulan = '';
+        $search_gred = '';
+        $search_jurusan = '';
+        $search_group = '';
+        $search_kompetensi = '';
+
+        $data = [];
+        if($request->post()){
+            $data = $this->analisis_jurang_standard_calculate($request, $trigger);
+
+            $data['positive'] = [];
+            foreach($data['results'] as $r){
+                $data['positive'][] = $r['totalP'];
+                $data['negative'][] = $r['totalN'];
+            }
+
+            // echo '<pre>';
+            // print_r($data);
+            // echo '</pre>';
+            // die();
+            $search_tahun = $request->input('search_tahun');
+            $search_penilaian = $request->input('search_penilaian');
+            $search_gred = $request->input('search_gred');
+            $search_jurusan = $request->input('search_jurusan');
+            $search_kumpulan = $request->input('search_kumpulan');
+            $search_group = $request->input('search_job_group');
+            $search_kompetensi = $request->input('search_kompetensi');
+        }
+
+        return view('segment.pelaporan.analisis_jurang_standard_graf',  [
+            'year' => $year,
+            'jurusan' => $jurusan,
+            'gred' => $gred,
+            'data' => $data,
+            'search_tahun' => $search_tahun,
+            'search_penilaian' => $search_penilaian,
+            'search_kumpulan' => $search_kumpulan,
+            'search_gred' => $search_gred,
+            'search_jurusan' => $search_jurusan,
+            'search_group' => $search_group,
+            'search_kompetensi' => $search_kompetensi,
+            'trigger' => $trigger
+        ]);
     }
 }

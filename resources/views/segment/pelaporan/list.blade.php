@@ -30,7 +30,9 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="card">
-                            <img class="card-img-top" src="../../../app-assets/images/slider/05.jpg" alt="Card image cap" />
+                            <center style="padding-top: 20px">
+                                <img class="card-img-top" src="{{url('/basicImg/star_full.png')}}" alt="Card image cap" style="width:70px;height:70px"/>
+                            </center>
                             <div class="card-body">
                                 <h4 class="card-title" style="text-align: center"><a href="{{url('/pelaporan/analisis-jurang-standard/0')}}">Laporan Analisis Jurang<br> (Standard Position)</a></h4>
                             </div>
@@ -38,7 +40,9 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img class="card-img-top" src="../../../app-assets/images/slider/05.jpg" alt="Card image cap" />
+                            <center style="padding-top: 20px">
+                                <img class="card-img-top" src="{{url('/basicImg/database.png')}}" alt="Card image cap" style="width:70px;height:70px"/>
+                            </center>
                             <div class="card-body">
                                 <h4 class="card-title" style="text-align: center"><a href="{{url('/pelaporan/analisis-jurang-standard/1')}}">Laporan Analisis Jurang<br> (Actual Position)</a></h4>
                             </div>
@@ -46,17 +50,21 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img class="card-img-top" src="../../../app-assets/images/slider/05.jpg" alt="Card image cap" />
+                            <center style="padding-top: 20px">
+                                <img class="card-img-top" src="{{url('/basicImg/chart_up.png')}}" alt="Card image cap" style="width:70px;height:70px"/>
+                            </center>
                             <div class="card-body">
-                                <h4 class="card-title" style="text-align: center">Graf Laporan Analisis Jurang<br> (Standard Position)</h4>
+                                <h4 class="card-title" style="text-align: center"><a href="{{url('/pelaporan/analisis-jurang-standard-graph/0')}}">Graf Laporan Analisis Jurang<br> (Standard Position)</a></h4>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <img class="card-img-top" src="../../../app-assets/images/slider/05.jpg" alt="Card image cap" />
+                            <center style="padding-top: 20px">
+                                <img class="card-img-top" src="{{url('/basicImg/chart.png')}}" alt="Card image cap" style="width:70px;height:70px"/>
+                            </center>
                             <div class="card-body">
-                                <h4 class="card-title" style="text-align: center">Graf Laporan Analisis Jurang<br> (Actual Position)</h4>
+                                <h4 class="card-title" style="text-align: center"><a href="{{url('/pelaporan/analisis-jurang-standard-graph/1')}}">Graf Laporan Analisis Jurang<br> (Actual Position)</a></h4>
                             </div>
                         </div>
                     </div>
