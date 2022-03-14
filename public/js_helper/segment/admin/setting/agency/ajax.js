@@ -47,8 +47,33 @@ function ajax(url, data, postfunc){
                 }
 
             } else if(postfunc == 3){
+                if(success == 1){
+                    if(Object.keys(parseData).length > 1){
 
-            }
+                        $('.pengguna-nama').val(parseData.name);
+                        $('.pengguna-email').val(parseData.email);
+                        $('.pengguna-sektor').val(parseData.waran_name.sektor);
+                        $('.pengguna-cawangan').val(parseData.waran_name.cawangan);
+                        $('.pengguna-bahagian').val(parseData.waran_name.bahagian);
+                        $('.pengguna-unit').val(parseData.waran_name.unit);
+                        $('.pengguna-penempatan').val(parseData.waran_name.waran_penuh);
+
+                        $('.post-add-pengguna').removeAttr('disabled');
+                    }else{
+                        toasting('Pengguna Tidak Aktif Lagi Di MYKJ', 'error');
+                    }
+                }
+                $.unblockUI();
+            }  else if(postfunc == 4){
+                if(success == 1){
+                    $('.pengguna-modal').modal('hide');
+                //    refresh datatable
+                //    $('.pengguna-table').DataTable().ajax.reload(null, false);
+                    toasting('Penyelaras Telah Ditambah', 'success');
+
+                }
+                $.unblockUI();
+            d}
             reload_lookup();
         }
     });

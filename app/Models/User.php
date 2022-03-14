@@ -16,7 +16,8 @@ use App\Models\Profiles\ProfilesAlamatPejabat;
 use App\Models\Profiles\ProfilesCawanganLog;
 use App\Models\Profiles\ProfilesTelefon;
 use App\Models\LaratrustModels\RoleUser;
-use Auth;
+use App\Models\Regular\AgencyPenyelaras;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -131,6 +132,8 @@ class User extends Authenticatable
             $user->password = Hash::make('123123123');
 
             if($user->save()){
+                Profile::where('users_id',$user->id)->update(['flag' => 0]);
+
                 $profile = new Profile;
                 $profile->users_id = $user->id;
                 $profile->flag = 1;
@@ -281,5 +284,29 @@ class User extends Authenticatable
         if(count($penilaianC) == 0){
             Roleuser::where('user_id', $profile->profile_Users->id)->where('role_id', 3)->delete();
         }
+    }
+
+    public static function createPenyelaras($peg_maklumat,$idAgensi) {
+        $user = User::where('nokp', $peg_maklumat['nokp'])->first();
+        if(!$user) {
+             User::createOrUpdate($peg_maklumat);
+             $user = User::where('nokp', $peg_maklumat['nokp'])->first();
+        }
+
+        $model =  new AgencyPenyelaras;
+        $model->agency_id = $idAgensi;
+        $model->user_id = $user->id;
+        $model->save();
+
+        $role = RoleUser::where('user_id',$user->id)->where('role_id',2)->first();
+
+        if(!$role) {
+            $role_user = new RoleUser;
+            $role_user->user_id = $user->id;
+            $role_user->role_id = 2;
+            $role_user->user_type = 'App\Models\User';
+        }
+
+        return 1;
     }
 }

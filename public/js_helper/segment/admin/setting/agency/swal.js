@@ -48,6 +48,17 @@ function swalAjaxFire(postData){
                     }
                     $.unblockUI();
                 }
+            } else if(postfunc == 1){
+                let success = data.success;
+                let parseData = data.data;
+
+                if(postfunc == 0){
+                    if(success == 1){
+                        $('.penyelaras-table').DataTable().ajax.reload(null, false);
+                        swalPostFire('error', 'Berjaya Dipadam', 'Penyelaras Sudah Dipadam');
+                    }
+                    $.unblockUI();
+                }
             }
         }
     });

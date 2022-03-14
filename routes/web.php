@@ -286,6 +286,7 @@ Route::prefix('/admin')->group(function () {
             Route::post('/delete', [AgencyController::class, 'delete_agency']);
             Route::post('/get', [AgencyController::class, 'get_agency']);
             Route::get('/reload_lookup', [AgencyController::class, 'load_agencies_lookup']);
+            Route::get('/load_penyelaras/{id}', [AgencyController::class, 'list_penyelaras']);
         });
     });
 });
@@ -321,6 +322,8 @@ Route::prefix('/pengguna')->group(function () {
     Route::prefix('/penyelaras')->group(function() {
         Route::get('/',[PenyelarasController::class, 'load_main_page']);
         Route::get('/list',[PenyelarasController::class, 'load_all_penilaians']);
+        Route::post('/add',[PenyelarasController::class,'add_penyelaras']);
+        Route::post('/delete',[PenyelarasController::class,'delete_penyelaras']);
     });
 });
 
