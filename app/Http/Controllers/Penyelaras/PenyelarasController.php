@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Penyelaras;
 
 use App\Http\Controllers\Controller;
+use App\Models\Mykj\ListPegawai2;
 use App\Models\Penilaian\Main\Penilaian;
 use App\Models\Profiles\Profile;
 use App\Models\Penilaian\DictBank\Set\DictBankSet;
+use App\Models\Regular\AgencyPenyelaras;
+use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
@@ -47,6 +51,47 @@ class PenyelarasController extends Controller
                })
                 ->rawColumns(['action'])
                 ->make(true);
+
+
+    }
+
+    public function add_penyelaras(Request $request) {
+        $no_ic = $request->input('no_ic');
+        $idAgensi = $request->input('agency_id');
+        $getMaklumat = ListPegawai2::getMaklumatPegawai($no_ic);
+
+        try {
+            $user = User::createPenyelaras($getMaklumat,$idAgensi);
+            return response()->json([
+               'success' => 1,
+            ]);
+        }catch (Exception $e){
+            return response()->json([
+                'success' => 0,
+            ]);
+        }
+    }
+
+    public function delete_penyelaras(Request $request) {
+        $agencyId = $request->input('agency_id');
+        $userId = $request->input('user_id');
+
+
+        try {
+            $models = AgencyPenyelaras::where('user_id',$userId)->where('agency_id',$agencyId)->get();
+
+            foreach($models as $model) {
+                $model->delete();
+            }
+
+            return response()->json([
+               'success' => 1,
+            ]);
+        }catch (Exception $e){
+            return response()->json([
+                'success' => 0,
+            ]);
+        }
 
 
     }
