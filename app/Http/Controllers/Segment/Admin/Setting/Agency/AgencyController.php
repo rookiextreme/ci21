@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Segment\Admin\Setting\Agency;
 
 use App\Http\Controllers\Controller;
+use App\Models\Profiles\ProfilesCawanganLog;
 use Illuminate\Http\Request;
 use App\Models\Regular\AgencyHierarchy;
+use App\Models\Regular\AgencyPenyelaras;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class AgencyController extends Controller
 {
@@ -129,5 +134,37 @@ class AgencyController extends Controller
             ];
         }
         return response()->json($data);
+    }
+
+    public function list_penyelaras($agencyId) {
+        $users = AgencyPenyelaras::where('agency_id',$agencyId)->pluck('user_id')->all();
+
+        $model = DB::table('profile')
+            ->select('profile.id as p_id','users.id as u_id','users.name as u_name','users.email as u_email')
+            ->join('users', 'profile.users_id', '=', 'users.id')
+            ->where('profile.delete_id',0)
+            ->where('profile.flag',1)
+            ->whereIn('users.id',$users);
+
+        return DataTables::of($model)
+            ->setRowAttr([
+                'data-profile-id' => function($data) {
+                    return $data->p_id;
+                },
+                'data-user-id' => function($data) {
+                    return $data->u_id;
+                },
+            ])
+            ->addColumn('nama', function($data){
+                return strtoupper($data->u_name);
+            })
+            ->addColumn('email', function($data){
+                return strtoupper($data->u_email);
+            })
+            ->addColumn('penempatan', function($data){
+                return ProfilesCawanganLog::where('profiles_id', $data->p_id)->orderBy('id', 'desc')->limit(1)->first()->penempatan_name;
+            })
+            ->rawColumns(['active', 'action'])
+            ->make(true);
     }
 }

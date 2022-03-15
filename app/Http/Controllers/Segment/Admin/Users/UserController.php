@@ -8,7 +8,7 @@ use App\Models\Profiles\ProfilesCawanganLog;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
 class UserController extends Controller{
