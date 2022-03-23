@@ -129,7 +129,7 @@ $(document).on('click', '.post-add-pengguna', function(){
     data.append('agency_id',$('.agency-id').val());
     data.append('_token', getToken());
 
-    ajax('pengguna/penyelaras/add', data, 1);
+    ajax('/pengguna/penyelaras/add', data, 4);
 });
 
 $(document).on('click', '.penyelaras-delete', function(){
@@ -147,7 +147,7 @@ $(document).on('click', '.penyelaras-delete', function(){
         icon: 'error',
         confirmButtonText: 'Padam',
         postData: {
-            url : 'pengguna/penyelaras/delete',
+            url : '/pengguna/penyelaras/delete',
             data: data,
             postfunc: 1
         }

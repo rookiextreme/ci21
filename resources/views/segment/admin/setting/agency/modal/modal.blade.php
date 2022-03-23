@@ -108,6 +108,7 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-xl-12 col-md-6 col-12 mb-1">
                     <table class="penyelaras-table table">
                         <thead>
                         <tr>
@@ -119,11 +120,12 @@
                         </tr>
                         </thead>
                     </table>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-success post-add-pengguna">Tambah</button>
+                <!-- <button type="button" class="btn btn-success post-add-pengguna">Tambah</button> -->
             </div>
         </div>
     </div>

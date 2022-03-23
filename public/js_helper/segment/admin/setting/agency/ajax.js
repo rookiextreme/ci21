@@ -73,7 +73,7 @@ function ajax(url, data, postfunc){
 
                 }
                 $.unblockUI();
-            d}
+            }
             reload_lookup();
         }
     });

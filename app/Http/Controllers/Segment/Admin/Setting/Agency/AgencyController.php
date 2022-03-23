@@ -139,7 +139,7 @@ class AgencyController extends Controller
     public function list_penyelaras($agencyId) {
         $users = AgencyPenyelaras::where('agency_id',$agencyId)->pluck('user_id')->all();
 
-        $model = DB::table('profile')
+        $model = DB::table('profiles as profile')
             ->select('profile.id as p_id','users.id as u_id','users.name as u_name','users.email as u_email')
             ->join('users', 'profile.users_id', '=', 'users.id')
             ->where('profile.delete_id',0)

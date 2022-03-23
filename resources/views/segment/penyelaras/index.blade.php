@@ -49,7 +49,7 @@
             </div>
         </div>
     </div>
-
+    @include('segment.penyelaras.modal.detail')
 @endsection
 
 @section('customJS')

@@ -54,7 +54,8 @@ function swalAjaxFire(postData){
 
                 if(postfunc == 0){
                     if(success == 1){
-                        $('.penyelaras-table').DataTable().ajax.reload(null, false);
+                        //load_penyelaras_table($('.agency-id').val());
+                        $('.pengguna-modal').modal('hide');
                         swalPostFire('error', 'Berjaya Dipadam', 'Penyelaras Sudah Dipadam');
                     }
                     $.unblockUI();
