@@ -61,4 +61,5 @@
 
     {{--  Custom files  --}}
     <script src="{{ asset('/js_helper/segment/penyelaras/datatable.js') }}"></script>
+    <script src="{{ asset('/js_helper/segment/penyelaras/index.js') }}"></script>
 @endsection

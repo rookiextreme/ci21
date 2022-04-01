@@ -8,11 +8,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row ">
-                    <div class="col-xl-6 col-md-6 col-12">
-
-                    </div>
-                    <div class="col-xl-6 col-md-6 col-12">
+                <div class="row">
+                    <div class="col-xl-6 col-md-6 col-12 detail-body">
 
                     </div>
                 </div>

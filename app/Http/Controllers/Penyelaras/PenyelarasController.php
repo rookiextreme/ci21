@@ -7,6 +7,7 @@ use App\Models\Mykj\ListPegawai2;
 use App\Models\Penilaian\Main\Penilaian;
 use App\Models\Profiles\Profile;
 use App\Models\Penilaian\DictBank\Set\DictBankSet;
+use App\Models\Regular\AgencyHierarchy;
 use App\Models\Regular\AgencyPenyelaras;
 use App\Models\User;
 use Exception;
@@ -24,9 +25,13 @@ class PenyelarasController extends Controller
     public function load_all_penilaians(Request $request) {
         $userId = Auth::user()->id;
         $profileIds = Profile::where('users_id',$userId)->pluck('id')->all();
+        $agencyIds = AgencyPenyelaras::where('user_id',$userId)->pluck('agency_id')->all();
+        $agencies = AgencyHierarchy::whereIn('id',$agencyIds)->all();
+
+
         $penilaians = Penilaian::whereIn('penyelia_profiles_id',$profileIds)->pluck('dict_bank_sets_id')->all();
 
-            $model = DictBankSet::whereIn('id', $penilaians)->get();
+        $model = DictBankSet::whereIn('id', $penilaians)->get();
 
             return DataTables::of($model)
                 ->setRowAttr([
@@ -93,6 +98,10 @@ class PenyelarasController extends Controller
             ]);
         }
 
+
+    }
+
+    public function load_detail(Request $request) {
 
     }
 }
