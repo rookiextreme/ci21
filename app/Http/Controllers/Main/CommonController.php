@@ -104,6 +104,7 @@ class CommonController extends Controller{
         $data = [];
         $search_term = $request->input('q');
         $agencies = LWaranPej::where(DB::raw('UPPER(waran_pej)'),'like','%'.strtoupper($search_term).'%')
+            ->orWhere('kod_waran_pej', 'like', $search_term.'%')
             ->limit(20)->get();
 
             if(count($agencies) != 0){

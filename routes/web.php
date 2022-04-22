@@ -325,6 +325,8 @@ Route::prefix('/pengguna')->group(function () {
         Route::get('/list',[PenyelarasController::class, 'load_all_penilaians']);
         Route::post('/add',[PenyelarasController::class,'add_penyelaras']);
         Route::post('/delete',[PenyelarasController::class,'delete_penyelaras']);
+        Route::post('/detail',[PenyelarasController::class,'load_list_caw']);
+        Route::get('/info',[PenyelarasController::class,'load_list_staff']);
     });
 });
 
