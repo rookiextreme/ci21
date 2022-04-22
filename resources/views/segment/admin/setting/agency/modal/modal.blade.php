@@ -12,7 +12,7 @@
                     <div class="col-xl-12 col-md-6 col-12 mb-1">
                         <div class="form-group">
                             <label for="basicInput">Carian Agensi</label>
-                            <select class="agensi-carian form-control" id="select2-ajax"></select>
+                            <select class="agensi-carian select2 form-control" id="select2-ajax-1"></select>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
