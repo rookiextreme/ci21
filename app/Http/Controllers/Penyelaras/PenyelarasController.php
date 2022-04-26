@@ -154,9 +154,9 @@ class PenyelarasController extends Controller
             $o->waran_code = $caw->cawangan;
             $o->name = $caw->cawangan_name;
             $o->total = $this->count_detail($bank_sets_id,$caw->cawangan,$year);
-            $o->draf= $this->calculate_draf($bank_sets_id);
-            $o->finish = $this->calculate_finish($bank_sets_id);
-            $o->complete = $this->calculate_complete($bank_sets_id);
+            $o->draf= $this->calculate_draf($bank_sets_id,$caw->cawangan);
+            $o->finish = $this->calculate_finish($bank_sets_id,$caw->cawangan);
+            $o->complete = $this->calculate_complete($bank_sets_id,$caw->cawangan);
             $o->noaction = $o->total - ($o->draf + $o->finish + $o->complete);
             $results[] = $o;
         }
@@ -352,7 +352,7 @@ class PenyelarasController extends Controller
             ->join('perkhidmatan as c','a.nokp','c.nokp')
             ->leftJoin('l_jurusan as j','c.kod_jurusan', 'j.kod_jurusan')
             ->join('l_waran_pej as p','b.kod_waran', 'p.kod_waran_pej')
-            ->select('a.nama','a.nokp','c.kod_gred','j.jurusan','p.waran_pej')
+            ->select('a.nama','a.nokp','c.kod_gred','j.jurusan',DB::raw('p.waran_pej as bahagian'))
             ->where('a.kod_status_aktif', '1')
             ->where('b.flag',1)
             ->where('b.ref_id',0)
@@ -378,33 +378,69 @@ class PenyelarasController extends Controller
             } else {
                 $item->status = $status_results[0]->status + 1;
             }
+            //$item->bahagian = $item->waran_pej;
         });
 
         Session::put($bank_sets_id.'-'.$caw_waran.'-'.$year,$total);
 
-        return $total->count;
+        return $total->count();
 
     }
 
-    private function calculate_finish($bank_sets_id) {
-        $count = Penilaian::where('dict_bank_sets_id',$bank_sets_id)
-                    ->where('status',1)->count();
+    private function calculate_finish($bank_sets_id,$waran_code) {
 
-        return $count;
+        $count = DB::connection('pgsql')->select("SELECT count(p.status) as counter FROM penilaians p
+                    JOIN profiles_cawangan_logs s ON p.profiles_id = s.id
+                    WHERE s.cawangan = ".$waran_code." AND p.status = 1");
+
+
+        //$count = Penilaian::join('profiles_cawangan_logs','')->where('dict_bank_sets_id',$bank_sets_id)
+        //            ->where('status',1)->count();
+        if(empty($count)) {
+            return 0;
+        } else {
+            return $count[0]->counter;
+        }
+
+
+        //return $count;
     }
 
-    private function calculate_complete($bank_sets_id) {
-        $count = Penilaian::where('dict_bank_sets_id',$bank_sets_id)
-                    ->where('status',2)->count();
+    private function calculate_complete($bank_sets_id,$waran_code) {
 
-        return $count;
+        $count = DB::connection('pgsql')->select("SELECT count(p.status) as counter FROM penilaians p
+                    JOIN profiles_cawangan_logs s ON p.profiles_id = s.id
+                    WHERE s.cawangan = ".$waran_code." AND p.status = 2");
+
+
+        // $count = Penilaian::where('dict_bank_sets_id',$bank_sets_id)
+        //             ->where('status',2)->count();
+
+        if(empty($count)) {
+            return 0;
+        } else {
+            return $count[0]->counter;
+        }
+
+        //return $count;
     }
 
-    private function calculate_draf($bank_sets_id) {
-        $count = Penilaian::where('dict_bank_sets_id',$bank_sets_id)
-                    ->where('status',0)->count();
+    private function calculate_draf($bank_sets_id,$waran_code) {
 
-        return $count;
+        $count = DB::connection('pgsql')->select("SELECT count(p.status) as counter FROM penilaians p
+                    JOIN profiles_cawangan_logs s ON p.profiles_id = s.id
+                    WHERE s.cawangan = ".$waran_code." AND p.status = 0");
+
+        // $count = Penilaian::where('dict_bank_sets_id',$bank_sets_id)
+        //             ->where('status',0)->count();
+
+        if(empty($count)) {
+            return 0;
+        } else {
+            return $count[0]->counter;
+        }
+
+        // return $count;
     }
 
     public function load_detail(Request $request) {

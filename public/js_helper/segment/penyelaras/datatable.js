@@ -248,6 +248,32 @@ $('.staff-table').DataTable({
     dom:
         '<"card-header border-bottom p-1"<"head-label"><"dt-action-buttons text-right"B>><"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
     lengthMenu: [7, 10, 25, 50, 75, 100],
+    buttons: [
+        /*
+        {
+            text: feather.icons['plus'].toSvg({ class: 'mr-50 font-small-4' }) + 'Tambah Penilaian',
+            className: 'create-new btn btn-info add-dict-bank',
+            attr: {
+                'data-toggle': 'modal',
+                'data-target': '#modals-slide-in'
+            },
+            init: function (api, node, config) {
+                $(node).removeClass('btn-secondary');
+            }
+        },
+        {
+            text: feather.icons['plus'].toSvg({ class: 'mr-50 font-small-4' }) + 'Tambah Set Soalan',
+            className: 'create-new btn btn-warning set-que-list',
+            attr: {
+                'data-toggle': 'modal',
+                'data-target': '#modals-slide-in'
+            },
+            init: function (api, node, config) {
+                $(node).removeClass('btn-secondary');
+            }
+        },
+        */
+    ],
     responsive: {
         details: {
             display: $.fn.dataTable.Responsive.display.modal({
@@ -291,7 +317,7 @@ $('.staff-table').DataTable({
 });
 
 
-reload_table(bank_sets_id,kod_waran,year) {
+function reload_table(bank_sets_id,kod_waran,year) {
     $('.staff-table').DataTable({
         processing: true,
         serverSide: true,
@@ -308,7 +334,24 @@ reload_table(bank_sets_id,kod_waran,year) {
             $(row).addClass('penyelaras-row');
         },
         columnDefs: [
-
+            {
+                // status
+                targets: 0,
+                title: 'Status',
+                orderable: false,
+                render: function (data, type, full, meta) {
+                    let row_flag = full.status;
+                    if(row_flag == 0) {
+                        return "Tiada Tindakan";
+                    } else if(row_flag == 1) {
+                        return "Belum Dihantar";
+                    } else if(row_flag == 2) {
+                        return "Menunggu Penilaian Penyelia";
+                    } else if(row_flag == 3) {
+                        return "Selesai";
+                    }
+                }
+            }
         ],
         dom:
             '<"card-header border-bottom p-1"<"head-label"><"dt-action-buttons text-right"B>><"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
@@ -354,6 +397,7 @@ reload_table(bank_sets_id,kod_waran,year) {
                 previous: '&nbsp;',
                 next: '&nbsp;'
             }
-        }
+        },
+        destroy: true
     });
 }
