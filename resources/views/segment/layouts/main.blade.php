@@ -113,7 +113,7 @@
 
 <script>
     function getUrl(){
-        return window.location.origin + '/esposh';
+        return window.location.origin;
     }
 
     function getToken(){

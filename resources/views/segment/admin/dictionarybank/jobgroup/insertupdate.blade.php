@@ -106,7 +106,7 @@
                                             <div class="form-group">
                                                 <label for="basicInput">Jurusan</label>
                                                 <select class="form-control select2 job-group-set-jurusan">
-                                                    <option value="">Sila Pilih</option>
+                                                    <option value="">TIADA JURUSAN</option>
                                                     @foreach($jurusan as $j)
                                                         @if($groupData)
                                                             @if($groupData['main']['jurusan'] == $j->kod_jurusan)

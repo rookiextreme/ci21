@@ -1,5 +1,5 @@
 <?php
-namespace App\Models\Collection\Setting\Measuringlvl;
+namespace App\Models\Collection\Setting\MeasuringLvl;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;

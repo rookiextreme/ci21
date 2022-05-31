@@ -37,6 +37,8 @@
             <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Pentadbir</span><i data-feather="more-horizontal"></i></li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="{{Request::root()}}/admin/user"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Pengguna</span></a>
             </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{Request::root()}}/pelaporan"><i data-feather="mail"></i><span class="menu-title text-truncate" data-i18n="Email">Pelaporan</span></a>
+            </li>
             @endrole
             @role('Admin')
             <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Dictionary</span><i data-feather="more-horizontal"></i></li>
@@ -76,6 +78,8 @@
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/setting/grade"><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Grade</span></a>
                     </li>
+                    <li><a class="d-flex align-items-center" href="{{Request::root()}}/admin/setting/agency"><i data-feather='hexagon'></i><span class="menu-item text-truncate" data-i18n="List">Agency</span></a>
+                    </li>
                 </ul>
             </li>
             @endrole
@@ -83,6 +87,24 @@
                 <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Penilaian</span><i data-feather="more-horizontal"></i></li>
                 <li>
                     <a class="d-flex align-items-center" href="{{Request::root()}}/dashboard/pengguna"><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Dashboard Penilaian</span>
+                    </a>
+                </li>
+            @endrole
+            @role('Penyelia')
+                <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Penyelia</span><i data-feather="more-horizontal"></i></li>
+                <li>
+                    <a class="d-flex align-items-center" href="{{Request::root()}}/penyelia/pengesahan/new"><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Pengesahan Baru</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="d-flex align-items-center" href="{{Request::root()}}/penyelia/pengesahan/accept-all"><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Rekod Pengesahan</span>
+                    </a>
+                </li>
+            @endrole
+            @role('Penyelaras')
+                <li class="navigation-header"><span data-i18n="Apps &amp; Pages">Penyelaras</span><i data-feather="more-horizontal"></i></li>
+                <li>
+                    <a class="d-flex align-items-center" href="{{Request::root()}}/pengguna/penyelaras/"><i data-feather="command"></i><span class="menu-item text-truncate" data-i18n="List">Senarai Penilaian</span>
                     </a>
                 </li>
             @endrole

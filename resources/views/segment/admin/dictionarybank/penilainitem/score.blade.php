@@ -5,6 +5,13 @@
     @include('segment.layouts.asset_include_links.select2.css.select2_css')
     @include('segment.layouts.asset_include_links.sweetAlert.css.sweet_alert_css')
     @include('segment.layouts.asset_include_links.date_time.css.datetime_css')
+
+    <style>
+        .scorecenter{
+            width: 30px !important;
+            text-align: center;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -44,6 +51,9 @@
                                         <br><br>
                                         <br><br>
                                         <div class="col-xl-12 col-md-6 col-12 mb-1">
+                                            <div class="col-md-12">
+                                                <h5 style="color: red">*Sila tatal(scroll) ke kiri untuk melihat lebih gred (JIKA ADA)</h5>
+                                            </div>
                                             <div class="table-responsive">
                                                 <table class="table table-bordered">
                                                     <thead>
@@ -62,7 +72,7 @@
                                                             <td>{{$item_name}}</td>
                                                             @foreach($gradeScores as $gr)
                                                             <td data-grade-id="{{$gr->id}}">
-                                                                <input style="width: 20%" type="text" class="item-score" value="{{$gr->score}}">
+                                                                <input style="width: 100%" type="text" class="item-score scorecenter" value="{{$gr->score}}">
                                                             </td>
                                                             @endforeach
                                                         </tr>

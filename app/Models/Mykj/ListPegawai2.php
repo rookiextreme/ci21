@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ListPegawai2 extends Model
 {
     protected $connection = 'pgsqlmykj';
-    protected $table = 'list_pegawai2';
+    protected $table = 'public.list_pegawai2';
 //    public $timestamps = false;
 
     public static function getMaklumatPegawai(Int $no_ic) : array{

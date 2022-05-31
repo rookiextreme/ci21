@@ -126,24 +126,32 @@ class BankController extends Controller{
         $grade_id = $request->input('penilaian_id');
         $model = DictBankSet::find($grade_id);
         $itemSets = $model->dictBankSetDictBankSetsItem;
-        $canPublish = true;
+        $canPublish = false;
 
         if($itemSets->count() == 0) {
            return response()->json([
                 'success' => 0
             ]);
         } else {
+
             foreach($itemSets as $item) {
-                if(isset($item->dictBankSetsItemCompetencyTypeScaleLvl)) {
-                    $canPublish = false;
-                    break;
-                } else if($item->dictBankSetsItemDictBankComQuestion->count() == 0) {
-                    $canPublish = false;
-                    break;
-                } else {
-                    $canPublish = true;
+                if($item->flag == 1 && $item->delete_id == 0) {
+                    if(empty($item->dictBankSetsItemCompetencyTypeScaleLvl)) {
+                        $canPublish = false;
+                        // print_r("item id : ".$item->id.", pass : ".$canPublish." reason : Empty CompentencyTypeScaleLvl \n");
+                        break;
+                    } else if($item->dictBankSetsItemDictBankComQuestion->count() == 0) {
+                        $canPublish = false;
+                        // print_r("item id : ".$item->id.", pass : ".$canPublish." reason: Empty Question \n");
+                        break;
+                    } else {
+                        $canPublish = true;
+                    }
                 }
+                // print_r("item id : ".$item->id.", pass : ".$canPublish." \n");
             }
+
+            // die();
 
             if($canPublish) {
                 $model->flag_publish = $model->flag_publish == 1 ? 0 : 1;
@@ -160,6 +168,7 @@ class BankController extends Controller{
                return response()->json([
                     'success' => 0
                 ]);
+// <<<<<<< HEAD
             }
         }
     }
@@ -246,6 +255,8 @@ class BankController extends Controller{
                 if($mdl->save()) {
                     $measuring_lvls_arr[$col->id] = $mdl->id;
                 }
+//=======
+//>>>>>>> origin/master
             }
 
             //copy compentency_types

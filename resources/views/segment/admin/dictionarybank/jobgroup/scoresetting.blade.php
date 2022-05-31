@@ -5,6 +5,12 @@
     @include('segment.layouts.asset_include_links.select2.css.select2_css')
     @include('segment.layouts.asset_include_links.sweetAlert.css.sweet_alert_css')
     @include('segment.layouts.asset_include_links.date_time.css.datetime_css')
+    <style>
+        .scorecenter{
+            width: 30px !important;
+            text-align: center;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -43,6 +49,9 @@
                                         <br><br>
                                         <br><br>
                                         <div class="col-xl-12 col-md-6 col-12 mb-1">
+                                            <div class="col-md-12">
+                                                <h5 style="color: red">*Sila tatal(scroll) ke kiri untuk melihat lebih gred (JIKA ADA)</h5>
+                                            </div>
                                             <div class="table-responsive">
                                                 <table class="table table-bordered">
                                                     <thead>
@@ -64,7 +73,7 @@
                                                             </td>
                                                             @foreach($itemlist['scoreset'] as $score)
                                                                 <td data-grade-id="{{$score['grade_id']}}" data-score-id="{{$score['id']}}">
-                                                                    <input style="width: 100%" type="text" class="job-group-score" value="{{$score['score']}}">
+                                                                    <input style="width: 100%" type="text" class="job-group-score scorecenter" value="{{$score['score']}}">
                                                                 </td>
                                                             @endforeach
                                                         </tr>

@@ -27,8 +27,12 @@ use App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\BankJobGroupCont
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\Items\BankItemsController;
 use App\Http\Controllers\Segment\Admin\Dictionary\Bank\JobGroup\Score\BankJobGroupScoreController;
 use App\Http\Controllers\Segment\Pengguna\Dashboard\PenggunaDashboardPenggunaController;
-use App\Http\Controllers\Segment\Admin\Dictionary\Bank\items\Score\BankItemsScoreController;
+use App\Http\Controllers\Segment\Admin\Dictionary\Bank\Items\Score\BankItemsScoreController;
 use App\Http\Controllers\Segment\Pengguna\PenilaianScore\PenilaianScoreController;
+use App\Http\Controllers\Segment\Penyelia\PenyeliaController;
+use App\Http\Controllers\Segment\Admin\Setting\Agency\AgencyController;
+use App\Http\Controllers\Segment\Pelaporan\PelaporanController;
+use App\Http\Controllers\Penyelaras\PenyelarasController;
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware(['auth'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
@@ -274,6 +278,17 @@ Route::prefix('/admin')->group(function () {
             Route::post('/activate', [GradeController::class, 'grade_activate']);
             Route::post('/delete', [GradeController::class, 'grade_delete']);
         });
+        //Agency
+        Route::prefix('/agency')->group(function () {
+            Route::get('/', [AgencyController::class, 'index']);
+            Route::get('/list', [AgencyController::class, 'load_agencies_tree']);
+            Route::post('/save', [AgencyController::class, 'save_agency']);
+            Route::post('/active', [AgencyController::class, 'active_agency']);
+            Route::post('/delete', [AgencyController::class, 'delete_agency']);
+            Route::post('/get', [AgencyController::class, 'get_agency']);
+            Route::get('/reload_lookup', [AgencyController::class, 'load_agencies_lookup']);
+            Route::get('/load_penyelaras/{id}', [AgencyController::class, 'list_penyelaras']);
+        });
     });
 });
 
@@ -290,15 +305,56 @@ Route::prefix('/pengguna')->group(function () {
     });
 
     Route::get('/penilaian/score/{penilaian_id}', [PenilaianScoreController::class, 'index']);
+    Route::get('/penilaian/keputusan/{penilaian_id}', [PenilaianScoreController::class, 'score_keputusan']);
     Route::prefix('/penilaian')->group(function () {
         Route::prefix('/score')->group(function () {
             Route::post('/update-score', [PenilaianScoreController::class, 'update_score']);
             Route::post('/kemaskini-score', [PenilaianScoreController::class, 'kemaskini_score']);
             Route::post('/hantar-score', [PenilaianScoreController::class, 'hantar_score']);
         });
+
+        Route::prefix('/keputusan')->group(function () {
+            Route::prefix('/score')->group(function () {
+
+            });
+        });
+    });
+
+    Route::prefix('/penyelaras')->group(function() {
+        Route::get('/',[PenyelarasController::class, 'load_main_page']);
+        Route::get('/list',[PenyelarasController::class, 'load_all_penilaians']);
+        Route::post('/add',[PenyelarasController::class,'add_penyelaras']);
+        Route::post('/delete',[PenyelarasController::class,'delete_penyelaras']);
+        Route::post('/detail',[PenyelarasController::class,'load_list_caw']);
+        Route::get('/info',[PenyelarasController::class,'load_list_staff']);
     });
 });
 
+//Penyelia
+Route::get('/penyelia/pengesahan/result/{user_id}/{penilaian_id}/{trigger}', [PenyeliaController::class, 'pengesahan_result']);
+
+Route::prefix('/penyelia')->group(function () {
+    Route::prefix('/pengesahan')->group(function () {
+        Route::get('/new', [PenyeliaController::class, 'index']);
+        Route::get('/new/with-penyelia/{penilaian_id}', [PenyeliaController::class, 'result_keputusan_with_penyelia']);
+        Route::post('/new/with-penyelia-send', [PenyeliaController::class, 'simpan_keputusan_penyelia']);
+        Route::get('/accept-all', [PenyeliaController::class, 'penyelia_accept_all']);
+    });
+});
+
+//Pelaporan
+Route::prefix('/pelaporan')->group(function () {
+    Route::get('/', [PelaporanController::class, 'index']);
+
+    //basic tablecount
+    Route::get('/analisis-jurang-standard/{trigger}', [PelaporanController::class, 'analisis_jurang_standard']);
+    Route::post('/analisis-jurang-standard/{trigger}', [PelaporanController::class, 'analisis_jurang_standard']);
+    Route::post('/analisis-jurang-standard-search', [PelaporanController::class, 'analisis_jurang_standard_search']);
+
+    //graph tablecount
+    Route::get('/analisis-jurang-standard-graph/{trigger}', [PelaporanController::class, 'analisis_jurang_standard_graph']);
+    Route::post('/analisis-jurang-standard-graph/{trigger}', [PelaporanController::class, 'analisis_jurang_standard_graph']);
+});
 //Common Controller
 Route::prefix('/common')->group(function () {
     Route::prefix('/user')->group(function () {
@@ -306,6 +362,10 @@ Route::prefix('/common')->group(function () {
         Route::post('/maklumat', [CommonController::class, 'pengguna_maklumat']);
     });
     Route::post('/get-listing', [CommonController::class, 'listing']);
+    // Agency common search -Rubmin
+    Route::prefix('/agency')->group(function() {
+        Route::get('/search',[CommonController::class, 'search_agency']);
+    });
 });
 
 require __DIR__.'/auth.php';

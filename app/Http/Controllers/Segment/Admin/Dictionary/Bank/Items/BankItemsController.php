@@ -6,7 +6,7 @@ use App\Models\Penilaian\DictBank\Question\DictBankSetsCompetenciesQuestion;
 use Illuminate\Http\Request;
 use App\Models\Penilaian\Grade\DictBankGradeCategory;
 use App\Models\Penilaian\Setting\Scalelvl\DictBankCompetencyTypesScaleLvl;
-use App\Models\Penilaian\Setting\Measuringlvl\DictBankMeasuringlvl;
+use App\Models\Penilaian\Setting\MeasuringLvl\DictBankMeasuringlvl;
 use App\Models\Penilaian\DictBank\Set\DictBankSetsItem;
 use App\Models\Collection\DictCol\Set\DictColSetsItem;
 use App\Models\Mykj\LJurusan;
@@ -206,18 +206,7 @@ class BankItemsController extends Controller{
             ->addColumn('grade_category', function($data){
                 return strtoupper($data->dictColSetsItemDictGradeCategory->name);
             })
-            // ->rawColumns(['action'])
+            ->rawColumns(['action'])
             ->make(true);
-    }
-
-    public function add_item_cols(Request $request) {
-        $selected_items_col = json_decode(request->input('selected_items_col'));
-        $penilaian_id = request->input('penilaian_id');
-
-        foreach($selected_items_col as $item_id) {
-            $col_item_model = DictColSetsItem::find($item_id);
-
-
-        }
     }
 }

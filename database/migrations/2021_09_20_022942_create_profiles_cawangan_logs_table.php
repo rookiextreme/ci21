@@ -28,6 +28,7 @@ class CreateProfilesCawanganLogsTable extends Migration
             $table->string('unit_name', 300);
             $table->string('penempatan_name', 300);
             $table->year('tahun');
+            $table->string('gred');
             $table->integer('flag');
             $table->integer('delete_id');
             $table->timestamps();

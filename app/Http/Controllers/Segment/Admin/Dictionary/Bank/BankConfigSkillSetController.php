@@ -12,8 +12,8 @@ class BankConfigSkillSetController extends Controller{
         $this->middleware('auth');
     }
 
-    public function skill_set_list(){
-        $model = DictBankScaleLvlsSkillset::where('delete_id', 0)->get();
+    public function skill_set_list($penilaian_id){
+        $model = DictBankScaleLvlsSkillset::where('delete_id', 0)->where('dict_bank_sets_id', $penilaian_id)->get();
 
         return DataTables::of($model)
             ->setRowAttr([

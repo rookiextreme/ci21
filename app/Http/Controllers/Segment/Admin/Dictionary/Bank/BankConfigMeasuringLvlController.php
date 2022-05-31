@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Segment\Admin\Dictionary\Bank;
 
 use App\Http\Controllers\Controller;
-use App\Models\Penilaian\Setting\Measuringlvl\DictBankMeasuringlvl;
+use App\Models\Penilaian\Setting\MeasuringLvl\DictBankMeasuringlvl;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
