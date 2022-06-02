@@ -19,6 +19,9 @@ use App\Models\Penilaian\Setting\Scalelvl\DictBankCompetencyTypesScaleLvl;
 use App\Models\Penilaian\DictBank\Set\DictBankSetsItem;
 use App\Models\Penilaian\DictBank\Question\DictBankSetsCompetenciesQuestion;
 use App\Models\Penilaian\DictBank\Score\DictBankSetsItemsScoresSetsGrade;
+use App\Models\Penilaian\Jobgroup\Set\DictBankJobgroupSet;
+use App\Models\Penilaian\Jobgroup\Set\DictBankJobgroupSetsItem;
+use App\Models\Penilaian\Jobgroup\Score\DictBankJobgroupSetsItemsScoresSetsGrade;
 
 
 class BankController extends Controller{
@@ -363,7 +366,7 @@ class BankController extends Controller{
                 if($mdl->save()) {
                     $id = $mdl->id;
                     $sets_items_arr[$col->id] = $id;
-                    if($col->dictBankSetsItemDictBankComQuestion->isEmpty()) {
+                    if(empty($col->dictBankSetsItemDictBankComQuestion)) {
                         $mdl->loadMissing('dictBankSetsItemDictBankComQuestion');
                     }
 
@@ -380,7 +383,7 @@ class BankController extends Controller{
                         }
                     }
 
-                    if($col->dictBankSetsItemsScoresSetsGrade->isEmpty()) {
+                    if(empty($col->dictBankSetsItemsScoresSetsGrade)) {
                         $mdl->loadMissing('dictBankSetsItemsScoresSetsGrade');
                     }
 
@@ -395,6 +398,54 @@ class BankController extends Controller{
 
                         $n->save();
                     }
+                }
+            }
+
+            $jobgroup_sets_cols = DictBankJobgroupSet::where('dict_bank_sets_id',$old_penilaian_id)->get();
+
+            foreach($jobgroup_sets_cols as $col) {
+                $mdl= new DictBankJobgroupSet;
+                $mdl->dict_bank_sets_id = $penilaian_id;
+                $mdl->jurusan_id = $col->jurusan_id;
+                $mdl->dict_bank_grades_categories_id = $grade_categories_arr[$col->dict_bank_grades_categories_id];
+                $mdl->title_mal = $col->title_mal;
+                $mdl->desc_mal = $col->desc_mal;
+                $mdl->title_eng = $col->title_eng;
+                $mdl->desc_eng = $col->desc_eng;
+                $mdl->flag = $col->flag;
+                $mdl->delete_id = $col->delete_id;
+
+                if($mdl->save()) {
+                    $jobgroup_sets_id = $mdl->id;
+                    if(empty($col->dictBankJobgroupSetItems)) {
+                        $mdl->loadMissing('dictBankJobgroupSetItems');
+                    }
+                    foreach($col->dictBankJobgroupSetItems as $item) {
+                        $child = new DictBankJobgroupSetsItem;
+                        $child->dict_bank_jobgroup_sets_id = $jobgroup_sets_id;
+                        $child->flag = $item->flag;
+                        $child->delete_id = $item->delete_id;
+                        $child->dict_bank_sets_items_id = $sets_items_arr[$item->dict_bank_sets_items_id];
+
+                        if($child->save()) {
+                            if(empty($col->dictBankJobgroupSetsItemsScoresSetsGrade)) {
+                                $mdl->loadMissing('dictBankJobgroupSetsItemsScoresSetsGrade');
+                            }
+                            foreach($col->dictBankJobgroupSetsItemsScoresSetsGrade as $item_scoreset) {
+                                $anak = new DictBankJobgroupSetsItemsScoresSetsGrade;
+                                $anak->dict_bank_jobgroup_sets_items_id = $child->id;
+                                $anak->dict_bank_grades_id = $grade_arr[$item_scoreset->dict_bank_grades_id];
+                                $anak->dict_bank_jobgroup_sets_id = $jobgroup_sets_id;
+                                $anak->score = $item_scoreset->score;
+                                $anak->flag = $item_scoreset->flag;
+                                $anak->delete_id = $item_scoreset->delete_id;
+
+                                $anak->save();
+                            }
+                        }
+
+                    }
+
                 }
             }
 

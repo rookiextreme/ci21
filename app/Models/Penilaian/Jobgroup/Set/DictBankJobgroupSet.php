@@ -32,6 +32,10 @@ class DictBankJobgroupSet extends Model{
         return $this->hasMany('App\Models\Penilaian\Jobgroup\Set\DictBankJobgroupSetsItem', 'dict_bank_jobgroup_sets_id', 'id')->where('flag', 1)->where('delete_id', 0);
     }
 
+    public function dictBankJobgroupSetsItemsScoresSetsGrade() {
+        return $this->hasMany('App\Models\Penilaian\Jobgroup\Score\DictBankJobgroupSetsItemsScoresSetsGrade','dict_bank_jobgroup_sets_id', 'id');
+    }
+
     public function createUpdate(Request $request){
         $job_group_set_name_eng = $request->input('job_group_set_name_eng');
         $job_group_set_name_mal = $request->input('job_group_set_name_mal');

@@ -48,6 +48,7 @@
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                 <button type="button" class="btn btn-success post-add-penilaian">Tambah</button>
                 <button type="button" class="btn btn-success post-update-penilaian">Kemaskini</button>
+                <button type="button" class="btn btn-success post-copy-penilaian">Salin</button>
             </div>
         </div>
     </div>

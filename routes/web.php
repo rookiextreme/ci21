@@ -151,6 +151,7 @@ Route::prefix('/admin')->group(function () {
                 Route::post('/activate', [BankController::class, 'penilaian_activate']);
                 Route::post('/delete', [BankController::class, 'penilaian_delete']);
                 Route::post('/publish', [BankController::class,'publish_penilaian']);
+                Route::post('/copy',[BankController::class,'copy_penilaiaan']);
 
                 Route::get('/config/{penilaian_id}', [BankConfigController::class, 'index']);
                 Route::prefix('/config')->group(function () {
