@@ -1,4 +1,4 @@
-$(document).on('click', '.add-penilaian, .update-penilaian, .delete-penilaian, .active-penilaian, .publish-penilaian', function(){
+$(document).on('click', '.add-penilaian, .update-penilaian, .delete-penilaian, .active-penilaian, .publish-penilaian', '.copy-penilaian', function(){
     let selectedClass = $(this);
     if(selectedClass.hasClass('add-penilaian')){
         postEmptyFields([
@@ -9,6 +9,8 @@ $(document).on('click', '.add-penilaian, .update-penilaian, .delete-penilaian, .
         ]);
         $('.post-add-penilaian').attr('style', '');
         $('.post-update-penilaian').attr('style', 'display:none');
+        $('.post-copy-penilaian').attr('style', 'display:none');
+
         $('.penilaian-title').html('Tambah Penilaian');
         $('.penilaian-modal').modal('show');
     }else if(selectedClass.hasClass('update-penilaian')){
@@ -21,6 +23,7 @@ $(document).on('click', '.add-penilaian, .update-penilaian, .delete-penilaian, .
         ]);
         $('.post-add-penilaian').attr('style', 'display:none');
         $('.post-update-penilaian').attr('style', '');
+        $('.post-copy-penilaian').attr('style', 'display:none');
 
         let data = new FormData;
         data.append('penilaian_id', $('.penilaian-id').val());
@@ -72,10 +75,28 @@ $(document).on('click', '.add-penilaian, .update-penilaian, .delete-penilaian, .
                 postfunc: 1
             }
         });
+    } else if(selectedClass.hasClass('copy-penilaian')) {
+        $('.penilaian-id').val(selectedClass.closest('tr').attr('data-bank-set-id'));
+        postEmptyFields([
+            ['.penilaian-nama', 'text'],
+            ['.penilaian-tahun', 'dropdown'],
+            ['.penilaian-tkh-mula', 'text'],
+            ['.penilaian-tkh-tamat', 'text'],
+        ]);
+        $('.post-add-penilaian').attr('style', 'display:none');
+        $('.post-update-penilaian').attr('style', 'display:none');
+        $('.post-copy-penilaian').attr('style', '');
+
+        let data = new FormData;
+        data.append('penilaian_id', $('.penilaian-id').val());
+        data.append('_token', getToken());
+
+        $('.penilaian-title').html('Salin Penilaian');
+        $('.penilaian-modal').modal('show');
     }
 });
 
-$(document).on('click', '.post-add-penilaian, .post-update-penilaian', function(){
+$(document).on('click', '.post-add-penilaian, .post-update-penilaian, .post-copy-penilaian', function(){
     let selectedClass = $(this);
     let penilaian_nama = $('.penilaian-nama').val();
     let penilaian_tahun = $('.penilaian-tahun').val();
@@ -97,7 +118,10 @@ $(document).on('click', '.post-add-penilaian, .post-update-penilaian', function(
 
     if(selectedClass.hasClass('post-add-penilaian')){
         data.append('trigger' , 0);
-    }else{
+    } else if(selectedClass.hasClass('post-copy-penilaian')) {
+        data.append('trigger' , 0);
+        data.append('penilaian_id', penilaian_id);
+    } else{
         data.append('penilaian_id', penilaian_id);
         data.append('trigger' , 1);
     }
@@ -108,6 +132,11 @@ $(document).on('click', '.post-add-penilaian, .post-update-penilaian', function(
     data.append('penilaian_tkh_tamat', penilaian_tkh_tamat);
     data.append('_token', getToken());
 
-    ajax('/admin/dictionary/bank/penilaian/tambah-kemaskini', data, 0);
+    if(selectedClass.hasClass('post-copy-penilaian')) {
+        ajax('/admin/dictionary/bank/penilaian/copy', data, 3);
+    } else {
+        ajax('/admin/dictionary/bank/penilaian/tambah-kemaskini', data, 0);
+    }
+
 });
 //End Grade

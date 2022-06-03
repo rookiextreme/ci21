@@ -151,6 +151,7 @@ Route::prefix('/admin')->group(function () {
                 Route::post('/activate', [BankController::class, 'penilaian_activate']);
                 Route::post('/delete', [BankController::class, 'penilaian_delete']);
                 Route::post('/publish', [BankController::class,'publish_penilaian']);
+                Route::post('/copy',[BankController::class,'copy_penilaiaan']);
 
                 Route::get('/config/{penilaian_id}', [BankConfigController::class, 'index']);
                 Route::prefix('/config')->group(function () {
@@ -325,6 +326,8 @@ Route::prefix('/pengguna')->group(function () {
         Route::get('/list',[PenyelarasController::class, 'load_all_penilaians']);
         Route::post('/add',[PenyelarasController::class,'add_penyelaras']);
         Route::post('/delete',[PenyelarasController::class,'delete_penyelaras']);
+        Route::post('/detail',[PenyelarasController::class,'load_list_caw']);
+        Route::get('/info',[PenyelarasController::class,'load_list_staff']);
     });
 });
 

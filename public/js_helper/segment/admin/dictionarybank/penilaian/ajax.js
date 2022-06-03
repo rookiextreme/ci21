@@ -47,9 +47,19 @@ function ajax(url, data, postfunc){
                     });
                 }
             }else if(postfunc == 3){
-                if(success == 1){
+                if(success == 1) {
 
+                    toasting('Penilaian Disalin', 'success');
+
+                    $('.penilaian-modal').modal('hide');
+                    $('.penilaian-table').DataTable().ajax.reload(null, false);
+
+                }else if(success == 2){
+                    toasting('Rekod Penilaian Wujud', 'error');
+                }else{
+                    toasting('Sesuatu Telah Berlaku', 'error');
                 }
+                $.unblockUI();
             }
         }
     });
