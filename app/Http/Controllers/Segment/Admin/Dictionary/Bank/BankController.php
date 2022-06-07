@@ -209,7 +209,7 @@ class BankController extends Controller{
         $model->ref_id = 0;
 
         if($model->save()){
-            $penilaian_id = $model->id();
+            $penilaian_id = $model->id;
 
             //copy grade_categories and list of grades under each category
             $grade_categories_cols = DictBankGradeCategory::where('dict_bank_sets_id',$old_penilaian_id)->get();
@@ -226,11 +226,29 @@ class BankController extends Controller{
                 if($mdl->save()) {
                     $id = $mdl->id;
                     $grade_categories_arr[$col->id] = $id;
+
+                    // problem unstable
+                    /*
                     if(empty($mdl->dictBankGradeCategoryGetGrade)) {
                         $mdl->loadMissing('dictBankGradeCategoryGetGrade');
                     }
 
                     foreach($mdl->dictBankGradeCategoryGetGrade as $grade) {
+                        $childMdl = new DictBankGrade;
+                        $childMdl->dict_bank_grades_categories_id = $id;
+                        $childMdl->grades_id = $grade->grades_id;
+                        $childMdl->flag = $grade->flag;
+                        $childMdl->delete_id = $grade->delete_id;
+
+                        if($childMdl->save()) {
+                            $grade_arr[$grade->id] = $childMdl->id;
+                        }
+                    }
+                    */
+
+                    $dictBankGradeCategoryGetGrade = DictBankGrade::where('dict_bank_grades_categories_id',$col->id)->get();
+
+                    foreach($dictBankGradeCategoryGetGrade as $grade) {
                         $childMdl = new DictBankGrade;
                         $childMdl->dict_bank_grades_categories_id = $id;
                         $childMdl->grades_id = $grade->grades_id;
@@ -258,8 +276,7 @@ class BankController extends Controller{
                 if($mdl->save()) {
                     $measuring_lvls_arr[$col->id] = $mdl->id;
                 }
-//=======
-//>>>>>>> origin/master
+
             }
 
             //copy compentency_types
@@ -312,6 +329,7 @@ class BankController extends Controller{
                     $id = $mdl->id;
                     $scale_lvls_sets_arr[$col->id] = $id;
 
+                    /*
                     if(empty($mdl->dictBankScaleLvlScaleSet)) {
                         $mdl->loadMissing('dictBankScaleLvlScaleSet');
                     }
@@ -322,6 +340,19 @@ class BankController extends Controller{
                         $child->flag = $scale_set->flag;
                         $child->delete_id = $scale_set->delete_id;
                         $child->score = $$scale_set->score;
+                        $child->dict_bank_scale_lvls_id = $id;
+                        $child->dict_bank_scale_lvls_skillsets_id = $scale_lvls_skillsets_arr[$scale_set->dict_bank_scale_lvls_skillsets_id];
+
+                        $child->save();
+                    }
+                    */
+                    $dictBankScaleLvlScaleSet = DictBankScaleLvlsSet::where('dict_bank_scale_lvls_id',$col->id)->get();
+                    foreach($dictBankScaleLvlScaleSet as $scale_set) {
+                        $child = new DictBankScaleLvlsSet;
+                        $child->name = $scale_set->name;
+                        $child->flag = $scale_set->flag;
+                        $child->delete_id = $scale_set->delete_id;
+                        $child->score = $scale_set->score;
                         $child->dict_bank_scale_lvls_id = $id;
                         $child->dict_bank_scale_lvls_skillsets_id = $scale_lvls_skillsets_arr[$scale_set->dict_bank_scale_lvls_skillsets_id];
 
@@ -366,6 +397,7 @@ class BankController extends Controller{
                 if($mdl->save()) {
                     $id = $mdl->id;
                     $sets_items_arr[$col->id] = $id;
+                    /*
                     if(empty($col->dictBankSetsItemDictBankComQuestion)) {
                         $mdl->loadMissing('dictBankSetsItemDictBankComQuestion');
                     }
@@ -375,28 +407,61 @@ class BankController extends Controller{
                         $child->dict_bank_sets_items_id = $id;
                         $child->title_eng = $question->title_eng;
                         $child->title_mal = $question->title_mal;
-                        $child->flag = $scale_set->flag;
-                        $child->delete_id = $scale_set->delete_id;
+                        $child->flag = $question->flag;
+                        $child->delete_id = $question->delete_id;
 
                         if($child->save()) {
                             $competencies_questions_arr[$question->id] = $child->id;
                         }
                     }
+                    */
+                    $dictBankSetsItemDictBankComQuestion = DictBankSetsCompetenciesQuestion::where('dict_bank_sets_items_id',$col->id)->get();
+                    foreach($dictBankSetsItemDictBankComQuestion as $question) {
+                        $child = new DictBankSetsCompetenciesQuestion;
+                        $child->dict_bank_sets_items_id = $id;
+                        $child->title_eng = $question->title_eng;
+                        $child->title_mal = $question->title_mal;
+                        $child->flag = $question->flag;
+                        $child->delete_id = $question->delete_id;
 
+                        if($child->save()) {
+                            $competencies_questions_arr[$question->id] = $child->id;
+                        }
+                    }
+                    /*
                     if(empty($col->dictBankSetsItemsScoresSetsGrade)) {
                         $mdl->loadMissing('dictBankSetsItemsScoresSetsGrade');
                     }
 
                     foreach($col->dictBankSetsItemsScoresSetsGrade as $set_score) {
-                        $n = new DictBankSetsItemsScoresSetsGrade;
-                        $n->dict_bank_sets_items_id = $id;
-                        $n->tech_discipline_flag = $set_score->tech_discipline_flag;
-                        $n->dict_bank_grades_id = $grade_arr[$set_score->dict_bank_grades_id];
-                        $n->score = $set_score->score;
-                        $n->flag = $set_score->flag;
-                        $n->delete_id = $set_score->delete_id;
+                        if(isset($grade_arr[$set_score->dict_bank_grades_id])) {
+                            $n = new DictBankSetsItemsScoresSetsGrade;
+                            $n->dict_bank_sets_items_id = $id;
+                            $n->tech_discipline_flag = $set_score->tech_discipline_flag;
+                            $n->dict_bank_grades_id = $grade_arr[$set_score->dict_bank_grades_id];
+                            $n->score = $set_score->score;
+                            $n->flag = $set_score->flag;
+                            $n->delete_id = $set_score->delete_id;
 
-                        $n->save();
+                            $n->save();
+                        }
+
+                    }
+                    */
+                    $dictBankSetsItemsScoresSetsGrade = DictBankSetsItemsScoresSetsGrade::where('dict_bank_sets_items_id',$col->id)->get();
+                    foreach($dictBankSetsItemsScoresSetsGrade as $set_score) {
+                        if(isset($grade_arr[$set_score->dict_bank_grades_id])) {
+                            $n = new DictBankSetsItemsScoresSetsGrade;
+                            $n->dict_bank_sets_items_id = $id;
+                            $n->tech_discipline_flag = $set_score->tech_discipline_flag;
+                            $n->dict_bank_grades_id = $grade_arr[$set_score->dict_bank_grades_id];
+                            $n->score = $set_score->score;
+                            $n->flag = $set_score->flag;
+                            $n->delete_id = $set_score->delete_id;
+
+                            $n->save();
+                        }
+
                     }
                 }
             }
@@ -417,6 +482,7 @@ class BankController extends Controller{
 
                 if($mdl->save()) {
                     $jobgroup_sets_id = $mdl->id;
+                    /*
                     if(empty($col->dictBankJobgroupSetItems)) {
                         $mdl->loadMissing('dictBankJobgroupSetItems');
                     }
@@ -432,20 +498,49 @@ class BankController extends Controller{
                                 $mdl->loadMissing('dictBankJobgroupSetsItemsScoresSetsGrade');
                             }
                             foreach($col->dictBankJobgroupSetsItemsScoresSetsGrade as $item_scoreset) {
-                                $anak = new DictBankJobgroupSetsItemsScoresSetsGrade;
-                                $anak->dict_bank_jobgroup_sets_items_id = $child->id;
-                                $anak->dict_bank_grades_id = $grade_arr[$item_scoreset->dict_bank_grades_id];
-                                $anak->dict_bank_jobgroup_sets_id = $jobgroup_sets_id;
-                                $anak->score = $item_scoreset->score;
-                                $anak->flag = $item_scoreset->flag;
-                                $anak->delete_id = $item_scoreset->delete_id;
+                                if(isset($grade_arr[$item_scoreset->dict_bank_grades_id])) {
+                                    $anak = new DictBankJobgroupSetsItemsScoresSetsGrade;
+                                    $anak->dict_bank_jobgroup_sets_items_id = $child->id;
+                                    $anak->dict_bank_grades_id = $grade_arr[$item_scoreset->dict_bank_grades_id];
+                                    $anak->dict_bank_jobgroup_sets_id = $jobgroup_sets_id;
+                                    $anak->score = $item_scoreset->score;
+                                    $anak->flag = $item_scoreset->flag;
+                                    $anak->delete_id = $item_scoreset->delete_id;
 
-                                $anak->save();
+                                    $anak->save();
+                                }
+
                             }
                         }
 
                     }
+                    */
+                    $dictBankJobgroupSetItems = DictBankJobgroupSetsItem::where('dict_bank_jobgroup_sets_id',$col->id)->get();
+                    foreach($dictBankJobgroupSetItems as $item) {
+                        $child = new DictBankJobgroupSetsItem;
+                        $child->dict_bank_jobgroup_sets_id = $jobgroup_sets_id;
+                        $child->flag = $item->flag;
+                        $child->delete_id = $item->delete_id;
+                        $child->dict_bank_sets_items_id = $sets_items_arr[$item->dict_bank_sets_items_id];
 
+                        if($child->save()) {
+                            $dictBankJobgroupSetsItemsScoresSetsGrade = DictBankJobgroupSetsItemsScoresSetsGrade::where('dict_bank_jobgroup_sets_items_id',$item->id)->get();
+                            foreach($dictBankJobgroupSetsItemsScoresSetsGrade as $item_scoreset) {
+                                if(isset($grade_arr[$item_scoreset->dict_bank_grades_id])) {
+                                    $anak = new DictBankJobgroupSetsItemsScoresSetsGrade;
+                                    $anak->dict_bank_jobgroup_sets_items_id = $child->id;
+                                    $anak->dict_bank_grades_id = $grade_arr[$item_scoreset->dict_bank_grades_id];
+                                    $anak->dict_bank_jobgroup_sets_id = $jobgroup_sets_id;
+                                    $anak->score = $item_scoreset->score;
+                                    $anak->flag = $item_scoreset->flag;
+                                    $anak->delete_id = $item_scoreset->delete_id;
+
+                                    $anak->save();
+                                }
+
+                            }
+                        }
+                    }
                 }
             }
 
