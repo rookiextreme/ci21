@@ -1,4 +1,4 @@
-$(document).on('click', '.add-penilaian, .update-penilaian, .delete-penilaian, .active-penilaian, .publish-penilaian', '.copy-penilaian', function(){
+$(document).on('click', '.add-penilaian, .update-penilaian, .delete-penilaian, .active-penilaian, .publish-penilaian, .copy-penilaian', function(){
     let selectedClass = $(this);
     if(selectedClass.hasClass('add-penilaian')){
         postEmptyFields([

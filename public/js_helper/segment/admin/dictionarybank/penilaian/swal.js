@@ -48,11 +48,11 @@ function swalAjaxFire(postData){
                     swalPostFire('success', 'Berjaya Diterbitkan', 'Penilaian Sudah Diterbitkan!');
 
                 } else if(success == 0) {
-                    swalPostFire('error', 'Gagal Diterbitkan', 'Penilaian Tidak Lengkap!');
+                    swalPostFire('error', 'Gagal Diterbitkan', parseData.message);
                 } else {
                     swalPostFire('error', 'Gagal Diterbitkan', 'Ralat Dalam Sistem!');
                 }
-                $.unblockUI();   
+                $.unblockUI();
             }
         }
     });

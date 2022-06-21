@@ -32,7 +32,7 @@ class DictBankSetsItem extends Model{
     }
 
     public function dictBankSetsItemsScoresSetsGrade(){
-        return $this->hasMany('App\Models\Penilaian\DictBank\Score\DictBankSetsItemsScoresSetsGrade', 'DictBankSetsItemsScoresSetsGrade', 'id');
+        return $this->hasMany('App\Models\Penilaian\DictBank\Score\DictBankSetsItemsScoresSetsGrade', 'dict_bank_sets_items_id', 'id');
     }
 
     public function createAndUpdate(Request $request) : array{

@@ -42,7 +42,7 @@ $('.penilaian-table').DataTable({
             render: function (data, type, full, meta) {
                 let row_flag = full.flag_publish;
                 if(row_flag == 1) {
-                    return('<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-penilaian">'+ feather.icons['trash-2'].toSvg() +'</button>');
+                    return('<button type="button" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light copy-penilaian">'+ feather.icons['copy'].toSvg() +'</button>' +'<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-penilaian">'+ feather.icons['trash-2'].toSvg() +'</button>');
                 } else {
                     return (
                         '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light penilaian-config">'+ feather.icons['settings'].toSvg() +'</button>' +
