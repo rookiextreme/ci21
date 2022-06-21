@@ -130,20 +130,29 @@ class BankController extends Controller{
         $model = DictBankSet::find($grade_id);
         $itemSets = $model->dictBankSetDictBankSetsItem;
         $canPublish = false;
+        $message = 'Error';
 
         if($itemSets->count() == 0) {
+            $message = 'Tiada Koleksi Soalan Lagi';
            return response()->json([
-                'success' => 0
+                'success' => 0,
+                'data' => [
+                    'message' => $message
+                ]
+
             ]);
         } else {
 
             foreach($itemSets as $item) {
                 if($item->flag == 1 && $item->delete_id == 0) {
                     if(empty($item->dictBankSetsItemCompetencyTypeScaleLvl)) {
+                        $message = "Tiada Jenis Kompentensi Telah Ditetapkan Pada Koleksi Soalan";
                         $canPublish = false;
                         // print_r("item id : ".$item->id.", pass : ".$canPublish." reason : Empty CompentencyTypeScaleLvl \n");
+
                         break;
                     } else if($item->dictBankSetsItemDictBankComQuestion->count() == 0) {
+                        $message = "Tiada Soalan Telah Ditetapkan Dalam Koleksi Soalan";
                         $canPublish = false;
                         // print_r("item id : ".$item->id.", pass : ".$canPublish." reason: Empty Question \n");
                         break;
@@ -160,16 +169,25 @@ class BankController extends Controller{
                 $model->flag_publish = $model->flag_publish == 1 ? 0 : 1;
                 if($model->save()){
                     return response()->json([
-                        'success' => 1
+                        'success' => 1,
+                        'data' => [
+                            'message' => $message
+                        ]
                     ]);
                 } else {
                     return response()->json([
-                        'success' => 2
+                        'success' => 2,
+                        'data' => [
+                            'message' => $message
+                        ]
                     ]);
                 }
             } else {
                return response()->json([
-                    'success' => 0
+                    'success' => 0,
+                    'data' => [
+                        'message' => $message
+                    ]
                 ]);
 // <<<<<<< HEAD
             }
