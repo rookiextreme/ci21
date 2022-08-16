@@ -1,6 +1,7 @@
 <?php
 namespace App\Models\Penilaian\Main;
 
+use App\Http\Controllers\Segment\Pengguna\PenilaianScore\PenilaianScoreController;
 use App\Models\Mykj\Perkhidmatan;
 use App\Models\Penilaian\DictBank\Set\DictBankSet;
 use App\Models\Penilaian\DictBank\Set\DictBankSetsItem;
@@ -96,7 +97,7 @@ class Penilaian extends Model{
                             }
                         }else{
                             $data['penilaian_list'][$penilaian_exist->id] = self::penilaianCollection($penilaian_exist);
-                            if($penilaian_exist->status == 1) {
+                            if($penilaian_exist->status == 1 || $penilaian_exist->status == 2) {
                                 $completed = $completed + 1;
                             }
                         }
@@ -173,7 +174,7 @@ class Penilaian extends Model{
                     $pcModel->dict_bank_competency_types_scale_lvls_id = $cs->id;
                     $pcModel->status = 0;
                     if($pcModel->save()){
-                        $items = DictBankSetsItem::where('dict_bank_sets_id', $dict_bank_set->id)->where('dict_bank_competency_types_scale_lvls_id', $pcModel->dict_bank_competency_types_scale_lvls_id)->where('dict_bank_grades_categories_id', $grade_cat[0]->dict_bank_grades_categories_id)->get();
+                        $items = DictBankSetsItem::where('dict_bank_sets_id', $dict_bank_set->id)->where('dict_bank_competency_types_scale_lvls_id', $pcModel->dict_bank_competency_types_scale_lvls_id)->where('dict_bank_grades_categories_id', $grade_cat[0]->dict_bank_grades_categories_id)->where('flag', 1)->where('delete_id', 0)->get();
                         if(count($items) > 0){
                             foreach($items as $i){
                                 $question = $i->dictBankSetsItemDictBankComQuestion;
@@ -219,8 +220,14 @@ class Penilaian extends Model{
                 'id' => $penilaianModel->penilaianJobgroup->id,
                 'name' => $penilaianModel->penilaianJobgroup->title_eng
             ] : null,
-            'competencies' => self::penilaianCompetencyCollection($penilaianModel)
+            'competencies' => self::penilaianCompetencyCollection($penilaianModel),
+            'score' => []
         ];
+
+        if($penilaianModel->status == 2){
+            $getScore =  new PenilaianScoreController;
+            $data['penilaian']['score'] = $getScore->computeResult($penilaianModel->id, $penilaianModel->penyelia_update == 1 ? true : false);
+        }
 
         return $data;
     }

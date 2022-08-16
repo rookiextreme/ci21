@@ -407,7 +407,9 @@
                                                         <div class="timeline-panel">
                                                             <div class="timeline-heading">
                                                                 @if($d['penilaian']['status'] == 2)
-                                                                <h4 class="timeline-title">PENILAIAN SELESAI SEPENUHNYA</4>
+                                                                <h4 class="timeline-title">PENILAIAN SELESAI SEPENUHNYA</h4>
+                                                                <h4> Skor Anda Adalah:</h4>
+                                                                <h2 style="color:orange">{{$d['penilaian']['score']['jumlah']['avg_com_score']}}</h2>
                                                             @else
                                                                 <h4 class="timeline-title">BELUM SELESAI</h4>
                                                             @endif
