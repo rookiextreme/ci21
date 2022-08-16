@@ -21,10 +21,10 @@ class PenggunaDashboardPenggunaController extends Controller{
     public function index(){
         $data = Penilaian::checkPenilaian();
 
-        // echo '<pre>';
-        // print_r($data);
-        // echo '</pre>';
-        // die();
+//        echo '<pre>';
+//        print_r($data);
+//        echo '</pre>';
+//        die();
         $jurusan = LJurusan::all();
         return view('segment.pengguna.dashboard.pengguna_dashboard', [
             'data' => $data,

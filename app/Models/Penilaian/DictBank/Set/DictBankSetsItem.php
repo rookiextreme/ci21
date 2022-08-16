@@ -28,7 +28,7 @@ class DictBankSetsItem extends Model{
     }
 
     public function dictBankSetsItemDictBankComQuestion(){
-        return $this->hasMany('App\Models\Penilaian\DictBank\Question\DictBankSetsCompetenciesQuestion', 'dict_bank_sets_items_id', 'id');
+        return $this->hasMany('App\Models\Penilaian\DictBank\Question\DictBankSetsCompetenciesQuestion', 'dict_bank_sets_items_id', 'id')->where('flag', 1)->where('delete_id', 0);
     }
 
     public function dictBankSetsItemsScoresSetsGrade(){
